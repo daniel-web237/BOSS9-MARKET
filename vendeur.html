@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Devenir vendeur - BOSS9</title>
+  <link rel="stylesheet" href="vendeur.css">
+  <script src="Script.js"></script>
+</head>
+<body>
+<div id="loader">
+  <div class="spinner"></div>
+</div>
+<header class="header">
+  <div class="logo">BOSS9</div>
+</header>
+
+<section class="seller-form">
+  <h1>Créer votre boutique</h1>
+  <p>Rejoignez BOSS9 Market et commencez à vendre dès aujourd’hui</p>
+
+  <form>
+    <input type="text" placeholder="Nom complet" required>
+    <input type="email" placeholder="Email" required>
+    <input type="tel" placeholder="Téléphone" required>
+    <input type="text" placeholder="Nom de la boutique" required>
+
+    <select>
+      <option>Choisir une catégorie</option>
+      <option>Téléphones</option>
+      <option>Mode</option>
+      <option>Automobile</option>
+      <option>Services</option>
+    </select>
+
+    <p class="fee">Frais d'inscription : 1000 FCFA</p>
+
+    <button type="button" onclick="payer()">S'inscrire et payer</button>
+    <p id="successMessage" style="display:none; color:green; margin-top:15px;">
+        Inscription réussie ✅ Bienvenue sur BOSS9 Market !
+</p>
+  </form>
+</section>
+
+</body>
+</html>
