@@ -1,17 +1,16 @@
 // SCROLL ANIMATION
-window.addEventListener("scroll", function() {
-  const reveals = document.querySelectorAll(".reveal");
+window.addEventListener("scroll", function () {
+  const elements = document.querySelectorAll(".reveal");
 
-  reveals.forEach(el => {
-    const windowHeight = window.innerHeight;
-    const elementTop = el.getBoundingClientRect().top;
+  elements.forEach((el) => {
+    const position = el.getBoundingClientRect().top;
+    const screenHeight = window.innerHeight;
 
-    if (elementTop < windowHeight - 100) {
+    if (position < screenHeight - 100) {
       el.classList.add("active");
     }
   });
 });
-
 // LOADER
 window.addEventListener("load", function() {
   const loader = document.getElementById("loader");
@@ -27,4 +26,7 @@ function payer() {
   if (confirmation) {
     document.getElementById("successMessage").style.display = "block";
   }
+}
+function goToProduct(nom, prix) {
+  window.location.href = `produit.html?nom=${encodeURIComponent(nom)}&prix=${prix}`;
 }
