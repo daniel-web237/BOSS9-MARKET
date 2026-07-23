@@ -4,17 +4,21 @@
 <head>
   <meta charset="UTF-8">
   <title>BOSS9 Market</title>
+
   <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
-
 <body>
-  <div id="loader">
+
+<!-- LOADER -->
+<div id="loader">
   <div class="spinner"></div>
-  </div>
-  <header class="header">
+</div>
+
+<!-- HEADER -->
+<header class="header">
   <img src="logo.png" alt="BOSS9 Market" class="logo-img">
 
   <div class="search-box">
@@ -23,20 +27,22 @@
   </div>
 
   <div class="actions">
-    <a href="">Favoris</a>
-    <a href="">Panier</a>
+    <a href="#">Favoris</a>
+    <a href="panier.html">Panier</a>
     <a href="abonnement.html">Abonnements</a>
     <button class="login">Compte</button>
   </div>
-  </header>
-  <nav class="navbar">
+</header>
+
+<!-- NAVBAR -->
+<nav class="navbar">
   <div class="menu-left">
     <span class="menu-icon">☰</span>
     <span class="categories-text">Toutes les catégories</span>
   </div>
 
   <ul class="menu-links">
-    <li><a href="#" class="active">Accueil</a></li>
+    <li><a href="index.html" class="active">Accueil</a></li>
     <li><a href="#">Boutiques</a></li>
     <li><a href="#">Promotions</a></li>
     <li><a href="vendeur.html">Devenir vendeur</a></li>
@@ -44,9 +50,8 @@
   </ul>
 </nav>
 
-  <!-- HERO -->
-  <section class="hero">
-
+<!-- HERO -->
+<section class="hero">
   <div class="hero-text">
     <h1>La marketplace n°1 au Cameroun</h1>
 
@@ -64,90 +69,46 @@
       <div><strong>+100</strong><span> Vendeurs</span></div>
       <div><strong>+1K</strong><span> Clients</span></div>
     </div>
+  </div>
 </section>
 
-  <!-- CATEGORIES -->
-  <section class="categories reveal">
-    <h2>Catégories populaires</h2>
-    <div class="category-list">
-      <div class="cat">Téléphones</div>
-      <div class="cat">Informatique</div>
-      <div class="cat">Mode Homme</div>
-      <div class="cat">Mode Femme</div>
-      <div class="cat">Beauté</div>
-      <div class="cat">Santé</div>
-      <div class="cat">Sport</div>
-      <div class="cat">Électronique</div>
-      <div class="cat">Électroménager</div>
-      <div class="cat">Automobile</div>
-      <div class="cat">Moto</div>
-      <div class="cat">Immobilier</div>
-    </div>
-  </section>
-
-  <!-- PRODUITS -->
-    <section class="products reveal">
-    <h2>Produits en vedette</h2>
-    <div class="product-list">
-    <div class="product-card" onclick="goToProduct('Yaris Verso', 2500000)">
-       <span class="badge">PROMO</span>
-    <img src="yaris.png">
-    <h4>Yaris Verso</h4>
-    <p>2 500 000 FCFA</p>
-    </div>
-
-  <div class="product-card" onclick="goToProduct('SAMSUNGS22', 300000)">
-     <span class="badge">PROMO</span>
-  <img src="S22.png">
-  <h4>SAMSUNGS22</h4>
-  <p>300 000 FCFA</p>
+<!-- CATEGORIES -->
+<section class="categories reveal">
+  <h2>Catégories populaires</h2>
+  <div class="category-list">
+    <div class="cat">Téléphones</div>
+    <div class="cat">Informatique</div>
+    <div class="cat">Mode Homme</div>
+    <div class="cat">Mode Femme</div>
+    <div class="cat">Beauté</div>
+    <div class="cat">Santé</div>
+    <div class="cat">Sport</div>
+    <div class="cat">Électronique</div>
+    <div class="cat">Électroménager</div>
+    <div class="cat">Automobile</div>
+    <div class="cat">Moto</div>
+    <div class="cat">Immobilier</div>
   </div>
+</section>
 
-  <div class="product-card" onclick="goToProduct('Casque', 25000)">
-     <span class="badge">PROMO</span>
-  <img src="casque.png">
-  <h4>Casque</h4>
-  <p>25 000 FCFA</p>
-  </div>
+<!-- PRODUITS -->
+<section class="products reveal">
+  <h2>Produits en vedette</h2>
 
-   <div class="product-card" onclick="goToProduct('sac', 10000)">
-     <span class="badge">PROMO</span>
-  <img src="sac.png">
-  <h4>Sac dos</h4>
-  <p>10 000 FCFA</p>
-  </div>
-
-    <div class="product-card" onclick="goToProduct('iPhone14', 275000)">
-       <span class="badge">PROMO</span>
-    <img src="Iphone14.png">
-    <h4>Iphone 14</h4>
-    <p>275 000 FCFA</p>
-    </div>
-
-    <div class="product-card" onclick="goToProduct('TVS', 630000)">
-       <span class="badge">PROMO</span>
-    <img src="tvs.png">
-    <h4>MOTO TVS</h4>
-    <p>630 000 FCFA</p>
-    </div>
-
-    <div class="product-card" onclick="goToProduct('Iphone 13 Promax', 2500000)">
-       <span class="badge">PROMO</span>
-    <img src="13promax.png">
-    <h4>Iphone 13 Promax</h4>
-    <p>175 000 FCFA</p>
-    </div>
-
-    </section>
-  
-  <section class="seller reveal">
+  <div class="product-list" id="productList">
+  <!-- produits dynamiques ici -->
+</div>
+</section>
+<!-- SELLER -->
+<section class="seller reveal">
   <h2>Vendez sur BOSS9 MARKET</h2>
   <p>Créez votre boutique et gagnez de l'argent</p>
-   <a href="vendeur.html" class="btn">Créer ma boutique</a>
+  <a href="vendeur.html" class="btn">Créer ma boutique</a>
 </section>
+
+<!-- FOOTER -->
 <footer class="footer">
   <div class="footer-content">
-    
     <div>
       <h3>BOSS9 MARKET</h3>
       <p>Achetez mieux, vivez mieux.</p>
@@ -155,21 +116,24 @@
 
     <div>
       <h4>Liens rapides</h4>
-      <section class="LR">
-      <a href="index.html">Accueil</a>
-      <a href="#">Produits</a>
-      <a href="#">Contact</a>
-      </section>
+      <div class="LR">
+        <a href="index.html">Accueil</a>
+        <a href="#">Produits</a>
+        <a href="#">Contact</a>
+      </div>
     </div>
+
     <div>
       <h4>Contact</h4>
       <p>Email: contact@boss9.com</p>
-      <p>Téléphone: <a href="https://web.whatsapp.com/" >6 98 67 82 10</a></p>
+      <p>Téléphone: 6 98 67 82 10</p>
     </div>
-
   </div>
 
   <p class="copyright">© 2026 BOSS9 Market</p>
 </footer>
+
+<script src="script.js"></script>
+
 </body>
 </html>
