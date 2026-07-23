@@ -4,22 +4,51 @@
   <meta charset="UTF-8">
   <title>Abonnements - BOSS9</title>
   <link rel="stylesheet" href="abonnement.css">
-  <script src="script.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
-<div id="loader">
-  <div class="spinner"></div>
-</div>
+
+<!-- HEADER -->
 <header class="header">
-  <div class="logo">BOSS9</div>
+  <img src="logo.png" class="logo-img">
+
+  <div class="search-box">
+    <input type="text" placeholder="Rechercher un produit...">
+    <button>🔍</button>
+  </div>
+
+  <div class="actions">
+    <a href="#">Favoris</a>
+    <a href="#">Panier</a>
+    <a href="abonnement.html">Abonnements</a>
+    <button class="login">Compte</button>
+  </div>
 </header>
 
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="menu-left">
+    <span>☰</span>
+    <span>Toutes les catégories</span>
+  </div>
+
+  <ul class="menu-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="#">Boutiques</a></li>
+    <li><a href="#">Promotions</a></li>
+    <li><a href="vendeur.html">Devenir vendeur</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- SECTION PRICING -->
 <section class="pricing">
   <h1>Choisissez votre formule vendeur</h1>
   <p>Développez votre activité et atteignez plus de clients</p>
-  
 
   <div class="pricing-cards">
+
     <!-- BASIC -->
     <div class="card">
       <h2>Basic</h2>
@@ -59,6 +88,35 @@
 
   </div>
 </section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-content">
+
+    <div>
+      <h3>BOSS9 MARKET</h3>
+      <p>Achetez mieux, vivez mieux.</p>
+    </div>
+
+    <div>
+      <h4>Liens rapides</h4>
+      <div class="LR">
+        <a href="index.html">Accueil</a>
+        <a href="#">Produits</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+
+    <div>
+      <h4>Contact</h4>
+      <p>Email: contact@boss9.com</p>
+      <p>Téléphone: 6 98 67 82 10</p>
+    </div>
+
+  </div>
+
+  <p class="copyright">© 2026 BOSS9 Market</p>
+</footer>
 
 </body>
 </html>
