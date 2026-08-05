@@ -543,39 +543,90 @@ section {
 }
 
 /* =====================================================
-   RESPONSIVE — MOBILE
+   RESPONSIVE — MOBILE (façon Alibaba : header compact + barre du bas)
 ===================================================== */
 @media (max-width: 600px) {
   body {
     overflow-x: hidden;
+    padding-bottom: 62px; /* laisse la place pour la barre du bas fixe */
   }
 
+  /* HEADER — logo + recherche sur UNE seule ligne, compact */
   .header-top {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
   }
 
-  .logo {
-    align-self: center;
+  .logo-img {
+    height: 32px;
+  }
+
+  .search-box {
+    flex: 1;
+    height: 36px;
+    max-width: none;
   }
 
   .search-category {
-    max-width: 110px;
+    display: none; /* trop de place sur mobile, la recherche reste globale */
   }
 
+  .search-box input {
+    font-size: 13px;
+    padding: 0 10px;
+  }
+
+  .search-box button {
+    padding: 0 14px;
+  }
+
+  /* les liens Favoris/Panier/Abonnements/Compte du header passent
+     dans la barre du bas sur mobile — on les cache ici */
   .actions {
-    justify-content: center;
+    display: none;
+  }
+
+  /* NAVBAR catégories — repliable, fermée par défaut */
+  .navbar {
     flex-wrap: wrap;
-    gap: 12px;
+    padding: 8px 12px;
+  }
+
+  .menu-left {
+    width: 100%;
+    justify-content: flex-start;
   }
 
   .menu-links {
+    display: none;
+    width: 100%;
     flex-direction: column;
-    gap: 10px;
-    text-align: center;
+    gap: 0;
+    margin-top: 10px;
   }
 
+  .menu-links.open {
+    display: flex;
+  }
+
+  .menu-links li {
+    width: 100%;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .menu-links a {
+    display: block;
+    padding: 12px 4px;
+  }
+
+  .menu-links a::after {
+    display: none;
+  }
+
+  /* HERO */
   .side {
     padding: 40px 24px;
     text-align: center;
@@ -592,11 +643,35 @@ section {
   }
 
   .products {
-    padding: 40px 16px;
+    padding: 30px 12px;
+  }
+
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 
   .product-card {
-    width: 90%;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .product-card img {
+    height: 110px;
+  }
+
+  .product-card h4 {
+    font-size: 12px;
+  }
+
+  .product-card p {
+    font-size: 13px;
+  }
+
+  .btn-cart {
+    font-size: 11px;
+    padding: 6px;
   }
 
   .seller {
@@ -616,112 +691,57 @@ section {
     align-items: center;
   }
 }
-/* ================= MOBILE ONLY ================= */
-/* =====================================================
-   RESPONSIVE — MOBILE STYLE ALIBABA
-===================================================== */
-@media screen and (max-width: 768px) {
 
-  /* Body ajusté pour laisser de la place à la barre du bas */
-  body {
-    padding-bottom: 60px;
-    background: #f5f5f5;
-  }
+/* ================= BARRE DE NAVIGATION MOBILE (bas d'écran) ================= */
+.mobile-bottom-nav {
+  display: none;
+}
 
-  /* Cache les éléments non pertinents en mobile */
-  .navbar, 
-  .hero, 
-  .stats, 
-  .seller, 
-  .actions {
-    display: none !important;
-  }
-
-  /* HEADER STYLE ALIBABA (Logo + barre arrondie sur la même ligne) */
-  .header-top {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 10px !important;
-    padding: 8px 12px !important;
+@media (max-width: 600px) {
+  .mobile-bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background: var(--ink);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 6px 0 8px;
+    z-index: 1000;
   }
 
-  .logo-img {
-    height: 28px !important;
+  .mobile-bottom-nav a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    color: #C9CEDA;
+    text-decoration: none;
+    font-size: 10px;
+    position: relative;
+    flex: 1;
   }
 
-  .search-box {
-    flex: 1 !important;
-    height: 36px !important;
-    border-radius: 20px !important;
-    background: #fff;
-    order: unset !important;
-  }
-
-  .search-category {
-    display: none; /* Cache le sélecteur sur mobile pour gagner de l'espace */
-  }
-
-  .search-box input {
-    font-size: 12px;
-    padding: 0 12px;
-  }
-
-  .search-box button {
-    border-radius: 0 20px 20px 0;
-    padding: 0 12px;
-    font-size: 14px;
-  }
-
-  /* PRODUITS — Grille compacte 2 colonnes comme Alibaba */
-  .products {
-    padding: 15px 10px !important;
-  }
-
-  .products h2 {
+  .mobile-bottom-nav a span:first-child {
     font-size: 18px;
-    text-align: left;
-    margin-bottom: 4px;
   }
 
-  .sub {
-    text-align: left;
-    margin-bottom: 12px;
-    font-size: 12px;
+  .mobile-bottom-nav a.active {
+    color: var(--gold);
   }
 
-  .product-list {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 10px !important;
-  }
-
-  .product-card {
-    width: 100% !important;
-    padding: 8px !important;
-    border-radius: 8px !important;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-  }
-
-  .product-card img {
-    height: 120px !important;
-    border-radius: 6px !important;
-  }
-
-  .product-card h4 {
-    font-size: 12px !important;
-    height: 32px;
-    overflow: hidden;
-  }
-
-  .product-card p {
-    font-size: 13px !important;
+  .cart-count-mobile {
+    position: absolute;
+    top: -4px;
+    right: 24%;
+    background: var(--gold);
+    color: var(--ink);
+    font-size: 9px;
     font-weight: 700;
-  }
-
-  /* BARRE DE NAVIGATION FIXE EN BAS (Bottom Nav) */
-  .footer {
-    padding-bottom: 70px !important;
+    padding: 0 4px;
+    border-radius: 10px;
+    line-height: 1.4;
   }
 }
