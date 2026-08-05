@@ -197,7 +197,10 @@ function initReveal() {
 
   elements.forEach(el => observer.observe(el));
 }
-
+window.toggleMenu = function () {
+  const menu = document.getElementById("mobileMenu");
+  menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+};
 
 // ================= USER (AUTH) =================
 onAuthStateChanged(auth, (user) => {
