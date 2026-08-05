@@ -46,11 +46,11 @@ if (window.emailjs) {
   window.emailjs.init(EMAILJS_PUBLIC_KEY);
 }
 
-function sendWelcomeEmail(fullname, email, role) {
+function sendWelcomeEmail(firstname, email, role) {
   if (!window.emailjs) return Promise.resolve();
 
   return window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_WELCOME, {
-    to_name: fullname,
+    to_name: firstname,
     to_email: email,
     role: role === "fournisseur" ? "fournisseur" : "acheteur"
   }).catch(err => console.error("Erreur envoi email:", err));
@@ -68,7 +68,7 @@ window.register = async function () {
   const role = document.querySelector('input[name="role"]:checked')?.value;
   const termsAccepted = document.getElementById("terms")?.checked;
 
-  if (!fullname || !email || !phone || !password || !confirmPassword) {
+  if (!firstname || !lastname || !email || !phone || !password || !confirmPassword) {
     alert("Remplis tous les champs");
     return;
   }
@@ -88,7 +88,8 @@ window.register = async function () {
 
     // profil complet stocké dans Firestore, lié à l'uid de l'utilisateur
     await setDoc(doc(db, "users", cred.user.uid), {
-      fullname,
+      firstname,
+      lastname,
       email,
       phone,
       role,
@@ -98,7 +99,7 @@ window.register = async function () {
     // email de validation officiel Firebase (lien à cliquer pour activer le compte)
     await sendEmailVerification(cred.user);
 
-    const emailSend = sendWelcomeEmail(fullname, email, role);
+    const emailSend = sendWelcomeEmail(firstname, email, role);
     const timeout = new Promise(resolve => setTimeout(resolve, 5000));
     await Promise.race([emailSend, timeout]);
 
