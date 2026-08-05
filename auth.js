@@ -59,7 +59,8 @@ function sendWelcomeEmail(fullname, email, role) {
 
 // ================= INSCRIPTION =================
 window.register = async function () {
-  const fullname = document.getElementById("fullname")?.value.trim();
+  const firstname = document.getElementById("firstname")?.value.trim();
+  const lastname = document.getElementById("lastname")?.value.trim();
   const email = document.getElementById("email")?.value.trim();
   const phone = document.getElementById("phone")?.value.trim();
   const password = document.getElementById("password")?.value;
