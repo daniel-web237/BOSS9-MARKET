@@ -616,3 +616,71 @@ section {
     align-items: center;
   }
 }
+/* ================= MOBILE ONLY ================= */
+@media screen and (max-width: 768px) {
+
+  /* réduire hauteur navbar */
+  header {
+    padding: 8px 10px;
+  }
+
+  /* organisation en flex */
+  .nav-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* ligne du haut */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* logo plus petit */
+  .logo img {
+    height: 30px;
+  }
+
+  /* menu compact */
+  .nav-links {
+    display: none; /* on cache le gros menu */
+  }
+
+  /* bouton menu */
+  .menu-toggle {
+    display: block;
+    font-size: 22px;
+    cursor: pointer;
+    color: white;
+  }
+
+  /* barre recherche */
+  .search-bar {
+    display: flex;
+    width: 100%;
+  }
+
+  .search-bar input {
+    flex: 1;
+    padding: 8px;
+  }
+
+  .search-bar button {
+    padding: 8px;
+  }
+
+  /* menu mobile déroulant */
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    background: #0b1e3c;
+  }
+
+  .mobile-menu a {
+    padding: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+}
