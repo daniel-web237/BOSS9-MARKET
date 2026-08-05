@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Commande confirmée</title>
+  <link rel="stylesheet" href="confirmation.css">
+</head>
+
+<body>
+
+<div class="confirm-container">
+
+  <div class="card">
+
+    <div class="success-icon">✅</div>
+
+    <h1>Commande confirmée !</h1>
+
+    <p class="message">
+      Merci pour votre achat. Votre paiement est sécurisé et en attente de livraison.
+    </p>
+
+    <div class="details">
+      <p><strong>Produit :</strong> <span id="cName"></span></p>
+      <p><strong>Montant :</strong> <span id="cPrice"></span></p>
+    </div>
+
+    <div class="escrow-box">
+      💰 L'argent est sécurisé (escrow) jusqu'à la livraison.
+    </div>
+
+    <button onclick="goHome()">Retour à l'accueil</button>
+
+  </div>
+
+</div>
+
+<script src="confirmation.js"></script>
+
+</body>
+</html>

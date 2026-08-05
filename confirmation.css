@@ -1,0 +1,53 @@
+body {
+  font-family: Poppins;
+  background: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.confirm-container {
+  text-align: center;
+}
+
+.card {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  max-width: 400px;
+}
+
+.success-icon {
+  font-size: 50px;
+}
+
+.message {
+  margin: 15px 0;
+  color: #555;
+}
+
+.details {
+  margin: 20px 0;
+}
+
+.escrow-box {
+  background: #eafaf1;
+  padding: 10px;
+  border-radius: 10px;
+  color: green;
+  margin-bottom: 20px;
+}
+
+button {
+  background: #f2b705;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: scale(1.05);
+}

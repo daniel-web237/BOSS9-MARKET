@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard Vendeur</title>
+  <link rel="stylesheet" href="vendeur-dashboard.css">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <h2>🛍️ Dashboard Vendeur</h2>
+  <a href="index.html">Retour site</a>
+</header>
+
+<div class="dashboard">
+
+  <!-- FORMULAIRE -->
+  <div class="form-box">
+    <h3>Ajouter un produit</h3>
+
+    <input type="text" id="name" placeholder="Nom du produit">
+    <input type="number" id="price" placeholder="Prix">
+    <input type="text" id="image" placeholder="Nom image (ex: sac.png)">
+    
+    <button onclick="addProduct()">Ajouter</button>
+  </div>
+
+  <!-- LISTE PRODUITS -->
+  <div class="product-list">
+    <h3>Mes produits</h3>
+    <div id="products"></div>
+  </div>
+
+</div>
+
+<script src="vendeur-dashboard.js"></script>
+
+</body>
+</html>

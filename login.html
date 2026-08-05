@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion — BOSS9 Market</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="auth.css">
+</head>
+
+<body>
+
+<div class="auth-container">
+
+  <img src="logo.png" alt="BOSS9 Market">
+
+  <h2>Connexion</h2>
+  <p class="subtitle">Utilisez votre compte BOSS9</p>
+
+  <div class="input-group">
+    <input type="email" id="email" placeholder="Email">
+    <label>Email</label>
+  </div>
+
+  <div class="input-group">
+    <input type="password" id="password" placeholder="Mot de passe">
+    <label>Mot de passe</label>
+  </div>
+
+  <button class="auth-btn" onclick="login()">Se connecter</button>
+
+  <p class="auth-link">Pas de compte ?
+    <a href="register.html">Créer un compte</a>
+  </p>
+
+  <a href="index.html" class="back-home">← Retour à l'accueil</a>
+
+</div>
+
+<!-- ✅ BON SCRIPT -->
+<script type="module" src="auth.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Fournisseur — BOSS9 Market</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="fournisseur.css">
+</head>
+
+<body>
+
+<header class="dash-header">
+  <a href="index.html" class="logo"><img src="logo.png" alt="BOSS9 Market"></a>
+  <a href="index.html" class="back">← Retour à l'accueil</a>
+</header>
+
+<main class="dashboard">
+  <h2>Ajouter un produit</h2>
+  <p class="intro">Renseigne les informations ci-dessous, ajoute-les à ta liste, puis confirme pour les publier sur la boutique.</p>
+
+  <div class="form-card">
+    <div class="form-row">
+      <div class="field">
+        <label for="name">Nom du produit</label>
+        <input id="name" placeholder="Ex: Sac à main artisanal">
+      </div>
+      <div class="field">
+        <label for="price">Prix (FCFA)</label>
+        <input id="price" type="number" placeholder="Ex: 15000">
+      </div>
+      <div class="field">
+        <label for="image">URL de l'image</label>
+        <input id="image" placeholder="https://...">
+      </div>
+    </div>
+
+    <button id="addBtn" class="btn-add">Ajouter ➕</button>
+  </div>
+
+  <section class="preview-section">
+    <h3>Produits ajoutés</h3>
+    <div id="preview">
+      <p class="empty-state">Aucun produit ajouté pour le moment</p>
+    </div>
+
+    <div class="confirm-bar">
+      <button id="saveBtn" class="btn-confirm">Confirmer et publier</button>
+    </div>
+  </section>
+
+  <section class="orders-section">
+    <h3>Commandes reçues</h3>
+    <div id="ordersReceived">
+      <p class="empty-state">Aucune commande reçue pour le moment</p>
+    </div>
+  </section>
+
+  <section class="orders-section">
+    <h3>Mes produits publiés</h3>
+    <div id="myProducts" class="my-products-grid">
+      <p class="empty-state">Aucun produit publié pour le moment</p>
+    </div>
+  </section>
+</main>
+
+<!-- IMPORTANT -->
+<script type="module" src="fournisseur.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Créer un compte — BOSS9 Market</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="auth.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+
+<body>
+
+<div class="auth-container wide">
+
+  <div class="auth-head">
+    <h2>Créer ton compte</h2>
+    <p class="subtitle">Déjà inscrit ? <a href="login.html">Se connecter</a></p>
+  </div>
+
+  <div class="name-row">
+    <div class="input-group">
+      <input type="text" id="firstname" placeholder="Prénom">
+      <label>Prénom</label>
+    </div>
+    <div class="input-group">
+      <input type="text" id="lastname" placeholder="Nom">
+      <label>Nom</label>
+    </div>
+  </div>
+
+  <div class="input-group">
+    <input type="tel" id="phone" placeholder="Téléphone">
+    <label>Téléphone</label>
+  </div>
+
+  <div class="input-group">
+    <input type="email" id="email" placeholder="Email">
+    <label>Email</label>
+  </div>
+
+  <div class="input-group">
+    <input type="password" id="password" placeholder="Mot de passe">
+    <label>Mot de passe</label>
+  </div>
+
+  <div class="strength-meter">
+    <div class="strength-bars">
+      <span class="bar" id="bar1"></span>
+      <span class="bar" id="bar2"></span>
+      <span class="bar" id="bar3"></span>
+      <span class="bar" id="bar4"></span>
+    </div>
+    <span class="strength-label" id="strengthLabel"></span>
+  </div>
+
+  <div class="input-group">
+    <input type="password" id="confirmPassword" placeholder="Confirmer le mot de passe">
+    <label>Confirmer le mot de passe</label>
+  </div>
+
+  <div class="role-label">Je suis</div>
+  <div class="role-cards">
+    <input type="radio" name="role" id="role-acheteur" value="acheteur" checked>
+    <label for="role-acheteur" class="role-card">
+      <span class="role-icon">🛒</span>
+      <span class="role-title">Acheteur</span>
+      <span class="role-sub">Je viens acheter des produits</span>
+    </label>
+
+    <input type="radio" name="role" id="role-fournisseur" value="fournisseur">
+    <label for="role-fournisseur" class="role-card">
+      <span class="role-icon">✨</span>
+      <span class="role-title">Fournisseur</span>
+      <span class="role-sub">Je viens vendre mes produits</span>
+    </label>
+  </div>
+
+  <label class="terms">
+    <input type="checkbox" id="terms">
+    <span>J'accepte les <a href="#">conditions d'utilisation</a> de BOSS9 Market</span>
+  </label>
+
+  <button class="auth-btn full" onclick="register()">Créer un compte</button>
+
+  <a href="index.html" class="back-home">← Retour à l'accueil</a>
+
+</div>
+
+<script type="module" src="auth.js"></script>
+<script src="register-ui.js"></script>
+
+</body>
+</html>

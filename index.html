@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BOSS9 Market</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="spinner"></div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-top">
+    <a href="index.html" class="logo">
+      <img src="logo.png" alt="BOSS9 Market" class="logo-img">
+    </a>
+
+    <div class="search-box">
+      <select class="search-category">
+        <option value="all">Toutes catégories</option>
+        <option value="mode">Mode</option>
+        <option value="electronique">Électronique</option>
+        <option value="maison">Maison</option>
+        <option value="beaute">Beauté</option>
+      </select>
+      <input type="text" id="searchInput" placeholder="Rechercher un produit, une marque...">
+      <button id="searchBtn" aria-label="Rechercher">🔍</button>
+    </div>
+
+    <div class="actions">
+      <a href="#">Favoris</a>
+      <a href="panier.html">Panier <span id="cartCount" class="cart-count">0</span></a>
+      <a href="abonnement.html">Abonnements</a>
+      <span id="userBox"></span>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="menu-left">
+      <span class="menu-icon">☰</span>
+      <span class="categories-text">Toutes les catégories</span>
+    </div>
+
+    <ul class="menu-links">
+      <li><a href="index.html" class="active">Accueil</a></li>
+      <li><a href="#">Boutiques</a></li>
+      <li><a href="#">Promotions</a></li>
+      <li><a href="fournisseur.html">Devenir fournisseur</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="side acheteur">
+    <div class="eyebrow">Je veux acheter</div>
+    <h1>Trouvez ce qu'il vous faut, livré en confiance</h1>
+    <p>Des centaines de produits vérifiés, vendus par des fournisseurs locaux évalués par la communauté.</p>
+    <a href="#produits" class="cta">Commencer mes achats</a>
+  </div>
+  <div class="side fournisseur">
+    <div class="divider"></div>
+    <div class="eyebrow">Je veux vendre</div>
+    <h1>Ouvrez votre boutique en quelques minutes</h1>
+    <p>Créez votre profil fournisseur, publiez vos produits et recevez vos commandes directement par email.</p>
+    <a href="fournisseur.html" class="cta">Devenir fournisseur</a>
+  </div>
+</section>
+
+<div class="stats">
+  <div><strong>+500</strong><span>Produits</span></div>
+  <div><strong>+100</strong><span>Vendeurs</span></div>
+  <div><strong>+1K</strong><span>Clients</span></div>
+</div>
+
+<!-- PRODUITS -->
+<section class="products reveal" id="produits">
+  <h2>Produits en vedette</h2>
+  <p class="sub">Sélectionnés parmi nos fournisseurs les mieux notés</p>
+  <div class="product-list" id="productList"></div>
+</section>
+
+<!-- SELLER -->
+<section class="seller reveal">
+  <h2>Vendez sur BOSS9 MARKET</h2>
+  <p>Créez votre boutique et gagnez de l'argent</p>
+  <a href="fournisseur.html" class="btn">Créer ma boutique</a>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-content">
+    <div>
+      <h3>BOSS9 MARKET</h3>
+      <p>Achetez mieux, vivez mieux.</p>
+    </div>
+
+    <div>
+      <h4>Liens rapides</h4>
+      <div class="LR">
+        <a href="index.html">Accueil</a>
+        <a href="#">Produits</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+
+    <div>
+      <h4>Contact</h4>
+      <p>Email: contact@boss9.com</p>
+      <p>Téléphone: 6 98 67 82 10</p>
+    </div>
+  </div>
+
+  <p class="copyright">© 2026 BOSS9 Market</p>
+</footer>
+
+<script type="module" src="script.js"></script>
+
+</body>
+</html>

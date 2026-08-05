@@ -1,0 +1,269 @@
+/* =====================================================
+   BOSS9 MARKET — ABONNEMENT.CSS (style ChatGPT pricing)
+===================================================== */
+
+:root {
+  --ink: #0B1F3A;
+  --ink-light: #16345C;
+  --paper: #F7F4EC;
+  --gold: #F2B705;
+  --gold-deep: #C99000;
+  --text: #14213D;
+  --muted: #5B5B5B;
+  --border: #E2DECF;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: var(--paper);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  font-family: 'Fraunces', serif;
+}
+
+/* ================= HEADER ================= */
+.dash-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--ink);
+  color: white;
+  padding: 16px 30px;
+}
+
+.dash-header .logo img {
+  height: 46px;
+}
+
+.dash-header a.back {
+  color: #EAEAEA;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.dash-header a.back:hover {
+  color: var(--gold);
+}
+
+/* ================= INTRO ================= */
+.plans-page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 60px 24px 80px;
+  text-align: center;
+}
+
+.plans-page h2 {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.plans-page .subtitle {
+  color: var(--muted);
+  font-size: 15px;
+  max-width: 520px;
+  margin: 0 auto 36px;
+}
+
+/* ================= TOGGLE MENSUEL / ANNUEL ================= */
+.billing-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 5px;
+  margin-bottom: 48px;
+}
+
+.billing-toggle button {
+  border: none;
+  background: none;
+  padding: 9px 20px;
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.billing-toggle button.active {
+  background: var(--ink);
+  color: white;
+}
+
+.save-badge {
+  background: #FCF1D2;
+  color: var(--gold-deep);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+  margin-left: 4px;
+}
+
+/* ================= GRID DES PLANS ================= */
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: stretch;
+  text-align: left;
+}
+
+.plan-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 30px 26px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.plan-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 34px rgba(11, 31, 58, 0.14);
+  border-color: var(--gold);
+}
+
+.plan-card.featured:hover {
+  transform: translateY(-14px);
+}
+
+.plan-card.featured {
+  border: 2px solid var(--gold);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  transform: translateY(-6px);
+}
+
+.plan-badge {
+  position: absolute;
+  top: -13px;
+  left: 26px;
+  background: var(--gold);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.plan-name {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.plan-card.featured .plan-name {
+  color: var(--gold-deep);
+}
+
+.plan-price {
+  font-family: 'Fraunces', serif;
+  font-size: 34px;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+.plan-price span {
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.plan-desc {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 10px 0 22px;
+  min-height: 36px;
+}
+
+.plan-cta {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 26px;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  background: white;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.plan-card.featured .plan-cta {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--ink);
+}
+
+.plan-cta:hover {
+  opacity: 0.85;
+  transform: scale(1.03);
+}
+
+.plan-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.plan-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.plan-features li::before {
+  content: "✓";
+  color: var(--gold-deep);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.plan-features li.disabled {
+  color: #B9B4A5;
+}
+
+.plan-features li.disabled::before {
+  content: "–";
+  color: #B9B4A5;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 860px) {
+  .plans-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .plan-card.featured {
+    transform: none;
+  }
+
+  .dash-header {
+    padding: 14px 18px;
+  }
+}

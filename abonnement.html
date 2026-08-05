@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abonnements — BOSS9 Market</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="abonnement.css">
+</head>
+
+<body>
+
+<header class="dash-header">
+  <a href="index.html" class="logo"><img src="logo.png" alt="BOSS9 Market"></a>
+  <a href="index.html" class="back">← Retour à l'accueil</a>
+</header>
+
+<main class="plans-page">
+  <h2>Fais grandir ta boutique</h2>
+  <p class="subtitle">Choisis l'abonnement fournisseur qui correspond à ton activité sur BOSS9 Market.</p>
+
+  <div class="billing-toggle">
+    <button id="btnMonthly" class="active">Mensuel</button>
+    <button id="btnYearly">Annuel <span class="save-badge">-20%</span></button>
+  </div>
+
+  <div class="plans-grid">
+
+    <!-- GRATUIT -->
+    <div class="plan-card">
+      <div class="plan-name">Gratuit</div>
+      <div class="plan-price">0 FCFA</div>
+      <p class="plan-desc">Pour commencer à vendre sans engagement.</p>
+      <a href="fournisseur.html" class="plan-cta">Continuer gratuitement</a>
+      <ul class="plan-features">
+        <li>Jusqu'à 10 produits publiés</li>
+        <li>Visible dans la recherche</li>
+        <li>Réception des commandes</li>
+        <li class="disabled">Mise en avant dans l'accueil</li>
+        <li class="disabled">Statistiques de vente</li>
+        <li class="disabled">Badge "Fournisseur vérifié"</li>
+      </ul>
+    </div>
+
+    <!-- PRO -->
+    <div class="plan-card featured">
+      <div class="plan-badge">Populaire</div>
+      <div class="plan-name">Pro</div>
+      <div class="plan-price price-value" data-monthly="5 000" data-yearly="4 000">5 000 FCFA<span>/mois</span></div>
+      <p class="plan-desc">Pour les fournisseurs qui vendent régulièrement.</p>
+      <a href="#" class="plan-cta">Passer au Pro</a>
+      <ul class="plan-features">
+        <li>Produits illimités</li>
+        <li>Visible dans la recherche</li>
+        <li>Réception des commandes</li>
+        <li>Mise en avant dans l'accueil</li>
+        <li>Statistiques de vente</li>
+        <li class="disabled">Badge "Fournisseur vérifié"</li>
+      </ul>
+    </div>
+
+    <!-- BUSINESS -->
+    <div class="plan-card">
+      <div class="plan-name">Business</div>
+      <div class="plan-price price-value" data-monthly="15 000" data-yearly="12 000">15 000 FCFA<span>/mois</span></div>
+      <p class="plan-desc">Pour les boutiques qui veulent se démarquer.</p>
+      <a href="#" class="plan-cta">Passer au Business</a>
+      <ul class="plan-features">
+        <li>Tout ce qui est inclus dans Pro</li>
+        <li>Badge "Fournisseur vérifié"</li>
+        <li>Position prioritaire dans les résultats</li>
+        <li>Support client dédié</li>
+      </ul>
+    </div>
+
+  </div>
+</main>
+
+<script src="abonnement.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Paiement sécurisé</title>
+  <link rel="stylesheet" href="paiement.css">
+</head>
+
+<body>
+  <header class="header">
+  <img src="logo.png" class="logo-img">
+
+  <div class="search-box">
+    <input type="text" placeholder="Rechercher un produit...">
+    <button>🔍</button>
+  </div>
+
+  <div class="actions">
+    <a href="#">Favoris</a>
+    <a href="#">Panier</a>
+    <a href="abonnement.html">Abonnements</a>
+    <button class="login">Compte</button>
+  </div>
+</header>
+
+<nav class="navbar">
+  <div class="menu-left">
+    <span class="menu-icon">☰</span>
+    <span class="categories-text">Toutes les catégories</span>
+  </div>
+
+  <ul class="menu-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="#">Boutiques</a></li>
+    <li><a href="#">Promotions</a></li>
+    <li><a href="vendeur.html">Devenir vendeur</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="payment-container">
+
+  <!-- PRODUIT -->
+  <div class="product-summary">
+    <h2>Résumé de la commande</h2>
+
+    <div class="product-box">
+      <img id="payImage" src="yaris.png">
+      <div>
+        <h3 id="payName">Produit</h3>
+        <p id="payPrice">0 FCFA</p>
+        <p class="stock">Stock restant : <span id="stock">5</span></p>
+
+<div class="quantity-box">
+  <button onclick="changeQty(-1)">-</button>
+  <input type="number" id="quantity" value="1" min="1">
+  <button onclick="changeQty(1)">+</button>
+</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIVRAISON -->
+  <div class="delivery-box">
+  <h2>Informations de livraison</h2>
+  <p id="errorMsg" style="color:red; display:none;">Veuillez remplir tous les champs</p>
+
+   <form onsubmit="return false;">
+  <input type="text" placeholder="Nom complet" required>
+  <input type="email" placeholder="Email" required>
+  <input type="text" placeholder="Téléphone" required>
+  <input type="text" placeholder="Ville" required>
+  <input type="text" placeholder="Quartier" required>
+
+  <button type="submit" class="save-btn">Enregistrer</button>
+</form>
+</div>
+
+  <!-- PAIEMENT -->
+  <div class="payment-box">
+    <p class="trust">
+  ✔ Paiement protégé <br>
+  ✔ Remboursement garanti <br>
+  ✔ Support 24/7
+</p>
+    <div class="methods">
+  <p>Méthodes de paiement :</p>
+  <div class="method">💳 Carte bancaire</div>
+  <div class="method">📱 Mobile Money</div>
+</div>
+
+    <p class="secure-msg">🔒 Votre paiement est sécurisé (escrow)</p>
+
+    <div class="total">
+      Total : <span id="totalPrice">0 FCFA</span>
+    </div>
+
+    <button class="pay-btn" onclick="validateAndPay()">Payer maintenant</button>
+    <p class="escrow-info">
+  💰 Votre paiement est bloqué jusqu’à la livraison du produit.
+</p>
+
+  </div>
+
+</div>
+
+<script src="paiement.js"></script>
+<footer class="footer">
+  <div class="footer-content">
+    
+    <div>
+      <h3>BOSS9 MARKET</h3>
+      <p>Achetez mieux, vivez mieux.</p>
+    </div>
+
+    <div>
+      <h4>Liens rapides</h4>
+      <div class="LR">
+        <a href="index.html">Accueil</a>
+        <a href="#">Produits</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+
+    <div>
+      <h4>Contact</h4>
+      <p>Email: contact@boss9.com</p>
+      <p>Téléphone: 6 98 67 82 10</p>
+    </div>
+
+  </div>
+
+  <p class="copyright">© 2026 BOSS9 Market</p>
+</footer>
+
+</body>
+</html>
