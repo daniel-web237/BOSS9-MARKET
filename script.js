@@ -228,7 +228,15 @@ function initMobileMenu() {
     links.classList.toggle("open");
   });
 }
+// MENU MOBILE TOGGLE
+const menuToggle = document.getElementById("menuToggle");
+const menuLinks = document.getElementById("menuLinks");
 
+if (menuToggle) {
+  menuToggle.addEventListener("click", () => {
+    menuLinks.classList.toggle("open");
+  });
+}
 
 // ================= LOGOUT =================
 window.logout = function () {
