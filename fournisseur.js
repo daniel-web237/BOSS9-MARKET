@@ -118,10 +118,12 @@ function addToList() {
   const nameInput = document.getElementById("name");
   const priceInput = document.getElementById("price");
   const imageInput = document.getElementById("image");
+  const descriptionInput = document.getElementById("description");
 
   const name = nameInput.value.trim();
   const price = priceInput.value.trim();
   const image = imageInput.value.trim();
+  const description = descriptionInput.value.trim();
 
   if (!name || !price || !image) {
     alert("Remplis tous les champs");
@@ -131,13 +133,15 @@ function addToList() {
   tempProducts.push({
     name,
     price: Number(price),
-    image
+    image,
+    description
   });
 
   // vide le formulaire pour le prochain produit
   nameInput.value = "";
   priceInput.value = "";
   imageInput.value = "";
+  descriptionInput.value = "";
   nameInput.focus();
 
   displayPreview();
@@ -293,6 +297,7 @@ function enterEditMode(card, id) {
     <input class="edit-name" value="${product.name}" placeholder="Nom du produit">
     <input class="edit-price" type="number" value="${product.price}" placeholder="Prix">
     <input class="edit-image" value="${product.image}" placeholder="URL de l'image">
+    <textarea class="edit-description" placeholder="Description du produit">${product.description || ""}</textarea>
     <div class="edit-save-cancel">
       <button class="btn-save-edit">Enregistrer</button>
       <button class="btn-cancel-edit">Annuler</button>
@@ -312,6 +317,7 @@ async function saveProductEdit(id, card) {
   const name = card.querySelector(".edit-name").value.trim();
   const price = card.querySelector(".edit-price").value.trim();
   const image = card.querySelector(".edit-image").value.trim();
+  const description = card.querySelector(".edit-description").value.trim();
 
   if (!name || !price || !image) {
     alert("Remplis tous les champs");
@@ -326,12 +332,13 @@ async function saveProductEdit(id, card) {
     await updateDoc(doc(db, "products", id), {
       name,
       price: Number(price),
-      image
+      image,
+      description
     });
 
     const index = myProductsCache.findIndex(p => p.id === id);
     if (index !== -1) {
-      myProductsCache[index] = { ...myProductsCache[index], name, price: Number(price), image };
+      myProductsCache[index] = { ...myProductsCache[index], name, price: Number(price), image, description };
     }
 
     renderMyProducts();
