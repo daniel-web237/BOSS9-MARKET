@@ -115,6 +115,28 @@ h1, h2, h3 {
   padding: 11px;
 }
 
+.field-full {
+  margin-bottom: 18px;
+}
+
+.field textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
+  font-family: 'Poppins', sans-serif;
+  resize: vertical;
+  min-height: 80px;
+}
+
+.field textarea:focus {
+  border: 2px solid var(--gold-deep);
+  padding: 11px;
+}
+
 .btn-add {
   background: var(--ink);
   color: white;
