@@ -56,7 +56,7 @@ function renderProducts(products) {
 
   products.forEach(p => {
     container.innerHTML += `
-      <div class="product-card">
+      <div class="product-card" data-open-id="${p.id}">
         <img src="${p.image}" alt="${p.name}">
         <h4>${p.name}</h4>
         <p>${p.price} FCFA</p>
@@ -149,6 +149,13 @@ function initCartButtons() {
       addToCart(e.target.dataset.id);
       e.target.textContent = "Ajouté ✓";
       setTimeout(() => { e.target.textContent = "Ajouter au panier 🛒"; }, 1200);
+      return;
+    }
+
+    // clic ailleurs sur la carte → ouvre la fiche produit
+    const card = e.target.closest("[data-open-id]");
+    if (card) {
+      window.location.href = `produit.html?id=${card.dataset.openId}`;
     }
   });
 }
