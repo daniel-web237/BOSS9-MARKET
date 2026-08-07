@@ -30,10 +30,15 @@
         <input id="price" type="number" placeholder="Ex: 15000">
       </div>
       <div class="field">
-  <label>Image du produit</label>
-  <input type="file" id="imageFile" accept="image/*">
-  <img id="previewImg" style="margin-top:10px; max-width:100px; display:none;">
+        <label for="imageFile">Photo du produit</label>
+        <input id="imageFile" type="file" accept="image/*" capture="environment">
+        <img id="imagePreview" class="image-preview" alt="Aperçu">
+      </div>
     </div>
+
+    <div class="field field-full">
+      <label for="description">Description du produit</label>
+      <textarea id="description" placeholder="Décris le produit : matière, taille, particularités, ce qui le rend intéressant..."></textarea>
     </div>
 
     <button id="addBtn" class="btn-add">Ajouter ➕</button>
