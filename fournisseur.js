@@ -147,18 +147,33 @@ function addToList() {
   const descriptionInput = document.getElementById("description");
 
   const name = nameInput.value.trim();
-  const price = priceInput.value.trim();
+  // tolère "15 000", "15,000", "15.000" — on garde juste les chiffres
+  const priceRaw = priceInput.value.replace(/[^0-9]/g, "");
+  const price = priceRaw ? Number(priceRaw) : null;
   const imageFile = imageInput.files[0];
   const description = descriptionInput.value.trim();
 
-  if (!name || !price || !imageFile) {
-    alert("Remplis tous les champs, y compris la photo");
+  if (!name) {
+    alert("Le nom du produit est vide");
+    nameInput.focus();
+    return;
+  }
+
+  if (!price) {
+    alert("Le prix est vide ou invalide — écris juste des chiffres, ex: 15000");
+    priceInput.focus();
+    return;
+  }
+
+  if (!imageFile) {
+    alert("Choisis une photo pour ce produit");
+    imageInput.focus();
     return;
   }
 
   tempProducts.push({
     name,
-    price: Number(price),
+    price,
     imageFile,
     previewUrl: URL.createObjectURL(imageFile), // aperçu local, avant upload
     description
@@ -345,7 +360,7 @@ function enterEditMode(card, id) {
   card.classList.add("editing");
   card.innerHTML = `
     <input class="edit-name" value="${product.name}" placeholder="Nom du produit">
-    <input class="edit-price" type="number" value="${product.price}" placeholder="Prix">
+    <input class="edit-price" type="text" inputmode="numeric" value="${product.price}" placeholder="Prix">
     <input class="edit-image" value="${product.image}" placeholder="URL de l'image">
     <textarea class="edit-description" placeholder="Description du produit">${product.description || ""}</textarea>
     <div class="edit-save-cancel">
@@ -365,12 +380,13 @@ function enterEditMode(card, id) {
 
 async function saveProductEdit(id, card) {
   const name = card.querySelector(".edit-name").value.trim();
-  const price = card.querySelector(".edit-price").value.trim();
+  const priceRaw = card.querySelector(".edit-price").value.replace(/[^0-9]/g, "");
+  const price = priceRaw ? Number(priceRaw) : null;
   const image = card.querySelector(".edit-image").value.trim();
   const description = card.querySelector(".edit-description").value.trim();
 
   if (!name || !price || !image) {
-    alert("Remplis tous les champs");
+    alert("Remplis tous les champs (prix en chiffres uniquement)");
     return;
   }
 
@@ -381,14 +397,14 @@ async function saveProductEdit(id, card) {
   try {
     await updateDoc(doc(db, "products", id), {
       name,
-      price: Number(price),
+      price,
       image,
       description
     });
 
     const index = myProductsCache.findIndex(p => p.id === id);
     if (index !== -1) {
-      myProductsCache[index] = { ...myProductsCache[index], name, price: Number(price), image, description };
+      myProductsCache[index] = { ...myProductsCache[index], name, price, image, description };
     }
 
     renderMyProducts();
