@@ -115,6 +115,50 @@ h1, h2, h3 {
   padding: 11px;
 }
 
+.field input[type="file"] {
+  padding: 10px 12px;
+  cursor: pointer;
+  background: white;
+  font-size: 13px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.field input[type="file"]::file-selector-button,
+.field input[type="file"]::-webkit-file-upload-button {
+  padding: 8px 16px;
+  margin-right: 12px;
+  border: none;
+  border-radius: 6px;
+  background: var(--ink);
+  color: white;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.field input[type="file"]:hover::file-selector-button,
+.field input[type="file"]:hover::-webkit-file-upload-button {
+  background: var(--ink-light);
+}
+
+.image-preview {
+  margin-top: 10px;
+  display: none;
+  width: 100%;
+  max-width: 240px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.image-preview.show {
+  display: block;
+}
+
 .field-full {
   margin-bottom: 18px;
 }
@@ -265,6 +309,15 @@ h1, h2, h3 {
   .preview-card {
     width: 45%;
   }
+
+  .image-preview {
+    max-width: 100%;
+    height: 200px;
+  }
+
+  .my-product-card {
+    width: 45%;
+  }
 }
 
 /* ================= COMMANDES REÇUES ================= */
@@ -343,6 +396,8 @@ h1, h2, h3 {
   padding: 14px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.08);
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .my-product-card img {
@@ -352,12 +407,21 @@ h1, h2, h3 {
   border-radius: 8px;
   margin-bottom: 10px;
   background: #EDE7D8;
+  flex-shrink: 0;
 }
 
 .my-product-card h4 {
   font-size: 13px;
   font-weight: 500;
   margin-bottom: 4px;
+  line-height: 1.35;
+  /* 2 lignes max, puis "..." — même hauteur de titre pour toutes les cartes */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 2.5em;
 }
 
 .my-product-card .price {
@@ -368,6 +432,7 @@ h1, h2, h3 {
 }
 
 .my-product-actions {
+  margin-top: auto; /* les boutons restent collés en bas, peu importe la longueur du titre */
   display: flex;
   gap: 8px;
 }
