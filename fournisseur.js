@@ -62,8 +62,8 @@ let currentCategory = "";
 
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
-    alert("Connecte-toi !");
-    window.location.href = "login.html";
+    showToast("Connecte-toi pour accéder à ton dashboard fournisseur.", "warning", "Connexion requise");
+    setTimeout(() => { window.location.href = "login.html"; }, 1400);
     return;
   }
 
@@ -74,8 +74,8 @@ onAuthStateChanged(auth, async (user) => {
     const role = snap.exists() ? snap.data().role : null;
 
     if (role !== "fournisseur") {
-      alert("Cette page est réservée aux fournisseurs.");
-      window.location.href = "index.html";
+      showToast("Cette page est réservée aux comptes fournisseur.", "warning", "Accès refusé");
+      setTimeout(() => { window.location.href = "index.html"; }, 1400);
       return;
     }
 
@@ -162,19 +162,19 @@ function addToList() {
   const description = descriptionInput.value.trim();
 
   if (!name) {
-    alert("Le nom du produit est vide");
+    showToast("Le nom du produit est vide.", "warning", "Champ manquant");
     nameInput.focus();
     return;
   }
 
   if (!price) {
-    alert("Le prix est vide ou invalide — écris juste des chiffres, ex: 15000");
+    showToast("Le prix est vide ou invalide — écris juste des chiffres, ex: 15000.", "warning", "Prix invalide");
     priceInput.focus();
     return;
   }
 
   if (!imageFile) {
-    alert("Choisis une photo pour ce produit");
+    showToast("Choisis une photo pour ce produit.", "warning", "Photo manquante");
     imageInput.focus();
     return;
   }
@@ -235,12 +235,12 @@ async function saveAll() {
   const user = auth.currentUser;
 
   if (!user) {
-    alert("Connecte-toi");
+    showToast("Connecte-toi pour publier tes produits.", "warning", "Connexion requise");
     return;
   }
 
   if (tempProducts.length === 0) {
-    alert("Aucun produit ajouté");
+    showToast("Ajoute au moins un produit à la liste avant de publier.", "warning", "Liste vide");
     return;
   }
 
@@ -270,13 +270,15 @@ async function saveAll() {
       });
     }
 
-    alert("Produits enregistrés ✅ — ils sont maintenant visibles sur la page d'accueil");
+    showToast("Tes produits sont publiés et déjà visibles sur la page d'accueil.", "success", "Publication réussie");
 
     tempProducts = [];
-    window.location.href = "index.html";
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 1600);
 
   } catch (e) {
-    alert("Erreur : " + e.message);
+    showToast(e.message, "error", "Échec de la publication");
     saveBtn.disabled = false;
     saveBtn.textContent = "Confirmer et publier";
   }
@@ -396,7 +398,7 @@ async function saveProductEdit(id, card) {
   const description = card.querySelector(".edit-description").value.trim();
 
   if (!name || !price || !image) {
-    alert("Remplis tous les champs (prix en chiffres uniquement)");
+    showToast("Remplis tous les champs (le prix en chiffres uniquement).", "warning", "Champs manquants");
     return;
   }
 
@@ -418,9 +420,10 @@ async function saveProductEdit(id, card) {
     }
 
     renderMyProducts();
+    showToast("Le produit a bien été mis à jour.", "success", "Modifications enregistrées");
 
   } catch (err) {
-    alert("Erreur : " + err.message);
+    showToast(err.message, "error", "Échec de la modification");
     saveBtn.disabled = false;
     saveBtn.textContent = "Enregistrer";
   }
@@ -434,7 +437,8 @@ async function deleteProduct(id) {
     await deleteDoc(doc(db, "products", id));
     myProductsCache = myProductsCache.filter(p => p.id !== id);
     renderMyProducts();
+    showToast("Le produit a été supprimé de ta boutique.", "success", "Produit supprimé");
   } catch (err) {
-    alert("Erreur : " + err.message);
+    showToast(err.message, "error", "Échec de la suppression");
   }
 }
