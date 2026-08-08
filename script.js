@@ -4,7 +4,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 
 import {
-  initializeFirestore, collection, getDocs
+  initializeFirestore, collection, getDocs, doc, getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 import {
@@ -311,16 +311,53 @@ function initReveal() {
 
 
 // ================= USER (AUTH) =================
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
   const box = document.getElementById("userBox");
   const mobileAccountLink = document.getElementById("mobileAccountLink");
 
   if (user) {
-    if (box) box.innerHTML = `
-      <a href="compte.html">👤 ${user.email}</a>
-      <button onclick="logout()">Logout</button>
-    `;
     if (mobileAccountLink) mobileAccountLink.href = "compte.html";
+
+    // nom affiché : celui du profil Firestore, ou l'email en repli
+    let displayName = user.email;
+    try {
+      const snap = await getDoc(doc(db, "users", user.uid));
+      if (snap.exists() && snap.data().fullname) {
+        displayName = snap.data().fullname;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+    const initial = displayName.charAt(0).toUpperCase();
+
+    if (box) {
+      box.innerHTML = `
+        <div class="account-widget" id="accountWidget">
+          <button class="account-trigger" id="accountTrigger">
+            <span class="account-avatar">${initial}</span>
+            <span class="account-name">${displayName}</span>
+          </button>
+          <div class="account-dropdown" id="accountDropdown">
+            <a href="compte.html">Mon compte</a>
+            <button onclick="logout()">Déconnexion</button>
+          </div>
+        </div>
+      `;
+
+      const trigger = document.getElementById("accountTrigger");
+      const dropdown = document.getElementById("accountDropdown");
+
+      trigger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        dropdown.classList.toggle("show");
+      });
+
+      document.addEventListener("click", () => {
+        dropdown.classList.remove("show");
+      });
+    }
+
   } else {
     if (box) box.innerHTML = `<a href="login.html">Connexion</a>`;
     if (mobileAccountLink) mobileAccountLink.href = "login.html";
