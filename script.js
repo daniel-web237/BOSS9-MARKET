@@ -83,12 +83,50 @@ async function loadProducts() {
     }
 
     allProducts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    renderProducts(allProducts);
+    applyInitialFilterFromURL();
 
   } catch (err) {
     console.error(err);
     container.innerHTML = "Erreur chargement";
   }
+}
+
+
+// ================= FILTRE INITIAL DEPUIS L'URL (?category=... ou ?supplier=...) =================
+function applyInitialFilterFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const supplierId = params.get("supplier");
+  const category = params.get("category");
+
+  if (supplierId) {
+    const filtered = allProducts.filter(p => p.userId === supplierId);
+    renderProducts(filtered);
+    showFilterBanner(
+      filtered.length > 0 ? `Boutique : ${filtered[0].shopName || "Fournisseur"}` : "Cette boutique n'a pas encore de produits"
+    );
+    return;
+  }
+
+  if (category) {
+    const categorySelect = document.getElementById("categoryFilter");
+    if (categorySelect) categorySelect.value = category;
+    const filtered = allProducts.filter(p => p.category === category);
+    renderProducts(filtered);
+    return;
+  }
+
+  renderProducts(allProducts);
+}
+
+function showFilterBanner(text) {
+  const section = document.querySelector(".products");
+  if (!section || document.getElementById("filterBanner")) return;
+
+  const banner = document.createElement("div");
+  banner.id = "filterBanner";
+  banner.className = "filter-banner";
+  banner.innerHTML = `<span>${text}</span> <a href="index.html">Voir tous les produits ✕</a>`;
+  section.insertBefore(banner, section.querySelector(".product-list"));
 }
 
 
@@ -162,30 +200,95 @@ function initCartButtons() {
 
 
 // ================= RECHERCHE (style Alibaba / Amazon) =================
+function getFilteredProducts() {
+  const input = document.getElementById("searchInput");
+  const categorySelect = document.getElementById("categoryFilter");
+
+  const term = input ? input.value.trim().toLowerCase() : "";
+  const category = categorySelect ? categorySelect.value : "all";
+
+  return allProducts.filter(p => {
+    const matchesTerm = !term || (p.name && p.name.toLowerCase().includes(term));
+    const matchesCategory = category === "all" || p.category === category;
+    return matchesTerm && matchesCategory;
+  });
+}
+
 function initSearch() {
   const input = document.getElementById("searchInput");
   const btn = document.getElementById("searchBtn");
+  const categorySelect = document.getElementById("categoryFilter");
+  const suggestionsBox = document.getElementById("searchSuggestions");
   if (!input || !btn) return;
 
   function runSearch() {
+    hideSuggestions();
+    renderProducts(getFilteredProducts());
+  }
+
+  function hideSuggestions() {
+    if (suggestionsBox) suggestionsBox.classList.remove("show");
+  }
+
+  function showSuggestions() {
+    if (!suggestionsBox) return;
+
     const term = input.value.trim().toLowerCase();
 
     if (!term) {
-      renderProducts(allProducts);
+      hideSuggestions();
       return;
     }
 
-    const filtered = allProducts.filter(p =>
-      p.name && p.name.toLowerCase().includes(term)
-    );
+    const matches = allProducts
+      .filter(p => p.name && p.name.toLowerCase().includes(term))
+      .slice(0, 6);
 
-    renderProducts(filtered);
+    if (matches.length === 0) {
+      suggestionsBox.innerHTML = `<div class="sugg-empty">Aucun produit trouvé pour "${input.value.trim()}"</div>`;
+    } else {
+      suggestionsBox.innerHTML = matches.map(p => `
+        <div class="sugg-item" data-id="${p.id}">
+          <img src="${p.image}" alt="">
+          <span class="sugg-name">${p.name}</span>
+          <span class="sugg-price">${p.price} FCFA</span>
+        </div>
+      `).join("");
+    }
+
+    suggestionsBox.classList.add("show");
   }
 
   btn.addEventListener("click", runSearch);
+
+  input.addEventListener("input", showSuggestions);
+  input.addEventListener("focus", showSuggestions);
+
   input.addEventListener("keydown", (e) => {
     if (e.key === "Enter") runSearch();
+    if (e.key === "Escape") hideSuggestions();
   });
+
+  if (suggestionsBox) {
+    suggestionsBox.addEventListener("click", (e) => {
+      const item = e.target.closest(".sugg-item");
+      if (item && item.dataset.id) {
+        window.location.href = `produit.html?id=${item.dataset.id}`;
+      }
+    });
+  }
+
+  // ferme les suggestions si on clique ailleurs sur la page
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".search-input-wrap")) {
+      hideSuggestions();
+    }
+  });
+
+  // filtre par catégorie : s'applique tout de suite, sans attendre "Entrée"
+  if (categorySelect) {
+    categorySelect.addEventListener("change", runSearch);
+  }
 }
 
 
