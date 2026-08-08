@@ -46,11 +46,11 @@ if (window.emailjs) {
   window.emailjs.init(EMAILJS_PUBLIC_KEY);
 }
 
-function sendWelcomeEmail(firstname, email, role) {
+function sendWelcomeEmail(fullname, email, role) {
   if (!window.emailjs) return Promise.resolve();
 
   return window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_WELCOME, {
-    to_name: firstname,
+    to_name: fullname,
     to_email: email,
     role: role === "fournisseur" ? "fournisseur" : "acheteur"
   }).catch(err => console.error("Erreur envoi email:", err));
@@ -67,11 +67,20 @@ window.register = async function () {
   const confirmPassword = document.getElementById("confirmPassword")?.value;
   const role = document.querySelector('input[name="role"]:checked')?.value;
   const termsAccepted = document.getElementById("terms")?.checked;
+  const shopName = document.getElementById("shopName")?.value.trim();
+  const category = document.getElementById("category")?.value;
 
   if (!firstname || !lastname || !email || !phone || !password || !confirmPassword) {
     alert("Remplis tous les champs");
     return;
   }
+
+  if (role === "fournisseur" && (!shopName || !category)) {
+    alert("Renseigne le nom de ta boutique et sa catégorie");
+    return;
+  }
+
+  const fullname = `${firstname} ${lastname}`;
 
   if (password !== confirmPassword) {
     alert("Les mots de passe ne correspondent pas");
@@ -90,16 +99,19 @@ window.register = async function () {
     await setDoc(doc(db, "users", cred.user.uid), {
       firstname,
       lastname,
+      fullname,
       email,
       phone,
       role,
+      shopName: role === "fournisseur" ? shopName : null,
+      category: role === "fournisseur" ? category : null,
       createdAt: new Date()
     });
 
     // email de validation officiel Firebase (lien à cliquer pour activer le compte)
     await sendEmailVerification(cred.user);
 
-    const emailSend = sendWelcomeEmail(firstname, email, role);
+    const emailSend = sendWelcomeEmail(fullname, email, role);
     const timeout = new Promise(resolve => setTimeout(resolve, 5000));
     await Promise.race([emailSend, timeout]);
 
