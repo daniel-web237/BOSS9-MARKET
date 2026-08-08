@@ -71,24 +71,24 @@ window.register = async function () {
   const category = document.getElementById("category")?.value;
 
   if (!firstname || !lastname || !email || !phone || !password || !confirmPassword) {
-    alert("Remplis tous les champs");
+    showToast("Merci de remplir tous les champs du formulaire.", "warning", "Champs manquants");
     return;
   }
 
   if (role === "fournisseur" && (!shopName || !category)) {
-    alert("Renseigne le nom de ta boutique et sa catégorie");
+    showToast("Indique le nom de ta boutique et sa catégorie pour continuer.", "warning", "Informations boutique");
     return;
   }
 
   const fullname = `${firstname} ${lastname}`;
 
   if (password !== confirmPassword) {
-    alert("Les mots de passe ne correspondent pas");
+    showToast("Les deux mots de passe ne correspondent pas.", "error", "Mot de passe");
     return;
   }
 
   if (!termsAccepted) {
-    alert("Tu dois accepter les conditions d'utilisation");
+    showToast("Tu dois accepter les conditions d'utilisation pour créer un compte.", "warning", "Conditions d'utilisation");
     return;
   }
 
@@ -127,12 +127,18 @@ window.register = async function () {
 
     await signOut(auth);
 
-    alert("Compte créé ! Vérifie ta boîte mail et clique sur le lien reçu pour valider ton compte avant de te connecter.");
+    showToast(
+      "Vérifie ta boîte mail (et les spams) et clique sur le lien reçu pour valider ton compte avant de te connecter.",
+      "success",
+      "Compte créé"
+    );
 
-    window.location.href = "login.html";
+    setTimeout(() => {
+      window.location.href = "login.html";
+    }, 2200);
 
   } catch (err) {
-    alert(err.message);
+    showToast(err.message, "error", "Inscription impossible");
   }
 };
 
@@ -143,7 +149,7 @@ window.login = async function () {
   const password = document.getElementById("password")?.value;
 
   if (!email || !password) {
-    alert("Remplis tous les champs");
+    showToast("Merci de remplir ton email et ton mot de passe.", "warning", "Champs manquants");
     return;
   }
 
@@ -158,7 +164,11 @@ window.login = async function () {
 
     if (!cred.user.emailVerified) {
       await signOut(auth);
-      alert("Ton email n'est pas encore validé. Vérifie ta boîte mail (et les spams) et clique sur le lien reçu avant de te connecter.");
+      showToast(
+        "Vérifie ta boîte mail (et les spams) et clique sur le lien reçu avant de te connecter.",
+        "warning",
+        "Email non validé"
+      );
       if (btn) {
         btn.disabled = false;
         btn.textContent = "Se connecter";
@@ -179,7 +189,7 @@ window.login = async function () {
     window.location.href = (role === "fournisseur") ? "fournisseur.html" : "index.html";
 
   } catch (err) {
-    alert(err.message);
+    showToast(err.message, "error", "Connexion impossible");
     if (btn) {
       btn.disabled = false;
       btn.textContent = "Se connecter";
