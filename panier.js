@@ -169,8 +169,10 @@ function changeQty(id, delta) {
 // ================= COMMANDE =================
 async function checkout() {
   if (!currentUser) {
-    alert("Connecte-toi pour passer ta commande");
-    window.location.href = "login.html";
+    showToast("Connecte-toi pour finaliser ta commande.", "warning", "Connexion requise");
+    setTimeout(() => {
+      window.location.href = "login.html";
+    }, 1400);
     return;
   }
 
@@ -216,11 +218,14 @@ async function checkout() {
     const timeout = new Promise(resolve => setTimeout(resolve, 5000));
     await Promise.race([emailSend, timeout]);
 
-    alert("Commande envoyée ✅ — retrouve son statut dans \"Mon compte\"");
-    window.location.href = "compte.html";
+    showToast("Ta commande a bien été envoyée, suis son statut dans \"Mon compte\".", "success", "Commande confirmée");
+
+    setTimeout(() => {
+      window.location.href = "compte.html";
+    }, 1600);
 
   } catch (err) {
-    alert("Erreur : " + err.message);
+    showToast(err.message, "error", "Échec de la commande");
     btn.disabled = false;
     btn.textContent = "Passer la commande";
   }
