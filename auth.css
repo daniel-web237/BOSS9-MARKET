@@ -1,363 +1,202 @@
-/* =====================================================
-   BOSS9 MARKET — AUTH.CSS (login / register)
-===================================================== */
+// ================= FIREBASE =================
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 
-:root {
-  --ink: #0B1F3A;
-  --ink-light: #16345C;
-  --paper: #F7F4EC;
-  --gold: #F2B705;
-  --gold-deep: #C99000;
-  --text: #14213D;
-  --muted: #5B5B5B;
-  --border: #E2DECF;
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  sendEmailVerification
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+import {
+  initializeFirestore,
+  doc,
+  setDoc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+
+// ================= CONFIG =================
+const firebaseConfig = {
+  apiKey: "AIzaSyBmHTwb3GO773ewseAEQ-BAk9peo18Fgaw",
+  authDomain: "boss9-market.firebaseapp.com",
+  projectId: "boss9-market"
+};
+
+// ================= INIT =================
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// experimentalForceLongPolling : force ce mode de connexion directement,
+// sans phase de détection (qui elle-même peut être bloquée par le réseau)
+const db = initializeFirestore(app, {
+  experimentalForceLongPolling: true
+});
+
+
+// ================= EMAILJS =================
+const EMAILJS_PUBLIC_KEY = "ciFoF8v_-0DDYBU7c";
+const EMAILJS_SERVICE_ID = "service_x2nfjnx";
+const EMAILJS_TEMPLATE_WELCOME = "template_24nka54";
+
+if (window.emailjs) {
+  window.emailjs.init(EMAILJS_PUBLIC_KEY);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+function sendWelcomeEmail(fullname, email, role) {
+  if (!window.emailjs) return Promise.resolve();
+
+  return window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_WELCOME, {
+    to_name: fullname,
+    to_email: email,
+    role: role === "fournisseur" ? "fournisseur" : "acheteur"
+  }).catch(err => console.error("Erreur envoi email:", err));
 }
 
-body {
-  background: var(--ink);
-  background-image:
-    radial-gradient(circle at 15% 20%, rgba(242,183,5,0.10), transparent 40%),
-    radial-gradient(circle at 85% 80%, rgba(242,183,5,0.08), transparent 40%);
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-}
 
-/* CONTAINER */
-.auth-container {
-  background: var(--paper);
-  padding: 45px 36px;
-  width: 100%;
-  max-width: 420px;
-  border-radius: 14px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.35);
-  text-align: center;
-}
+// ================= INSCRIPTION =================
+window.register = async function () {
+  const firstname = document.getElementById("firstname")?.value.trim();
+  const lastname = document.getElementById("lastname")?.value.trim();
+  const email = document.getElementById("email")?.value.trim();
+  const phone = document.getElementById("phone")?.value.trim();
+  const password = document.getElementById("password")?.value;
+  const confirmPassword = document.getElementById("confirmPassword")?.value;
+  const role = document.querySelector('input[name="role"]:checked')?.value;
+  const termsAccepted = document.getElementById("terms")?.checked;
+  const shopName = document.getElementById("shopName")?.value.trim();
+  const category = document.getElementById("category")?.value;
 
-/* LOGO */
-.auth-container img {
-  width: 90px;
-  margin: 0 auto 18px;
-  display: block;
-}
-
-/* TITRE */
-.auth-container h2 {
-  font-family: 'Fraunces', serif;
-  font-weight: 600;
-  font-size: 24px;
-  color: var(--ink);
-  margin-bottom: 6px;
-}
-
-.subtitle {
-  color: var(--muted);
-  font-size: 13px;
-  margin-bottom: 28px;
-}
-
-/* INPUT GROUP */
-.input-group {
-  position: relative;
-  margin-bottom: 20px;
-}
-
-.input-group input {
-  width: 100%;
-  padding: 14px 12px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  font-size: 14px;
-  background: white;
-  color: var(--text);
-  outline: none;
-  transition: 0.2s;
-}
-
-.input-group input:focus {
-  border: 2px solid var(--gold-deep);
-  padding: 13px 11px;
-}
-
-/* LABEL FLOTTANT */
-.input-group label {
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%);
-  background: white;
-  padding: 0 6px;
-  color: var(--muted);
-  font-size: 14px;
-  transition: 0.2s;
-  pointer-events: none;
-}
-
-.input-group input:focus + label,
-.input-group input:not(:placeholder-shown) + label {
-  top: 0;
-  font-size: 12px;
-  color: var(--gold-deep);
-  font-weight: 600;
-}
-
-/* BOUTON */
-.auth-btn {
-  width: 100%;
-  padding: 13px;
-  background: var(--gold);
-  color: var(--ink);
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  margin-top: 8px;
-  transition: 0.25s;
-}
-
-.auth-btn:hover {
-  background: var(--gold-deep);
-  transform: translateY(-1px);
-}
-
-.auth-btn:active {
-  transform: translateY(0);
-}
-
-/* LIEN */
-.auth-link {
-  margin-top: 22px;
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.auth-link a {
-  color: var(--ink);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.auth-link a:hover {
-  color: var(--gold-deep);
-}
-
-/* RETOUR ACCUEIL */
-.back-home {
-  display: block;
-  margin-top: 18px;
-  font-size: 12px;
-  color: var(--muted);
-  text-decoration: none;
-}
-
-.back-home:hover {
-  color: var(--gold-deep);
-}
-
-/* SÉLECTEUR DE RÔLE (Acheteur / Fournisseur) */
-.role-select {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 22px;
-}
-
-.role-select input {
-  display: none;
-}
-
-.role-select label {
-  flex: 1;
-  padding: 12px 8px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--muted);
-  background: white;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.role-select input:checked + label {
-  border-color: var(--gold-deep);
-  background: var(--gold);
-  color: var(--ink);
-}
-
-/* CASE CONDITIONS */
-.terms {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  text-align: left;
-  font-size: 12px;
-  color: var(--muted);
-  margin-bottom: 20px;
-}
-
-.terms input {
-  margin-top: 3px;
-  accent-color: var(--gold-deep);
-}
-
-.terms a {
-  color: var(--ink);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.terms a:hover {
-  color: var(--gold-deep);
-}
-
-/* ================= FORMULAIRE STYLE ATOM.COM ================= */
-.auth-container.wide {
-  max-width: 460px;
-  text-align: left;
-}
-
-.auth-container.wide .auth-btn {
-  width: 100%;
-}
-
-.auth-head {
-  text-align: center;
-  margin-bottom: 26px;
-}
-
-.auth-head h2 {
-  font-family: 'Fraunces', serif;
-  font-weight: 600;
-  font-size: 22px;
-  color: var(--ink);
-  margin-bottom: 6px;
-}
-
-.auth-head .subtitle {
-  font-size: 13px;
-  color: var(--muted);
-  margin: 0;
-}
-
-.auth-head .subtitle a {
-  color: var(--gold-deep);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.name-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.name-row .input-group {
-  margin-bottom: 20px;
-}
-
-/* jauge de force du mot de passe */
-.strength-meter {
-  margin: -8px 0 20px;
-}
-
-.strength-bars {
-  display: flex;
-  gap: 5px;
-  margin-bottom: 6px;
-}
-
-.strength-bars .bar {
-  flex: 1;
-  height: 4px;
-  border-radius: 3px;
-  background: var(--border);
-  transition: 0.25s;
-}
-
-.strength-bars .bar.weak { background: #C0392B; }
-.strength-bars .bar.fair { background: var(--gold); }
-.strength-bars .bar.good { background: #4C9F70; }
-.strength-bars .bar.strong { background: var(--ink); }
-
-.strength-label {
-  font-size: 11px;
-  color: var(--muted);
-  font-weight: 600;
-}
-
-/* cartes de rôle avec icône */
-.role-label {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 10px;
-}
-
-.role-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 22px;
-}
-
-.role-cards input {
-  display: none;
-}
-
-.role-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 4px;
-  padding: 18px 12px;
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  background: white;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.role-icon {
-  font-size: 24px;
-  margin-bottom: 4px;
-}
-
-.role-title {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text);
-}
-
-.role-sub {
-  font-size: 11px;
-  color: var(--muted);
-  line-height: 1.3;
-}
-
-.role-cards input:checked + .role-card {
-  border-color: var(--gold-deep);
-  background: #FCF6E3;
-  box-shadow: 0 0 0 2px rgba(201, 144, 0, 0.15);
-}
-
-.auth-btn.full {
-  width: 100%;
-}
-
-/* RESPONSIVE */
-@media (max-width: 420px) {
-  .auth-container {
-    padding: 34px 24px;
+  if (!firstname || !lastname || !email || !phone || !password || !confirmPassword) {
+    alert("Remplis tous les champs");
+    return;
   }
-}
+
+  if (role === "fournisseur" && (!shopName || !category)) {
+    alert("Renseigne le nom de ta boutique et sa catégorie");
+    return;
+  }
+
+  const fullname = `${firstname} ${lastname}`;
+
+  if (password !== confirmPassword) {
+    alert("Les mots de passe ne correspondent pas");
+    return;
+  }
+
+  if (!termsAccepted) {
+    alert("Tu dois accepter les conditions d'utilisation");
+    return;
+  }
+
+  try {
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+
+    // profil complet stocké dans Firestore, lié à l'uid de l'utilisateur
+    await setDoc(doc(db, "users", cred.user.uid), {
+      firstname,
+      lastname,
+      fullname,
+      email,
+      phone,
+      role,
+      shopName: role === "fournisseur" ? shopName : null,
+      category: role === "fournisseur" ? category : null,
+      createdAt: new Date()
+    });
+
+    // email de validation officiel Firebase (lien à cliquer pour activer le compte)
+    await sendEmailVerification(cred.user);
+
+    const emailSend = sendWelcomeEmail(fullname, email, role);
+    const timeout = new Promise(resolve => setTimeout(resolve, 5000));
+    await Promise.race([emailSend, timeout]);
+
+    await signOut(auth);
+
+    alert("Compte créé ! Vérifie ta boîte mail et clique sur le lien reçu pour valider ton compte avant de te connecter.");
+
+    window.location.href = "login.html";
+
+  } catch (err) {
+    alert(err.message);
+  }
+};
+
+
+// ================= CONNEXION =================
+window.login = async function () {
+  const email = document.getElementById("email")?.value;
+  const password = document.getElementById("password")?.value;
+
+  if (!email || !password) {
+    alert("Remplis tous les champs");
+    return;
+  }
+
+  const btn = document.querySelector(".auth-btn");
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = "Connexion en cours...";
+  }
+
+  try {
+    const cred = await signInWithEmailAndPassword(auth, email, password);
+
+    if (!cred.user.emailVerified) {
+      await signOut(auth);
+      alert("Ton email n'est pas encore validé. Vérifie ta boîte mail (et les spams) et clique sur le lien reçu avant de te connecter.");
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = "Se connecter";
+      }
+      return;
+    }
+
+    // on essaie de lire le rôle, mais on ne bloque pas la redirection
+    // dessus s'il traîne trop longtemps (réseau lent/instable)
+    const roleLookup = getDoc(doc(db, "users", cred.user.uid))
+      .then(snap => snap.exists() ? snap.data().role : null)
+      .catch(() => null);
+
+    const timeout = new Promise(resolve => setTimeout(() => resolve(null), 4000));
+
+    const role = await Promise.race([roleLookup, timeout]);
+
+    window.location.href = (role === "fournisseur") ? "fournisseur.html" : "index.html";
+
+  } catch (err) {
+    alert(err.message);
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = "Se connecter";
+    }
+  }
+};
+
+
+// ================= DÉCONNEXION =================
+window.logout = function () {
+  signOut(auth).then(() => {
+    window.location.href = "login.html";
+  });
+};
+
+
+// ================= UI UTILISATEUR (nav) =================
+onAuthStateChanged(auth, (user) => {
+  const userBox = document.getElementById("userBox");
+  if (!userBox) return;
+
+  if (user) {
+    userBox.innerHTML = `
+      👤 ${user.email}
+      <button onclick="logout()">Logout</button>
+    `;
+  } else {
+    userBox.innerHTML = `<a href="login.html">Connexion</a>`;
+  }
+});
