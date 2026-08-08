@@ -30,8 +30,8 @@ const db = initializeFirestore(app, {
 // ================= SÉCURITÉ + CHARGEMENT PROFIL =================
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
-    alert("Connecte-toi !");
-    window.location.href = "login.html";
+    showToast("Connecte-toi pour accéder à ton compte.", "warning", "Connexion requise");
+    setTimeout(() => { window.location.href = "login.html"; }, 1400);
     return;
   }
 
@@ -120,7 +120,7 @@ document.getElementById("saveBtn").addEventListener("click", async () => {
   const phone = document.getElementById("phone").value.trim();
 
   if (!fullname || !phone) {
-    alert("Remplis tous les champs");
+    showToast("Remplis ton nom et ton téléphone.", "warning", "Champs manquants");
     return;
   }
 
@@ -138,10 +138,10 @@ document.getElementById("saveBtn").addEventListener("click", async () => {
     document.getElementById("profileName").textContent = fullname;
     document.getElementById("avatarInitial").textContent = fullname.charAt(0).toUpperCase();
 
-    alert("Profil mis à jour ✅");
+    showToast("Tes informations ont bien été mises à jour.", "success", "Profil enregistré");
 
   } catch (err) {
-    alert("Erreur : " + err.message);
+    showToast(err.message, "error", "Échec de la mise à jour");
   } finally {
     saveBtn.disabled = false;
     saveBtn.textContent = "Enregistrer les modifications";
