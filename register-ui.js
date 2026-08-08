@@ -43,3 +43,16 @@ passwordInput.addEventListener("input", () => {
     level.className === "fair" ? "#C99000" :
     level.className === "good" ? "#4C9F70" : "#0B1F3A";
 });
+
+
+// ================= CHAMPS BOUTIQUE (visibles si Fournisseur) =================
+const shopFields = document.getElementById("shopFields");
+const roleRadios = document.querySelectorAll('input[name="role"]');
+
+function toggleShopFields() {
+  const selected = document.querySelector('input[name="role"]:checked').value;
+  shopFields.classList.toggle("show", selected === "fournisseur");
+}
+
+roleRadios.forEach(radio => radio.addEventListener("change", toggleShopFields));
+toggleShopFields();
