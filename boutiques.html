@@ -3,41 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Boutique — BOSS9 Market</title>
+  <title>Boutiques — BOSS9 Market</title>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="boutique.css">
+  <link rel="stylesheet" href="boutiques.css">
 </head>
 
 <body>
 
 <header class="dash-header">
   <a href="index.html" class="logo"><img src="logo.png" alt="BOSS9 Market"></a>
-  <a href="boutiques.html" class="back">← Toutes les boutiques</a>
+  <a href="index.html" class="back">← Retour à l'accueil</a>
 </header>
 
-<div class="shop-banner"></div>
+<main class="boutiques-page">
+  <h2>Nos boutiques</h2>
+  <p class="sub">Découvre les fournisseurs disponibles sur BOSS9 Market</p>
 
-<div class="shop-profile">
-  <div class="shop-header" id="shopHeader">
-    <div class="shop-avatar-big" id="shopAvatar">?</div>
-    <div class="shop-header-info">
-      <h1 id="shopName">Chargement...</h1>
-      <div class="shop-header-meta">
-        <span class="shop-category-badge" id="shopCategory"></span>
-        <span class="shop-product-count" id="shopCount"></span>
-      </div>
-    </div>
+  <div class="category-filters" id="categoryFilters">
+    <button data-category="all" class="active">Toutes</button>
+    <button data-category="mode">Mode</button>
+    <button data-category="electronique">Électronique</button>
+    <button data-category="maison">Maison</button>
+    <button data-category="beaute">Beauté</button>
+    <button data-category="alimentation">Alimentation</button>
+    <button data-category="autre">Autre</button>
   </div>
-</div>
 
-<section class="shop-products-section">
-  <h3>Produits de cette boutique</h3>
-  <div class="shop-products-grid" id="shopProducts">
-    <p class="empty-state">Chargement des produits...</p>
+  <div class="shops-grid" id="shopsGrid">
+    <p class="empty-state">Chargement des boutiques...</p>
   </div>
-</section>
+</main>
 
-<script type="module" src="boutique.js"></script>
+<script type="module" src="boutiques.js"></script>
 
 </body>
 </html>
