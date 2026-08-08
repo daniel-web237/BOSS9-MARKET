@@ -1,0 +1,230 @@
+/* =====================================================
+   BOSS9 MARKET — BOUTIQUE.CSS (profil boutique, style TikTok/Insta)
+===================================================== */
+
+:root {
+  --ink: #0B1F3A;
+  --ink-light: #16345C;
+  --paper: #F7F4EC;
+  --gold: #F2B705;
+  --gold-deep: #C99000;
+  --text: #14213D;
+  --muted: #5B5B5B;
+  --border: #E2DECF;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: var(--paper);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  font-family: 'Fraunces', serif;
+}
+
+/* ================= HEADER ================= */
+.dash-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--ink);
+  color: white;
+  padding: 16px 30px;
+}
+
+.dash-header .logo img {
+  height: 46px;
+}
+
+.dash-header a.back {
+  color: #EAEAEA;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.dash-header a.back:hover {
+  color: var(--gold);
+}
+
+/* ================= BANNIÈRE + PROFIL ================= */
+.shop-banner {
+  height: 130px;
+  background: linear-gradient(135deg, var(--ink), var(--ink-light));
+  position: relative;
+}
+
+.shop-profile {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.shop-header {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  margin-top: -46px;
+  margin-bottom: 24px;
+}
+
+.shop-avatar-big {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--ink);
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid var(--paper);
+  flex-shrink: 0;
+}
+
+.shop-header-info {
+  padding-bottom: 6px;
+}
+
+.shop-header-info h1 {
+  font-size: 24px;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.shop-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.shop-category-badge {
+  background: #E9EEF5;
+  color: var(--ink-light);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  text-transform: capitalize;
+}
+
+.shop-product-count {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ================= PRODUITS DE LA BOUTIQUE ================= */
+.shop-products-section {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px 24px 80px;
+}
+
+.shop-products-section h3 {
+  font-size: 16px;
+  color: var(--ink);
+  margin-bottom: 18px;
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+}
+
+.shop-products-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.shop-product-card {
+  background: white;
+  border-radius: 12px;
+  width: 200px;
+  padding: 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  cursor: pointer;
+  transition: 0.25s;
+  display: flex;
+  flex-direction: column;
+}
+
+.shop-product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.shop-product-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background: #EDE7D8;
+}
+
+.shop-product-card h4 {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.5em;
+}
+
+.shop-product-card .price {
+  color: var(--gold-deep);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.empty-state {
+  color: var(--muted);
+  font-size: 14px;
+  font-style: italic;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 600px) {
+  .dash-header {
+    padding: 14px 18px;
+  }
+
+  .shop-banner {
+    height: 100px;
+  }
+
+  .shop-avatar-big {
+    width: 76px;
+    height: 76px;
+    font-size: 28px;
+  }
+
+  .shop-header {
+    margin-top: -36px;
+    gap: 14px;
+  }
+
+  .shop-header-info h1 {
+    font-size: 19px;
+  }
+
+  .shop-products-grid {
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .shop-product-card {
+    width: 45%;
+  }
+}
