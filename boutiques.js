@@ -3,7 +3,7 @@ import { initializeApp }
 from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 
 import {
-  initializeFirestore, collection, query, where, getDocs
+  initializeFirestore, collection, getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -25,8 +25,7 @@ async function loadShops() {
   const grid = document.getElementById("shopsGrid");
 
   try {
-    const q = query(collection(db, "users"), where("role", "==", "fournisseur"));
-    const snap = await getDocs(q);
+    const snap = await getDocs(collection(db, "shops"));
 
     if (snap.empty) {
       grid.innerHTML = `<p class="empty-state">Aucune boutique disponible pour le moment</p>`;
@@ -64,7 +63,7 @@ function renderShops(shops) {
   }
 
   grid.innerHTML = shops.map(shop => {
-    const name = shop.shopName || shop.fullname || "Boutique";
+    const name = shop.shopName || "Boutique";
     const initial = name.charAt(0).toUpperCase();
     const category = shop.category || "autre";
 
