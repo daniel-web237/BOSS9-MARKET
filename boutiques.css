@@ -1,5 +1,5 @@
 /* =====================================================
-   BOSS9 MARKET — BOUTIQUE.CSS (profil boutique, style TikTok/Insta)
+   BOSS9 MARKET — BOUTIQUES.CSS
 ===================================================== */
 
 :root {
@@ -54,144 +54,123 @@ h1, h2, h3 {
   color: var(--gold);
 }
 
-/* ================= BANNIÈRE + PROFIL ================= */
-.shop-banner {
-  height: 130px;
-  background: linear-gradient(135deg, var(--ink), var(--ink-light));
-  position: relative;
-}
-
-.shop-profile {
-  max-width: 1000px;
+/* ================= INTRO ================= */
+.boutiques-page {
+  max-width: 1080px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 50px 20px 80px;
 }
 
-.shop-header {
+.boutiques-page h2 {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.boutiques-page .sub {
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+/* ================= FILTRES CATÉGORIE ================= */
+.category-filters {
   display: flex;
-  align-items: flex-end;
-  gap: 20px;
-  margin-top: -46px;
-  margin-bottom: 24px;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 36px;
 }
 
-.shop-avatar-big {
-  width: 96px;
-  height: 96px;
+.category-filters button {
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--text);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.category-filters button.active {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+}
+
+/* ================= GRILLE BOUTIQUES ================= */
+.shops-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 18px;
+}
+
+.shop-card {
+  background: white;
+  border-radius: 14px;
+  padding: 24px 20px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  transition: 0.25s;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shop-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.1);
+}
+
+.shop-avatar {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: var(--gold);
   color: var(--ink);
-  font-family: 'Fraunces', serif;
-  font-weight: 700;
-  font-size: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 5px solid var(--paper);
-  flex-shrink: 0;
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 22px;
+  margin-bottom: 14px;
 }
 
-.shop-header-info {
-  padding-bottom: 6px;
-}
-
-.shop-header-info h1 {
-  font-size: 24px;
+.shop-name {
+  font-size: 15px;
+  font-weight: 600;
   color: var(--ink);
   margin-bottom: 6px;
 }
 
-.shop-header-meta {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.shop-category-badge {
+.shop-category {
+  display: inline-block;
   background: #E9EEF5;
   color: var(--ink-light);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  padding: 4px 12px;
+  padding: 3px 10px;
   border-radius: 20px;
+  margin-bottom: 10px;
   text-transform: capitalize;
 }
 
-.shop-product-count {
-  font-size: 13px;
+.shop-count {
+  font-size: 12px;
   color: var(--muted);
-}
-
-/* ================= PRODUITS DE LA BOUTIQUE ================= */
-.shop-products-section {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 10px 24px 80px;
-}
-
-.shop-products-section h3 {
-  font-size: 16px;
-  color: var(--ink);
-  margin-bottom: 18px;
-  border-top: 1px solid var(--border);
-  padding-top: 24px;
-}
-
-.shop-products-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.shop-product-card {
-  background: white;
-  border-radius: 12px;
-  width: 200px;
-  padding: 14px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-  cursor: pointer;
-  transition: 0.25s;
-  display: flex;
-  flex-direction: column;
-}
-
-.shop-product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
-
-.shop-product-card img {
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  background: #EDE7D8;
-}
-
-.shop-product-card h4 {
-  font-size: 13px;
-  font-weight: 500;
-  margin-bottom: 4px;
-  line-height: 1.35;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  min-height: 2.5em;
-}
-
-.shop-product-card .price {
-  color: var(--gold-deep);
-  font-weight: 600;
-  font-size: 13px;
 }
 
 .empty-state {
+  text-align: center;
   color: var(--muted);
-  font-size: 14px;
-  font-style: italic;
+  padding: 60px 20px;
+  grid-column: 1 / -1;
 }
 
 /* ================= RESPONSIVE ================= */
@@ -200,31 +179,16 @@ h1, h2, h3 {
     padding: 14px 18px;
   }
 
-  .shop-banner {
-    height: 100px;
+  .boutiques-page {
+    padding: 30px 16px 60px;
   }
 
-  .shop-avatar-big {
-    width: 76px;
-    height: 76px;
-    font-size: 28px;
+  .shops-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 
-  .shop-header {
-    margin-top: -36px;
-    gap: 14px;
-  }
-
-  .shop-header-info h1 {
-    font-size: 19px;
-  }
-
-  .shop-products-grid {
-    justify-content: center;
-    gap: 14px;
-  }
-
-  .shop-product-card {
-    width: 45%;
+  .shop-card {
+    padding: 18px 12px;
   }
 }
