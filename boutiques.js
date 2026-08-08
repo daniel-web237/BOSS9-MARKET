@@ -3,7 +3,7 @@ import { initializeApp }
 from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 
 import {
-  initializeFirestore, collection, getDocs
+  initializeFirestore, doc, getDoc, collection, query, where, getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -17,88 +17,118 @@ const db = initializeFirestore(app, {
   experimentalForceLongPolling: true
 });
 
-let allShops = [];
 
+// ================= PANIER (même localStorage que le reste du site) =================
+const CART_KEY = "boss9_cart";
 
-// ================= CHARGEMENT DES BOUTIQUES =================
-async function loadShops() {
-  const grid = document.getElementById("shopsGrid");
-
+function getCart() {
   try {
-    const snap = await getDocs(collection(db, "shops"));
-
-    if (snap.empty) {
-      grid.innerHTML = `<p class="empty-state">Aucune boutique disponible pour le moment</p>`;
-      return;
-    }
-
-    allShops = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-
-    // on compte les produits de chaque boutique en une seule requête
-    const productsSnap = await getDocs(collection(db, "products"));
-    const counts = {};
-    productsSnap.forEach(doc => {
-      const uid = doc.data().userId;
-      counts[uid] = (counts[uid] || 0) + 1;
-    });
-
-    allShops.forEach(shop => { shop.productCount = counts[shop.id] || 0; });
-
-    renderShops(allShops);
-
-  } catch (err) {
-    console.error(err);
-    grid.innerHTML = `<p class="empty-state">Impossible de charger les boutiques pour le moment</p>`;
+    return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+  } catch {
+    return [];
   }
 }
 
+function saveCart(cart) {
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+}
 
-// ================= AFFICHAGE =================
-function renderShops(shops) {
-  const grid = document.getElementById("shopsGrid");
+function addToCart(product) {
+  const cart = getCart();
+  const existing = cart.find(item => item.id === product.id);
 
-  if (shops.length === 0) {
-    grid.innerHTML = `<p class="empty-state">Aucune boutique dans cette catégorie</p>`;
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      supplierId: product.userId || null,
+      qty: 1
+    });
+  }
+
+  saveCart(cart);
+}
+
+
+// ================= RÉCUPÉRER L'ID DANS L'URL =================
+const params = new URLSearchParams(window.location.search);
+const shopId = params.get("id");
+
+
+// ================= CHARGEMENT DU PROFIL BOUTIQUE =================
+async function loadShop() {
+  if (!shopId) {
+    document.getElementById("shopName").textContent = "Boutique introuvable";
     return;
   }
 
-  grid.innerHTML = shops.map(shop => {
-    const name = shop.shopName || "Boutique";
-    const initial = name.charAt(0).toUpperCase();
-    const category = shop.category || "autre";
+  try {
+    const snap = await getDoc(doc(db, "shops", shopId));
 
-    return `
-      <a href="index.html?supplier=${shop.id}" class="shop-card">
-        <div class="shop-avatar">${initial}</div>
-        <div class="shop-name">${name}</div>
-        <span class="shop-category">${category}</span>
-        <span class="shop-count">${shop.productCount} produit${shop.productCount !== 1 ? "s" : ""}</span>
-      </a>
-    `;
-  }).join("");
+    if (!snap.exists()) {
+      document.getElementById("shopName").textContent = "Cette boutique n'existe plus";
+      return;
+    }
+
+    const shop = snap.data();
+    const name = shop.shopName || "Boutique";
+
+    document.getElementById("shopName").textContent = name;
+    document.getElementById("shopAvatar").textContent = name.charAt(0).toUpperCase();
+    document.getElementById("shopCategory").textContent = shop.category || "autre";
+    document.title = `${name} — BOSS9 Market`;
+
+  } catch (err) {
+    console.error(err);
+    document.getElementById("shopName").textContent = "Erreur de chargement";
+  }
 }
 
 
-// ================= FILTRE PAR CATÉGORIE =================
-function initCategoryFilters() {
-  const buttons = document.querySelectorAll("#categoryFilters button");
+// ================= CHARGEMENT DES PRODUITS DE LA BOUTIQUE =================
+async function loadShopProducts() {
+  const grid = document.getElementById("shopProducts");
+  const countEl = document.getElementById("shopCount");
+  if (!shopId) return;
 
-  buttons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      buttons.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
+  try {
+    const q = query(collection(db, "products"), where("userId", "==", shopId));
+    const snap = await getDocs(q);
 
-      const category = btn.dataset.category;
-      const filtered = category === "all"
-        ? allShops
-        : allShops.filter(s => s.category === category);
+    if (snap.empty) {
+      grid.innerHTML = `<p class="empty-state">Cette boutique n'a pas encore publié de produit</p>`;
+      if (countEl) countEl.textContent = "0 produit";
+      return;
+    }
 
-      renderShops(filtered);
+    const products = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    if (countEl) countEl.textContent = `${products.length} produit${products.length !== 1 ? "s" : ""}`;
+
+    grid.innerHTML = products.map(p => `
+      <div class="shop-product-card" data-id="${p.id}">
+        <img src="${p.image}" alt="${p.name}">
+        <h4>${p.name}</h4>
+        <div class="price">${p.price} FCFA</div>
+      </div>
+    `).join("");
+
+    grid.querySelectorAll(".shop-product-card").forEach(card => {
+      card.addEventListener("click", () => {
+        window.location.href = `produit.html?id=${card.dataset.id}`;
+      });
     });
-  });
+
+  } catch (err) {
+    console.error(err);
+    grid.innerHTML = `<p class="empty-state">Impossible de charger les produits pour le moment</p>`;
+  }
 }
 
 
 // ================= START =================
-loadShops();
-initCategoryFilters();
+loadShop();
+loadShopProducts();
