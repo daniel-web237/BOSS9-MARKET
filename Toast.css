@@ -1,0 +1,125 @@
+/* =====================================================
+   BOSS9 MARKET — TOAST.CSS (notifications professionnelles)
+===================================================== */
+
+#toastContainer {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 340px;
+  width: calc(100% - 40px);
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: white;
+  border-radius: 10px;
+  padding: 14px 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  border-left: 4px solid #0B1F3A;
+  font-family: 'Poppins', sans-serif;
+  animation: toastIn 0.3s ease forwards;
+  transform: translateX(120%);
+  opacity: 0;
+}
+
+.toast.leaving {
+  animation: toastOut 0.25s ease forwards;
+}
+
+@keyframes toastIn {
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes toastOut {
+  to { transform: translateX(120%); opacity: 0; }
+}
+
+.toast-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+  color: white;
+}
+
+.toast-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.toast-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #14213D;
+  margin-bottom: 2px;
+}
+
+.toast-message {
+  font-size: 12.5px;
+  color: #5B5B5B;
+  line-height: 1.4;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  color: #B9B4A5;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.toast-close:hover {
+  color: #5B5B5B;
+}
+
+/* variantes par type */
+.toast.success { border-left-color: #4C9F70; }
+.toast.success .toast-icon { background: #4C9F70; }
+
+.toast.error { border-left-color: #C0392B; }
+.toast.error .toast-icon { background: #C0392B; }
+
+.toast.warning { border-left-color: #C99000; }
+.toast.warning .toast-icon { background: #C99000; }
+
+.toast.info { border-left-color: #0B1F3A; }
+.toast.info .toast-icon { background: #0B1F3A; }
+
+/* ================= MOBILE ================= */
+@media (max-width: 600px) {
+  #toastContainer {
+    top: auto;
+    bottom: 74px; /* au-dessus de la barre de navigation mobile fixe */
+    right: 10px;
+    left: 10px;
+    max-width: none;
+    width: auto;
+  }
+
+  .toast {
+    transform: translateY(120%);
+  }
+
+  @keyframes toastIn {
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes toastOut {
+    to { transform: translateY(120%); opacity: 0; }
+  }
+}
