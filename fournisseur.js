@@ -57,6 +57,9 @@ async function uploadToCloudinary(file) {
 
 
 // ================= SÉCURITÉ =================
+let currentShopName = "";
+let currentCategory = "";
+
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     alert("Connecte-toi !");
@@ -74,6 +77,11 @@ onAuthStateChanged(auth, async (user) => {
       alert("Cette page est réservée aux fournisseurs.");
       window.location.href = "index.html";
       return;
+    }
+
+    if (snap.exists()) {
+      currentShopName = snap.data().shopName || "";
+      currentCategory = snap.data().category || "";
     }
   } catch (err) {
     console.error(err);
@@ -256,6 +264,8 @@ async function saveAll() {
         image: imageUrl,
         userId: user.uid,
         userEmail: user.email,
+        shopName: currentShopName,
+        category: currentCategory,
         createdAt: new Date()
       });
     }
