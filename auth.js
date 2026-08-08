@@ -108,6 +108,16 @@ window.register = async function () {
       createdAt: new Date()
     });
 
+    // profil PUBLIC de la boutique (aucune donnée privée dedans) —
+    // c'est cette collection que boutiques.js peut lire librement
+    if (role === "fournisseur") {
+      await setDoc(doc(db, "shops", cred.user.uid), {
+        shopName,
+        category,
+        createdAt: new Date()
+      });
+    }
+
     // email de validation officiel Firebase (lien à cliquer pour activer le compte)
     await sendEmailVerification(cred.user);
 
