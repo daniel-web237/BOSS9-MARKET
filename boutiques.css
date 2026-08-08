@@ -1,0 +1,194 @@
+/* =====================================================
+   BOSS9 MARKET — BOUTIQUES.CSS
+===================================================== */
+
+:root {
+  --ink: #0B1F3A;
+  --ink-light: #16345C;
+  --paper: #F7F4EC;
+  --gold: #F2B705;
+  --gold-deep: #C99000;
+  --text: #14213D;
+  --muted: #5B5B5B;
+  --border: #E2DECF;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: var(--paper);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  font-family: 'Fraunces', serif;
+}
+
+/* ================= HEADER ================= */
+.dash-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--ink);
+  color: white;
+  padding: 16px 30px;
+}
+
+.dash-header .logo img {
+  height: 46px;
+}
+
+.dash-header a.back {
+  color: #EAEAEA;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.dash-header a.back:hover {
+  color: var(--gold);
+}
+
+/* ================= INTRO ================= */
+.boutiques-page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 50px 20px 80px;
+}
+
+.boutiques-page h2 {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.boutiques-page .sub {
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+/* ================= FILTRES CATÉGORIE ================= */
+.category-filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 36px;
+}
+
+.category-filters button {
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--text);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.category-filters button.active {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+}
+
+/* ================= GRILLE BOUTIQUES ================= */
+.shops-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 18px;
+}
+
+.shop-card {
+  background: white;
+  border-radius: 14px;
+  padding: 24px 20px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  transition: 0.25s;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shop-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.1);
+}
+
+.shop-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 22px;
+  margin-bottom: 14px;
+}
+
+.shop-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.shop-category {
+  display: inline-block;
+  background: #E9EEF5;
+  color: var(--ink-light);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
+
+.shop-count {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--muted);
+  padding: 60px 20px;
+  grid-column: 1 / -1;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 600px) {
+  .dash-header {
+    padding: 14px 18px;
+  }
+
+  .boutiques-page {
+    padding: 30px 16px 60px;
+  }
+
+  .shops-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .shop-card {
+    padding: 18px 12px;
+  }
+}
