@@ -202,7 +202,11 @@ window.login = async function () {
 
     const role = profile?.role;
 
-    window.location.href = (role === "fournisseur") ? "fournisseur.html" : "index.html";
+    let destination = "index.html";
+    if (role === "fournisseur") destination = "fournisseur.html";
+    if (role === "admin") destination = "admin.html";
+
+    window.location.href = destination;
 
   } catch (err) {
     showToast(err.message, "error", "Connexion impossible");
