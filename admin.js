@@ -3,7 +3,7 @@ import { initializeApp }
 from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 
 import {
-  getAuth, onAuthStateChanged
+  getAuth, onAuthStateChanged, signOut
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 import {
@@ -34,16 +34,19 @@ onAuthStateChanged(auth, async (user) => {
 
   try {
     const snap = await getDoc(doc(db, "users", user.uid));
-    const role = snap.exists() ? snap.data().role : null;
+    const profile = snap.exists() ? snap.data() : null;
 
-    if (role !== "admin") {
+    if (!profile || profile.role !== "admin") {
       showToast("Cette page est réservée aux administrateurs.", "error", "Accès refusé");
       setTimeout(() => { window.location.href = "index.html"; }, 1400);
       return;
     }
 
-    // accès validé, on charge tout
-    initTabs();
+    const name = profile.fullname || user.email;
+    document.getElementById("topbarName").textContent = name;
+    document.getElementById("topbarAvatar").textContent = name.charAt(0).toUpperCase();
+
+    initNav();
     loadEverything();
 
   } catch (err) {
@@ -53,15 +56,33 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 
-// ================= ONGLETS =================
-function initTabs() {
-  document.querySelectorAll(".admin-tab").forEach(tab => {
-    tab.addEventListener("click", () => {
-      document.querySelectorAll(".admin-tab").forEach(t => t.classList.remove("active"));
-      document.querySelectorAll(".admin-panel").forEach(p => p.classList.remove("active"));
-      tab.classList.add("active");
-      document.getElementById(`panel-${tab.dataset.tab}`).classList.add("active");
-    });
+// ================= NAVIGATION (sidebar) =================
+function switchView(viewName) {
+  document.querySelectorAll(".sidebar-link[data-view]").forEach(l => {
+    l.classList.toggle("active", l.dataset.view === viewName);
+  });
+  document.querySelectorAll(".admin-view").forEach(v => v.classList.remove("active"));
+  const target = document.getElementById(`view-${viewName}`);
+  if (target) target.classList.add("active");
+  document.getElementById("adminSidebar").classList.remove("open");
+}
+
+function initNav() {
+  document.querySelectorAll(".sidebar-link[data-view]").forEach(link => {
+    link.addEventListener("click", () => switchView(link.dataset.view));
+  });
+
+  document.querySelectorAll(".panel-link[data-view]").forEach(link => {
+    link.addEventListener("click", () => switchView(link.dataset.view));
+  });
+
+  document.getElementById("sidebarToggle").addEventListener("click", () => {
+    document.getElementById("adminSidebar").classList.toggle("open");
+  });
+
+  document.getElementById("logoutBtn").addEventListener("click", async () => {
+    await signOut(auth);
+    window.location.href = "login.html";
   });
 }
 
@@ -79,17 +100,202 @@ async function loadEverything() {
     loadOrders(),
     loadShops()
   ]);
-  renderOverview();
+  renderDashboard();
 }
 
-function renderOverview() {
+
+// ================= DASHBOARD =================
+function renderDashboard() {
+  renderStatCards();
+  renderLineChart();
+  renderDonutChart();
+  renderTopSuppliers();
+  renderAlerts();
+}
+
+function renderStatCards() {
   const supplierCount = usersCache.filter(u => u.role === "fournisseur").length;
   const revenue = ordersCache.reduce((sum, o) => sum + (o.total || 0), 0);
 
-  const values = [usersCache.length, supplierCount, productsCache.length, ordersCache.length, revenue];
-  document.querySelectorAll("#statsGrid .stat-value").forEach((el, i) => {
-    el.textContent = values[i].toLocaleString("fr-FR");
+  const cards = [
+    { icon: "👥", cls: "blue", value: usersCache.length, label: "Utilisateurs totaux" },
+    { icon: "🏪", cls: "green", value: supplierCount, label: "Fournisseurs" },
+    { icon: "📦", cls: "gold", value: productsCache.length, label: "Produits en ligne" },
+    { icon: "🛒", cls: "navy", value: ordersCache.length, label: "Commandes totales" },
+    { icon: "💰", cls: "rose", value: `${revenue.toLocaleString("fr-FR")} FCFA`, label: "Chiffre d'affaires" }
+  ];
+
+  document.getElementById("statsGrid").innerHTML = cards.map(c => `
+    <div class="stat-card">
+      <div class="stat-icon ${c.cls}">${c.icon}</div>
+      <div class="stat-info">
+        <div class="stat-value">${typeof c.value === "number" ? c.value.toLocaleString("fr-FR") : c.value}</div>
+        <div class="stat-label">${c.label}</div>
+      </div>
+    </div>
+  `).join("");
+}
+
+// graphique en ligne — chiffre d'affaires réel des 7 derniers jours
+function renderLineChart() {
+  const days = [];
+  const totals = [];
+
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    d.setHours(0, 0, 0, 0);
+    days.push(d);
+    totals.push(0);
+  }
+
+  ordersCache.forEach(o => {
+    const date = o.createdAt?.toDate ? o.createdAt.toDate() : null;
+    if (!date) return;
+    date.setHours(0, 0, 0, 0);
+
+    days.forEach((d, i) => {
+      if (d.getTime() === date.getTime()) {
+        totals[i] += o.total || 0;
+      }
+    });
   });
+
+  const max = Math.max(...totals, 1);
+  const width = 600;
+  const height = 160;
+  const step = width / (totals.length - 1);
+
+  const points = totals.map((t, i) => {
+    const x = i * step;
+    const y = height - (t / max) * (height - 20) - 10;
+    return `${x},${y}`;
+  }).join(" ");
+
+  const areaPoints = `0,${height} ${points} ${width},${height}`;
+
+  document.getElementById("lineChart").innerHTML = `
+    <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">
+      <polygon points="${areaPoints}" fill="rgba(242,183,5,0.15)"></polygon>
+      <polyline points="${points}" fill="none" stroke="#C99000" stroke-width="2.5"></polyline>
+      ${totals.map((t, i) => `<circle cx="${i * step}" cy="${height - (t / max) * (height - 20) - 10}" r="3.5" fill="#0B1F3A"></circle>`).join("")}
+    </svg>
+    <div class="line-chart-labels">
+      ${days.map(d => `<span>${d.toLocaleDateString("fr-FR", { weekday: "short" })}</span>`).join("")}
+    </div>
+  `;
+}
+
+// donut — répartition réelle des commandes par statut
+function renderDonutChart() {
+  const statuses = ["en attente", "expédiée", "livrée", "annulée"];
+  const colors = { "en attente": "#3E5FA8", "expédiée": "#C99000", "livrée": "#4C9F70", "annulée": "#C0392B" };
+
+  const counts = statuses.map(s => ordersCache.filter(o => (o.status || "en attente") === s).length);
+  const total = ordersCache.length || 1;
+
+  let cumulative = 0;
+  const segments = counts.map((count, i) => {
+    const pct = (count / total) * 100;
+    const seg = `${colors[statuses[i]]} ${cumulative}% ${cumulative + pct}%`;
+    cumulative += pct;
+    return seg;
+  });
+
+  const gradient = ordersCache.length
+    ? `conic-gradient(${segments.join(", ")})`
+    : "#E2DECF";
+
+  document.getElementById("donutChart").innerHTML = `
+    <div class="donut" style="background: ${gradient};">
+      <div class="donut-hole">
+        <div class="total-value">${ordersCache.length}</div>
+        <div class="total-label">commandes</div>
+      </div>
+    </div>
+    <div class="donut-legend">
+      ${statuses.map((s, i) => `
+        <div class="donut-legend-item">
+          <span class="donut-dot" style="background:${colors[s]}"></span>
+          <span style="text-transform:capitalize">${s}</span>
+          <span class="count">${counts[i]}</span>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+// top fournisseurs — calculé à partir des vraies commandes/produits
+function renderTopSuppliers() {
+  const revenueBySupplier = {};
+
+  ordersCache.forEach(o => {
+    (o.items || []).forEach(item => {
+      if (!item.supplierId) return;
+      revenueBySupplier[item.supplierId] = (revenueBySupplier[item.supplierId] || 0) + (item.price * item.qty);
+    });
+  });
+
+  const ranked = Object.entries(revenueBySupplier)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5);
+
+  const container = document.getElementById("topSuppliers");
+
+  if (ranked.length === 0) {
+    container.innerHTML = `<p class="empty-state">Pas encore assez de commandes pour établir un classement</p>`;
+    return;
+  }
+
+  container.innerHTML = ranked.map(([uid, revenue]) => {
+    const shop = shopsCache.find(s => s.id === uid);
+    const productCount = productsCache.filter(p => p.userId === uid).length;
+    return `
+      <div class="list-row">
+        <div class="list-row-main">
+          <div class="primary">${shop?.shopName || "Fournisseur"}</div>
+          <div class="secondary">${productCount} produit(s)</div>
+        </div>
+        <div class="secondary">${revenue.toLocaleString("fr-FR")} FCFA</div>
+      </div>
+    `;
+  }).join("");
+}
+
+// alertes — signaux réels utiles à un admin, rien d'inventé
+function renderAlerts() {
+  const container = document.getElementById("alertsList");
+  const alerts = [];
+
+  const pendingOrders = ordersCache.filter(o => (o.status || "en attente") === "en attente").length;
+  if (pendingOrders > 0) {
+    alerts.push({ icon: "⏳", primary: `${pendingOrders} commande(s) en attente`, secondary: "À traiter par les fournisseurs concernés" });
+  }
+
+  const noDescription = productsCache.filter(p => !p.description || !p.description.trim()).length;
+  if (noDescription > 0) {
+    alerts.push({ icon: "📝", primary: `${noDescription} produit(s) sans description`, secondary: "Qualité d'annonce à améliorer" });
+  }
+
+  const disabledUsers = usersCache.filter(u => u.disabled).length;
+  if (disabledUsers > 0) {
+    alerts.push({ icon: "🚫", primary: `${disabledUsers} compte(s) désactivé(s)`, secondary: "Comptes actuellement bloqués" });
+  }
+
+  if (alerts.length === 0) {
+    container.innerHTML = `<p class="empty-state">Aucune alerte pour le moment</p>`;
+    return;
+  }
+
+  container.innerHTML = alerts.map(a => `
+    <div class="alert-row">
+      <span class="alert-icon">${a.icon}</span>
+      <div>
+        <div class="primary">${a.primary}</div>
+        <div class="secondary">${a.secondary}</div>
+      </div>
+    </div>
+  `).join("");
 }
 
 
@@ -119,9 +325,7 @@ async function loadUsers() {
           </select>
           ${u.disabled ? '<span class="disabled-tag">Désactivé</span>' : ""}
         </td>
-        <td>
-          <button class="btn-mini toggle-disabled">${u.disabled ? "Réactiver" : "Désactiver"}</button>
-        </td>
+        <td><button class="btn-mini toggle-disabled">${u.disabled ? "Réactiver" : "Désactiver"}</button></td>
       </tr>
     `).join("");
 
@@ -198,7 +402,7 @@ async function loadProducts() {
         try {
           await deleteDoc(doc(db, "products", id));
           showToast("Le produit a été retiré de la boutique.", "success", "Produit supprimé");
-          loadProducts();
+          loadProducts().then(renderDashboard);
         } catch (err) {
           showToast(err.message, "error", "Échec de la suppression");
         }
@@ -228,6 +432,7 @@ async function loadOrders() {
 
     body.innerHTML = ordersCache.map(o => {
       const date = o.createdAt?.toDate ? o.createdAt.toDate().toLocaleDateString("fr-FR") : "";
+      const status = o.status || "en attente";
       return `
         <tr data-id="${o.id}">
           <td>${o.userName || o.userEmail}</td>
@@ -235,10 +440,10 @@ async function loadOrders() {
           <td>${o.total} FCFA</td>
           <td>
             <select class="status-select">
-              <option value="en attente" ${o.status === "en attente" ? "selected" : ""}>En attente</option>
-              <option value="expédiée" ${o.status === "expédiée" ? "selected" : ""}>Expédiée</option>
-              <option value="livrée" ${o.status === "livrée" ? "selected" : ""}>Livrée</option>
-              <option value="annulée" ${o.status === "annulée" ? "selected" : ""}>Annulée</option>
+              <option value="en attente" ${status === "en attente" ? "selected" : ""}>En attente</option>
+              <option value="expédiée" ${status === "expédiée" ? "selected" : ""}>Expédiée</option>
+              <option value="livrée" ${status === "livrée" ? "selected" : ""}>Livrée</option>
+              <option value="annulée" ${status === "annulée" ? "selected" : ""}>Annulée</option>
             </select>
           </td>
           <td>${date}</td>
@@ -252,6 +457,7 @@ async function loadOrders() {
         try {
           await updateDoc(doc(db, "orders", id), { status: e.target.value });
           showToast("Le statut de la commande a été mis à jour.", "success", "Commande modifiée");
+          loadOrders().then(renderDashboard);
         } catch (err) {
           showToast(err.message, "error", "Échec de la modification");
         }
