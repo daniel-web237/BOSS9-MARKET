@@ -1,0 +1,255 @@
+:root {
+  --ink: #0B1F3A;
+  --ink-light: #16345C;
+  --paper: #F7F4EC;
+  --gold: #F2B705;
+  --gold-deep: #C99000;
+  --text: #14213D;
+  --muted: #5B5B5B;
+  --border: #E2DECF;
+  --danger: #C0392B;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: var(--paper);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  font-family: 'Fraunces', serif;
+}
+
+/* ================= HEADER ================= */
+.dash-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--ink);
+  color: white;
+  padding: 16px 30px;
+}
+
+.dash-header .logo img {
+  height: 42px;
+}
+
+.admin-badge {
+  background: var(--gold);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.dash-header a.back {
+  color: #EAEAEA;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.dash-header a.back:hover {
+  color: var(--gold);
+}
+
+/* ================= LAYOUT ================= */
+.admin-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px 24px 80px;
+}
+
+/* ================= ONGLETS ================= */
+.admin-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+
+.admin-tab {
+  background: none;
+  border: none;
+  padding: 12px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: 0.2s;
+}
+
+.admin-tab:hover {
+  color: var(--ink);
+}
+
+.admin-tab.active {
+  color: var(--gold-deep);
+  border-bottom-color: var(--gold);
+}
+
+.admin-panel {
+  display: none;
+}
+
+.admin-panel.active {
+  display: block;
+}
+
+/* ================= STATS (vue d'ensemble) ================= */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.stat-card .stat-value {
+  font-family: 'Fraunces', serif;
+  font-size: 28px;
+  color: var(--ink);
+}
+
+.stat-card .stat-label {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ================= TABLE GÉNÉRIQUE ================= */
+.admin-table-wrap {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  overflow-x: auto;
+}
+
+table.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 600px;
+}
+
+.admin-table th {
+  text-align: left;
+  padding: 12px 16px;
+  background: var(--paper);
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.admin-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.role-tag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+  text-transform: capitalize;
+}
+
+.role-tag.acheteur { background: #E9EEF5; color: var(--ink-light); }
+.role-tag.fournisseur { background: #FCF1D2; color: var(--gold-deep); }
+.role-tag.admin { background: var(--ink); color: var(--gold); }
+
+.disabled-tag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: #FBEAEA;
+  color: var(--danger);
+  margin-left: 6px;
+}
+
+.admin-table select {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font-size: 12px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.btn-mini {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: white;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-right: 6px;
+}
+
+.btn-mini:hover {
+  border-color: var(--gold-deep);
+  color: var(--gold-deep);
+}
+
+.btn-mini.danger:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.table-thumb {
+  width: 42px;
+  height: 42px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: #EDE7D8;
+}
+
+.empty-state {
+  color: var(--muted);
+  font-size: 13px;
+  font-style: italic;
+  padding: 30px;
+  text-align: center;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 700px) {
+  .dash-header {
+    padding: 14px 18px;
+  }
+
+  .admin-page {
+    padding: 20px 14px 70px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
