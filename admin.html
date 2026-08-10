@@ -12,114 +12,156 @@
 
 <body>
 
-<header class="dash-header">
-  <a href="index.html" class="logo"><img src="logo.png" alt="BOSS9 Market"></a>
-  <div>
-    <span>Administration</span><span class="admin-badge">ADMIN</span>
+<!-- SIDEBAR -->
+<aside class="admin-sidebar" id="adminSidebar">
+  <div class="sidebar-brand">
+    <img src="logo.png" alt="BOSS9 Market">
+    <div class="sidebar-brand-text">
+      <div class="name">BOSS9 Market</div>
+      <div class="sub">Panneau Administrateur</div>
+    </div>
   </div>
-  <a href="index.html" class="back">← Retour au site</a>
-</header>
 
-<main class="admin-page">
+  <nav class="sidebar-nav">
+    <div class="sidebar-section-label">Tableau de bord</div>
+    <button class="sidebar-link active" data-view="dashboard"><span class="icon">🏠</span>Dashboard</button>
 
-  <nav class="admin-tabs">
-    <button class="admin-tab active" data-tab="overview">Vue d'ensemble</button>
-    <button class="admin-tab" data-tab="users">Utilisateurs</button>
-    <button class="admin-tab" data-tab="products">Produits</button>
-    <button class="admin-tab" data-tab="orders">Commandes</button>
-    <button class="admin-tab" data-tab="shops">Boutiques</button>
+    <div class="sidebar-section-label">Gestion</div>
+    <button class="sidebar-link" data-view="users"><span class="icon">👥</span>Utilisateurs</button>
+    <button class="sidebar-link" data-view="products"><span class="icon">📦</span>Produits</button>
+    <button class="sidebar-link" data-view="orders"><span class="icon">🛒</span>Commandes</button>
+    <button class="sidebar-link" data-view="shops"><span class="icon">🏪</span>Boutiques</button>
+
+    <div class="sidebar-section-label">Bientôt disponible</div>
+    <button class="sidebar-link" data-view="soon"><span class="icon">💳</span>Paiements</button>
+    <button class="sidebar-link" data-view="soon"><span class="icon">🚩</span>Réclamations</button>
+    <button class="sidebar-link" data-view="soon"><span class="icon">📢</span>Promotions</button>
+    <button class="sidebar-link" data-view="soon"><span class="icon">📜</span>Journal d'activités</button>
   </nav>
 
-  <!-- VUE D'ENSEMBLE -->
-  <section class="admin-panel active" id="panel-overview">
-    <div class="stats-grid" id="statsGrid">
-      <div class="stat-card"><div class="stat-value">...</div><div class="stat-label">Utilisateurs</div></div>
-      <div class="stat-card"><div class="stat-value">...</div><div class="stat-label">Fournisseurs</div></div>
-      <div class="stat-card"><div class="stat-value">...</div><div class="stat-label">Produits</div></div>
-      <div class="stat-card"><div class="stat-value">...</div><div class="stat-label">Commandes</div></div>
-      <div class="stat-card"><div class="stat-value">...</div><div class="stat-label">Chiffre d'affaires (FCFA)</div></div>
-    </div>
-  </section>
+  <div class="sidebar-footer">
+    <button class="btn-logout" id="logoutBtn">↩ Déconnexion</button>
+  </div>
+</aside>
 
-  <!-- UTILISATEURS -->
-  <section class="admin-panel" id="panel-users">
-    <div class="admin-table-wrap">
-      <table class="admin-table">
-        <thead>
-          <tr>
-            <th>Nom</th>
-            <th>Email</th>
-            <th>Téléphone</th>
-            <th>Rôle</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="usersTableBody">
-          <tr><td colspan="5" class="empty-state">Chargement...</td></tr>
-        </tbody>
-      </table>
+<!-- MAIN -->
+<div class="admin-main">
+  <header class="admin-topbar">
+    <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+    <div class="topbar-search">🔍 Rechercher un utilisateur, produit, commande...</div>
+    <div class="topbar-profile">
+      <div class="topbar-avatar" id="topbarAvatar">?</div>
+      <div class="topbar-profile-text">
+        <div class="name" id="topbarName">Chargement...</div>
+        <div class="role">Administrateur</div>
+      </div>
     </div>
-  </section>
+  </header>
 
-  <!-- PRODUITS -->
-  <section class="admin-panel" id="panel-products">
-    <div class="admin-table-wrap">
-      <table class="admin-table">
-        <thead>
-          <tr>
-            <th>Photo</th>
-            <th>Nom</th>
-            <th>Prix</th>
-            <th>Fournisseur</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="productsTableBody">
-          <tr><td colspan="5" class="empty-state">Chargement...</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+  <main class="admin-content">
 
-  <!-- COMMANDES -->
-  <section class="admin-panel" id="panel-orders">
-    <div class="admin-table-wrap">
-      <table class="admin-table">
-        <thead>
-          <tr>
-            <th>Acheteur</th>
-            <th>Articles</th>
-            <th>Total</th>
-            <th>Statut</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody id="ordersTableBody">
-          <tr><td colspan="5" class="empty-state">Chargement...</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    <!-- DASHBOARD -->
+    <section class="admin-view active" id="view-dashboard">
+      <div class="content-header">
+        <div class="icon-badge">🏠</div>
+        <div>
+          <h1>Dashboard</h1>
+          <p>Vue d'ensemble de la plateforme</p>
+        </div>
+      </div>
 
-  <!-- BOUTIQUES -->
-  <section class="admin-panel" id="panel-shops">
-    <div class="admin-table-wrap">
-      <table class="admin-table">
-        <thead>
-          <tr>
-            <th>Nom de la boutique</th>
-            <th>Catégorie</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="shopsTableBody">
-          <tr><td colspan="3" class="empty-state">Chargement...</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+      <div class="stats-grid" id="statsGrid"></div>
 
-</main>
+      <div class="charts-row">
+        <div class="panel-card">
+          <h3>Chiffre d'affaires — 7 derniers jours</h3>
+          <div class="line-chart-wrap" id="lineChart"></div>
+        </div>
+        <div class="panel-card">
+          <h3>Répartition des commandes</h3>
+          <div class="donut-wrap" id="donutChart"></div>
+        </div>
+      </div>
+
+      <div class="bottom-row">
+        <div class="panel-card">
+          <h3>Top fournisseurs <span class="panel-link" data-view="shops">Voir tout</span></h3>
+          <div class="simple-list" id="topSuppliers"></div>
+        </div>
+        <div class="panel-card">
+          <h3>Alertes <span class="panel-link" data-view="orders">Voir tout</span></h3>
+          <div class="simple-list" id="alertsList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- UTILISATEURS -->
+    <section class="admin-view" id="view-users">
+      <div class="content-header">
+        <div class="icon-badge">👥</div>
+        <div><h1>Utilisateurs</h1><p>Gère les comptes acheteurs et fournisseurs</p></div>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>Nom</th><th>Email</th><th>Téléphone</th><th>Rôle</th><th>Actions</th></tr></thead>
+          <tbody id="usersTableBody"><tr><td colspan="5" class="empty-state">Chargement...</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PRODUITS -->
+    <section class="admin-view" id="view-products">
+      <div class="content-header">
+        <div class="icon-badge">📦</div>
+        <div><h1>Produits</h1><p>Modère les produits publiés sur la plateforme</p></div>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>Photo</th><th>Nom</th><th>Prix</th><th>Fournisseur</th><th>Actions</th></tr></thead>
+          <tbody id="productsTableBody"><tr><td colspan="5" class="empty-state">Chargement...</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- COMMANDES -->
+    <section class="admin-view" id="view-orders">
+      <div class="content-header">
+        <div class="icon-badge">🛒</div>
+        <div><h1>Commandes</h1><p>Suit et met à jour le statut de toutes les commandes</p></div>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>Acheteur</th><th>Articles</th><th>Total</th><th>Statut</th><th>Date</th></tr></thead>
+          <tbody id="ordersTableBody"><tr><td colspan="5" class="empty-state">Chargement...</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- BOUTIQUES -->
+    <section class="admin-view" id="view-shops">
+      <div class="content-header">
+        <div class="icon-badge">🏪</div>
+        <div><h1>Boutiques</h1><p>Gère l'annuaire public des boutiques</p></div>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>Nom de la boutique</th><th>Catégorie</th><th>Actions</th></tr></thead>
+          <tbody id="shopsTableBody"><tr><td colspan="3" class="empty-state">Chargement...</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- BIENTÔT DISPONIBLE -->
+    <section class="admin-view" id="view-soon">
+      <div class="content-header">
+        <div class="icon-badge">🚧</div>
+        <div><h1>Bientôt disponible</h1><p>Cette section n'est pas encore construite</p></div>
+      </div>
+      <div class="coming-soon">Cette fonctionnalité arrive dans une prochaine mise à jour du panneau admin.</div>
+    </section>
+
+  </main>
+</div>
 
 <script type="module" src="admin.js"></script>
 
