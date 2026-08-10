@@ -176,15 +176,31 @@ window.login = async function () {
       return;
     }
 
-    // on essaie de lire le rôle, mais on ne bloque pas la redirection
+    // on essaie de lire le profil, mais on ne bloque pas la redirection
     // dessus s'il traîne trop longtemps (réseau lent/instable)
-    const roleLookup = getDoc(doc(db, "users", cred.user.uid))
-      .then(snap => snap.exists() ? snap.data().role : null)
+    const profileLookup = getDoc(doc(db, "users", cred.user.uid))
+      .then(snap => snap.exists() ? snap.data() : null)
       .catch(() => null);
 
     const timeout = new Promise(resolve => setTimeout(() => resolve(null), 4000));
 
-    const role = await Promise.race([roleLookup, timeout]);
+    const profile = await Promise.race([profileLookup, timeout]);
+
+    if (profile?.disabled) {
+      await signOut(auth);
+      showToast(
+        "Ce compte a été désactivé. Contacte le support si tu penses que c'est une erreur.",
+        "error",
+        "Compte désactivé"
+      );
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = "Se connecter";
+      }
+      return;
+    }
+
+    const role = profile?.role;
 
     window.location.href = (role === "fournisseur") ? "fournisseur.html" : "index.html";
 
