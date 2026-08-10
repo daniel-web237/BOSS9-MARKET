@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administration — BOSS9 Market</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="toast.css">
+  <script src="toast.js"></script>
+</head>
+
+<body>
+
+<header class="dash-header">
+  <a href="index.html" class="logo"><img src="logo.png" alt="BOSS9 Market"></a>
+  <div>
+    <span>Administration</span><span class="admin-badge">ADMIN</span>
+  </div>
+  <a href="index.html" class="back">← Retour au site</a>
+</header>
+
+<main class="admin-page">
+
+  <nav class="admin-tabs">
+    <button class="admin-tab active" data-tab="overview">Vue d'ensemble</button>
+    <button class="admin-tab" data-tab="users">Utilisateurs</button>
+    <button class="admin-tab" data-tab="products">Produits</button>
+    <button class="admin-tab" data-tab="orders">Commandes</button>
+    <button class="admin-tab" data-tab="shops">Boutiques</button>
+  </nav>
+
+  <!-- VUE D'ENSEMBLE -->
+  <section class="admin-panel active" id="panel-overview">
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-card"><div class="stat-value">...</div><div class="stat-label">Utilisateurs</div></div>
+      <div class="stat-card"><div class="stat-value">...</div><div class="stat-label">Fournisseurs</div></div>
+      <div class="stat-card"><div class="stat-value">...</div><div class="stat-label">Produits</div></div>
+      <div class="stat-card"><div class="stat-value">...</div><div class="stat-label">Commandes</div></div>
+      <div class="stat-card"><div class="stat-value">...</div><div class="stat-label">Chiffre d'affaires (FCFA)</div></div>
+    </div>
+  </section>
+
+  <!-- UTILISATEURS -->
+  <section class="admin-panel" id="panel-users">
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Téléphone</th>
+            <th>Rôle</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="usersTableBody">
+          <tr><td colspan="5" class="empty-state">Chargement...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- PRODUITS -->
+  <section class="admin-panel" id="panel-products">
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Photo</th>
+            <th>Nom</th>
+            <th>Prix</th>
+            <th>Fournisseur</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="productsTableBody">
+          <tr><td colspan="5" class="empty-state">Chargement...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- COMMANDES -->
+  <section class="admin-panel" id="panel-orders">
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Acheteur</th>
+            <th>Articles</th>
+            <th>Total</th>
+            <th>Statut</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="ordersTableBody">
+          <tr><td colspan="5" class="empty-state">Chargement...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- BOUTIQUES -->
+  <section class="admin-panel" id="panel-shops">
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Nom de la boutique</th>
+            <th>Catégorie</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="shopsTableBody">
+          <tr><td colspan="3" class="empty-state">Chargement...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<script type="module" src="admin.js"></script>
+
+</body>
+</html>
