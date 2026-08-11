@@ -4,8 +4,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" sizes="32x32" href="favicon-32.png">
-<link rel="icon" sizes="16x16" href="favicon-16.png">
   <title>BOSS9 Market</title>
 
   <link rel="stylesheet" href="style.css">
@@ -80,19 +78,30 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="side acheteur">
-    <div class="eyebrow">Je veux acheter</div>
-    <h1>Trouvez ce qu'il vous faut, livré en confiance</h1>
-    <p>Des centaines de produits vérifiés, vendus par des fournisseurs locaux évalués par la communauté.</p>
-    <a href="#produits" class="cta">Commencer mes achats</a>
+<section class="hero-carousel" id="heroCarousel">
+  <div class="hero-slide active">
+    <div class="side acheteur">
+      <div class="eyebrow">Je veux acheter</div>
+      <h1>Trouvez ce qu'il vous faut, livré en confiance</h1>
+      <p>Des centaines de produits vérifiés, vendus par des fournisseurs locaux évalués par la communauté.</p>
+      <a href="#produits" class="cta">Commencer mes achats</a>
+    </div>
+    <div class="side fournisseur">
+      <div class="divider"></div>
+      <div class="eyebrow">Je veux vendre</div>
+      <h1>Ouvrez votre boutique en quelques minutes</h1>
+      <p>Créez votre profil fournisseur, publiez vos produits et recevez vos commandes directement par email.</p>
+      <a href="fournisseur.html" class="cta">Devenir fournisseur</a>
+    </div>
   </div>
-  <div class="side fournisseur">
-    <div class="divider"></div>
-    <div class="eyebrow">Je veux vendre</div>
-    <h1>Ouvrez votre boutique en quelques minutes</h1>
-    <p>Créez votre profil fournisseur, publiez vos produits et recevez vos commandes directement par email.</p>
-    <a href="fournisseur.html" class="cta">Devenir fournisseur</a>
+
+  <div class="hero-slide">
+    <img src="hero-banner.png" alt="BOSS9 Market — Plus qu'un market, une opportunité pour tous" class="hero-banner-img">
+  </div>
+
+  <div class="hero-dots">
+    <button class="hero-dot active" data-slide="0" aria-label="Diapositive 1"></button>
+    <button class="hero-dot" data-slide="1" aria-label="Diapositive 2"></button>
   </div>
 </section>
 
