@@ -4,15 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" sizes="32x32" href="favicon-32.png">
-<link rel="icon" sizes="16x16" href="favicon-16.png">
   <title>BOSS9 Market</title>
 
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="toast.css">
+  <script src="toast.js"></script>
 </head>
 
 <body>
+
 <!-- LOADER -->
 <div id="loader">
   <div class="spinner"></div>
@@ -26,14 +27,19 @@
     </a>
 
     <div class="search-box">
-      <select class="search-category">
+      <select class="search-category" id="categoryFilter">
         <option value="all">Toutes catégories</option>
         <option value="mode">Mode</option>
         <option value="electronique">Électronique</option>
         <option value="maison">Maison</option>
         <option value="beaute">Beauté</option>
+        <option value="alimentation">Alimentation</option>
+        <option value="autre">Autre</option>
       </select>
-      <input type="text" id="searchInput" placeholder="Rechercher un produit, une marque...">
+      <div class="search-input-wrap">
+        <input type="text" id="searchInput" placeholder="Rechercher un produit, une marque..." autocomplete="off">
+        <div class="search-suggestions" id="searchSuggestions"></div>
+      </div>
       <button id="searchBtn" aria-label="Rechercher">🔍 <span class="search-btn-text">Rechercher</span></button>
     </div>
 
