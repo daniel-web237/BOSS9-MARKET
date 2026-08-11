@@ -490,32 +490,6 @@ a {
   background: rgba(0,0,0,0.15);
 }
 
-/* ================= STATS ================= */
-.stats {
-  display: flex;
-  justify-content: center;
-  gap: 60px;
-  padding: 26px;
-  background: var(--ink);
-  color: white;
-}
-
-.stats div {
-  text-align: center;
-}
-
-.stats strong {
-  display: block;
-  font-family: 'Fraunces', serif;
-  font-size: 22px;
-  color: var(--gold);
-}
-
-.stats span {
-  font-size: 12px;
-  opacity: 0.75;
-}
-
 /* ================= PRODUITS ================= */
 section {
   margin-bottom: 0;
@@ -768,11 +742,6 @@ section {
   .side h1 {
     font-size: 28px;
   }
-
-  .stats {
-    gap: 30px;
-    flex-wrap: wrap;
-  }
 }
 
 /* =====================================================
@@ -874,11 +843,6 @@ section {
 
   .side p {
     max-width: 100%;
-  }
-
-  .stats {
-    gap: 20px;
-    padding: 20px;
   }
 
   .products {
