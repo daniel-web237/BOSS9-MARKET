@@ -383,6 +383,57 @@ window.logout = function () {
 };
 
 
+// ================= CARROUSEL HERO =================
+function initHeroCarousel() {
+  const carousel = document.getElementById("heroCarousel");
+  if (!carousel) return;
+
+  const slides = carousel.querySelectorAll(".hero-slide");
+  const dots = carousel.querySelectorAll(".hero-dot");
+  let current = 0;
+  let timer = null;
+
+  function syncHeight() {
+    const activeSlide = slides[current];
+    carousel.style.height = activeSlide.offsetHeight + "px";
+  }
+
+  function goTo(index) {
+    slides[current].classList.remove("active");
+    dots[current].classList.remove("active");
+    current = index;
+    slides[current].classList.add("active");
+    dots[current].classList.add("active");
+    syncHeight();
+  }
+
+  function next() {
+    goTo((current + 1) % slides.length);
+  }
+
+  function startAutoplay() {
+    clearInterval(timer);
+    timer = setInterval(next, 6000);
+  }
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener("click", () => {
+      goTo(i);
+      startAutoplay();
+    });
+  });
+
+  // recalcule la hauteur si l'écran change de taille (rotation mobile, redimensionnement)
+  window.addEventListener("resize", syncHeight);
+
+  // laisse le temps aux images de charger avant de mesurer la hauteur
+  window.addEventListener("load", syncHeight);
+
+  syncHeight();
+  startAutoplay();
+}
+
+
 // ================= START =================
 loadProducts();
 initSearch();
@@ -390,3 +441,4 @@ initReveal();
 initCartButtons();
 updateCartCount();
 initMobileMenu();
+initHeroCarousel();
