@@ -434,7 +434,9 @@ a {
 
 .hero-banner-img {
   width: 100%;
-  height: auto;
+  height: 420px;
+  object-fit: cover;
+  object-position: center 20%;
   display: block;
 }
 
@@ -837,6 +839,10 @@ section {
   body {
     overflow-x: hidden;
     padding-bottom: 62px; /* laisse la place pour la barre du bas fixe */
+  }
+
+  .hero-banner-img {
+    height: 280px;
   }
 
   /* HEADER — logo + recherche sur UNE seule ligne, compact */
