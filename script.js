@@ -55,12 +55,17 @@ function renderProducts(products) {
   container.innerHTML = "";
 
   products.forEach(p => {
+    const formattedPrice = Number(p.price).toLocaleString("fr-FR");
+
     container.innerHTML += `
       <div class="product-card" data-open-id="${p.id}">
-        <img src="${p.image}" alt="${p.name}">
+        <div class="product-img-wrap">
+          ${p.category ? `<span class="product-badge">${p.category}</span>` : ""}
+          <img src="${p.image}" alt="${p.name}">
+        </div>
         <h4>${p.name}</h4>
-        <p>${p.price} FCFA</p>
-        <button class="btn-cart" data-id="${p.id}">Ajouter au panier 🛒</button>
+        <p class="product-price"><span class="price-value">${formattedPrice}</span><span class="price-currency">FCFA</span></p>
+        <button class="btn-cart" data-id="${p.id}"><span class="cart-icon">🛒</span>Ajouter au panier</button>
       </div>
     `;
   });
