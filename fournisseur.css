@@ -92,12 +92,14 @@ h1, h2, h3 {
 
 .field label {
   display: block;
+  min-height: 30px; /* réserve la place pour un label sur 2 lignes, aligne tous les champs de la rangée */
   font-size: 12px;
   font-weight: 600;
   color: var(--muted);
   margin-bottom: 6px;
   text-transform: uppercase;
   letter-spacing: 0.4px;
+  line-height: 1.4;
 }
 
 .field input {
