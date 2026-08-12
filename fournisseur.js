@@ -158,7 +158,7 @@ function addToList() {
   // tolère "15 000", "15,000", "15.000" — on garde juste les chiffres
   const priceRaw = priceInput.value.replace(/[^0-9]/g, "");
   const price = priceRaw ? Number(priceRaw) : null;
-  const imageFile = imageInput.files[0];
+  const imageFiles = Array.from(imageInput.files);
   const description = descriptionInput.value.trim();
 
   if (!name) {
@@ -173,8 +173,8 @@ function addToList() {
     return;
   }
 
-  if (!imageFile) {
-    showToast("Choisis une photo pour ce produit.", "warning", "Photo manquante");
+  if (imageFiles.length === 0) {
+    showToast("Choisis au moins une photo pour ce produit.", "warning", "Photo manquante");
     imageInput.focus();
     return;
   }
@@ -182,8 +182,8 @@ function addToList() {
   tempProducts.push({
     name,
     price,
-    imageFile,
-    previewUrl: URL.createObjectURL(imageFile), // aperçu local, avant upload
+    imageFiles,
+    previewUrls: imageFiles.map(f => URL.createObjectURL(f)), // aperçu local, avant upload
     description
   });
 
@@ -192,7 +192,7 @@ function addToList() {
   priceInput.value = "";
   imageInput.value = "";
   descriptionInput.value = "";
-  document.getElementById("imagePreview").classList.remove("show");
+  document.getElementById("imagePreviewList").innerHTML = "";
   nameInput.focus();
 
   displayPreview();
@@ -214,7 +214,8 @@ function displayPreview() {
     preview.innerHTML += `
       <div class="preview-card">
         <button class="remove" onclick="removeItem(${index})">✕</button>
-        <img src="${p.previewUrl}" alt="${p.name}">
+        <img src="${p.previewUrls[0]}" alt="${p.name}">
+        ${p.previewUrls.length > 1 ? `<span class="photo-count">+${p.previewUrls.length - 1} photo(s)</span>` : ""}
         <p>${p.name}</p>
         <p class="price">${p.price} FCFA</p>
       </div>
@@ -251,17 +252,21 @@ async function saveAll() {
     let done = 0;
 
     for (let p of tempProducts) {
-      done++;
-      saveBtn.textContent = `Envoi de la photo ${done}/${tempProducts.length}...`;
+      const imageUrls = [];
 
-      // upload de la photo vers Cloudinary
-      const imageUrl = await uploadToCloudinary(p.imageFile);
+      for (let i = 0; i < p.imageFiles.length; i++) {
+        done++;
+        saveBtn.textContent = `Envoi photo ${i + 1}/${p.imageFiles.length} (produit ${tempProducts.indexOf(p) + 1}/${tempProducts.length})...`;
+        const url = await uploadToCloudinary(p.imageFiles[i]);
+        imageUrls.push(url);
+      }
 
       await addDoc(collection(db, "products"), {
         name: p.name,
         price: p.price,
         description: p.description,
-        image: imageUrl,
+        image: imageUrls[0],   // photo de couverture (compatibilité avec le reste du site)
+        images: imageUrls,     // toutes les photos, pour la galerie sur la fiche produit
         userId: user.uid,
         userEmail: user.email,
         shopName: currentShopName,
@@ -290,15 +295,10 @@ document.getElementById("addBtn").addEventListener("click", addToList);
 document.getElementById("saveBtn").addEventListener("click", saveAll);
 
 document.getElementById("imageFile").addEventListener("change", (e) => {
-  const file = e.target.files[0];
-  const preview = document.getElementById("imagePreview");
+  const files = Array.from(e.target.files);
+  const list = document.getElementById("imagePreviewList");
 
-  if (file) {
-    preview.src = URL.createObjectURL(file);
-    preview.classList.add("show");
-  } else {
-    preview.classList.remove("show");
-  }
+  list.innerHTML = files.map(f => `<img src="${URL.createObjectURL(f)}" alt="Aperçu">`).join("");
 });
 
 
