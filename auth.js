@@ -8,7 +8,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  sendEmailVerification
+  sendEmailVerification,
+  sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 import {
@@ -240,3 +241,50 @@ onAuthStateChanged(auth, (user) => {
     userBox.innerHTML = `<a href="login.html">Connexion</a>`;
   }
 });
+
+
+// ================= MOT DE PASSE OUBLIÉ =================
+window.sendResetLink = async function () {
+  const emailInput = document.getElementById("resetEmail");
+  const email = emailInput?.value.trim();
+
+  if (!email) {
+    showToast("Indique ton adresse email.", "warning", "Champ manquant");
+    return;
+  }
+
+  const btn = document.querySelector(".auth-btn");
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = "Envoi en cours...";
+  }
+
+  try {
+    await sendPasswordResetEmail(auth, email);
+  } catch (err) {
+    // on ignore volontairement "utilisateur introuvable" — voir note ci-dessous
+    if (err.code !== "auth/user-not-found") {
+      showToast(err.message, "error", "Échec de l'envoi");
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = "Envoyer le lien";
+      }
+      return;
+    }
+  }
+
+  // Message volontairement identique, que l'email existe ou non chez nous —
+  // ça évite de révéler à quelqu'un de malveillant quelles adresses ont
+  // un compte BOSS9 Market. Si l'email existe vraiment, le lien arrive ;
+  // sinon, rien ne se passe silencieusement, sans donner d'indice.
+  showToast(
+    "Si un compte existe avec cette adresse, un lien de réinitialisation vient d'être envoyé.",
+    "success",
+    "Vérifie ta boîte mail"
+  );
+
+  if (btn) {
+    btn.disabled = false;
+    btn.textContent = "Envoyer le lien";
+  }
+};
