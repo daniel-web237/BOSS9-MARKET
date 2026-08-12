@@ -88,6 +88,33 @@ body {
   padding: 13px 11px;
 }
 
+.input-group.has-toggle input {
+  padding-right: 42px;
+}
+
+.input-group.has-toggle input:focus {
+  padding-right: 41px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--muted);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.toggle-password:hover {
+  color: var(--gold-deep);
+}
+
 /* LABEL FLOTTANT */
 .input-group label {
   position: absolute;
