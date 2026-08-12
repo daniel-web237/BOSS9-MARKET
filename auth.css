@@ -162,6 +162,21 @@ body {
 }
 
 /* LIEN */
+.forgot-password {
+  text-align: right;
+  margin: -12px 0 18px;
+}
+
+.forgot-password a {
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.forgot-password a:hover {
+  color: var(--gold-deep);
+}
+
 .auth-link {
   margin-top: 22px;
   font-size: 13px;
