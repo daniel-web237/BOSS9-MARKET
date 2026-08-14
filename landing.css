@@ -1,0 +1,526 @@
+/* =====================================================
+   BOSS9 MARKET — LANDING.CSS
+   Feuille de style dédiée à la page d'accueil marketing.
+   Ne modifie rien de style.css : le header réutilise les
+   classes du site (.header / .header-top / .search-box /
+   .actions) pour rester identique au reste du site.
+===================================================== */
+
+:root {
+  --lp-blue: #2F5FE0;
+  --lp-blue-deep: #1E44B8;
+  --lp-blue-soft: #E8EFFE;
+  --lp-bg-a: #EEF3FE;
+  --lp-bg-b: #F7F5FF;
+  --lp-ink: #0F1B3D;
+  --lp-muted: #5C6478;
+  --lp-card-shadow: 0 20px 45px rgba(15, 27, 61, 0.12);
+}
+
+.landing-body {
+  overflow-x: hidden;
+}
+
+/* ---- Header : mêmes classes que le site, léger réglage du lien Compte ---- */
+.landing-header .actions {
+  gap: 22px;
+}
+
+.landing-account {
+  background: rgba(242, 183, 5, 0.14);
+  border: 1px solid rgba(242, 183, 5, 0.45);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.landing-account:hover {
+  background: var(--gold);
+  color: var(--ink) !important;
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+.landing-hero {
+  position: relative;
+  background: linear-gradient(160deg, var(--lp-bg-a) 0%, var(--lp-bg-b) 55%, #FBFAFF 100%);
+  overflow: hidden;
+  padding: 64px 0 0;
+}
+
+/* fond "carte du monde" en pointillés, très discret */
+.landing-map {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(47, 95, 224, 0.16) 1.4px, transparent 1.4px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 68% 42%, black 40%, transparent 78%);
+  mask-image: radial-gradient(ellipse 70% 60% at 68% 42%, black 40%, transparent 78%);
+  pointer-events: none;
+}
+
+.landing-hero-inner {
+  position: relative;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 56px 40px 100px;
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 40px;
+  align-items: center;
+}
+
+/* ---- Colonne texte ---- */
+.landing-eyebrow {
+  display: inline-block;
+  background: var(--lp-blue-soft);
+  color: var(--lp-blue);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: 20px;
+  margin-bottom: 22px;
+}
+
+.landing-hero-text h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 50px;
+  line-height: 1.12;
+  color: var(--lp-ink);
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.landing-hero-text h1 .accent {
+  color: var(--lp-blue);
+}
+
+.landing-lead {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--lp-muted);
+  max-width: 460px;
+  margin-bottom: 36px;
+}
+
+.landing-features {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(15, 27, 61, 0.06);
+  border-radius: 20px;
+  padding: 26px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px 26px;
+  margin-bottom: 36px;
+  backdrop-filter: blur(6px);
+}
+
+.landing-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.landing-feature-icon {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--lp-blue-soft);
+  font-size: 18px;
+}
+
+.landing-feature strong {
+  display: block;
+  font-size: 14px;
+  color: var(--lp-ink);
+  margin-bottom: 3px;
+}
+
+.landing-feature p {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--lp-muted);
+  line-height: 1.4;
+}
+
+.landing-cta-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.landing-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 15px 26px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14.5px;
+  font-family: 'Poppins', sans-serif;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.landing-btn-primary {
+  background: var(--lp-blue);
+  color: white;
+  box-shadow: 0 14px 30px rgba(47, 95, 224, 0.35);
+}
+
+.landing-btn-primary .arrow {
+  transition: transform 0.2s;
+}
+
+.landing-btn-primary:hover {
+  background: var(--lp-blue-deep);
+  transform: translateY(-2px);
+}
+
+.landing-btn-primary:hover .arrow {
+  transform: translateX(3px);
+}
+
+.landing-btn-secondary {
+  background: white;
+  color: var(--lp-ink);
+  border: 1.5px solid rgba(15, 27, 61, 0.15);
+}
+
+.landing-btn-secondary:hover {
+  border-color: var(--lp-blue);
+  color: var(--lp-blue);
+}
+
+/* =====================================================
+   VISUEL HERO (téléphone + cartes flottantes)
+===================================================== */
+.landing-hero-visual {
+  position: relative;
+  min-height: 560px;
+}
+
+/* ---- Téléphone central ---- */
+.landing-phone {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 240px;
+  background: var(--lp-ink);
+  border-radius: 34px;
+  padding: 16px 13px;
+  box-shadow: 0 40px 70px rgba(15, 27, 61, 0.35);
+  z-index: 4;
+}
+
+.landing-phone-topbar {
+  display: flex;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 9px;
+  padding: 0 4px 8px;
+}
+
+.landing-phone-brand {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.landing-phone-logo {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: white;
+  letter-spacing: 1px;
+}
+
+.landing-phone-logo em {
+  font-style: normal;
+  color: var(--gold);
+}
+
+.landing-phone-search,
+.landing-phone-section-label,
+.landing-phone-cats,
+.landing-phone-offers-row,
+.landing-phone-grid {
+  background: white;
+}
+
+.landing-phone-search {
+  border-radius: 20px;
+  padding: 9px 12px;
+  font-size: 10.5px;
+  color: var(--lp-muted);
+  margin-bottom: 10px;
+}
+
+.landing-phone-section-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--lp-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 8px 10px 2px;
+  border-radius: 12px 12px 0 0;
+}
+
+.landing-phone-cats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  padding: 4px 10px 12px;
+}
+
+.landing-phone-offers-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px 6px;
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 11.5px;
+  color: var(--lp-ink);
+}
+
+.landing-phone-offers-row em {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 9.5px;
+  color: var(--lp-blue);
+}
+
+.landing-phone-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 0 10px 12px;
+  border-radius: 0 0 12px 12px;
+}
+
+.landing-phone-grid div {
+  background: var(--paper);
+  border-radius: 9px;
+  padding: 8px 3px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+
+.landing-phone-emoji {
+  display: block;
+  font-size: 15px;
+}
+
+.landing-phone-grid em {
+  display: block;
+  font-style: normal;
+  font-size: 8px;
+  color: var(--gold-deep);
+  font-weight: 700;
+  margin-top: 3px;
+}
+
+/* ---- Avatars flottants ---- */
+.landing-avatar {
+  position: absolute;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  background: linear-gradient(135deg, #DCE6FE, #F2E9D8);
+  border: 3px solid white;
+  box-shadow: 0 10px 22px rgba(15, 27, 61, 0.18);
+  z-index: 3;
+}
+
+.landing-avatar-1 { top: 6%; left: 46%; }
+.landing-avatar-2 { top: 30%; left: 4%; }
+.landing-avatar-3 { top: 20%; right: 6%; }
+.landing-avatar-4 { bottom: 16%; right: 2%; }
+
+/* ---- Icônes décoratives (produits) ---- */
+.landing-deco {
+  position: absolute;
+  font-size: 30px;
+  filter: drop-shadow(0 8px 14px rgba(15, 27, 61, 0.18));
+  z-index: 2;
+}
+
+.landing-deco-bag { bottom: 26%; left: 20%; font-size: 36px; }
+.landing-deco-camera { bottom: 14%; left: 34%; font-size: 32px; }
+.landing-deco-headphones { bottom: 10%; right: 30%; font-size: 30px; }
+.landing-deco-plant { bottom: 6%; left: 10%; font-size: 30px; }
+.landing-deco-cart { bottom: 4%; right: 8%; font-size: 40px; }
+
+/* ---- Cartes flottantes d'information ---- */
+.landing-float-card {
+  position: absolute;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: white;
+  border-radius: 18px;
+  padding: 16px 18px;
+  width: 236px;
+  box-shadow: var(--lp-card-shadow);
+  z-index: 5;
+}
+
+.landing-float-card strong {
+  display: block;
+  font-size: 13.5px;
+  color: var(--lp-ink);
+  margin-bottom: 3px;
+}
+
+.landing-float-card p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--lp-muted);
+  line-height: 1.4;
+}
+
+.landing-float-icon {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.landing-float-icon-amber { background: rgba(242, 183, 5, 0.2); }
+.landing-float-icon-blue { background: var(--lp-blue-soft); }
+.landing-float-icon-green { background: rgba(34, 175, 110, 0.15); }
+
+.landing-float-1 { top: 4%; left: -2%; }
+.landing-float-2 { top: 12%; right: -6%; }
+.landing-float-3 { bottom: 8%; right: -4%; }
+
+/* ---- Animation d'entrée ---- */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.landing-hero-visual.is-visible .landing-float-card,
+.landing-hero-visual.is-visible .landing-avatar,
+.landing-hero-visual.is-visible .landing-deco {
+  animation: lp-float 5.5s ease-in-out infinite;
+}
+
+.landing-float-2 { animation-delay: 0.6s !important; }
+.landing-float-3 { animation-delay: 1.2s !important; }
+.landing-avatar-2 { animation-delay: 0.4s !important; }
+.landing-avatar-3 { animation-delay: 0.9s !important; }
+.landing-avatar-4 { animation-delay: 1.4s !important; }
+.landing-deco-camera { animation-delay: 0.5s !important; }
+.landing-deco-headphones { animation-delay: 1s !important; }
+.landing-deco-plant { animation-delay: 1.5s !important; }
+.landing-deco-cart { animation-delay: 0.8s !important; }
+
+@keyframes lp-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-item,
+  .landing-hero-visual.is-visible .landing-float-card,
+  .landing-hero-visual.is-visible .landing-avatar,
+  .landing-hero-visual.is-visible .landing-deco {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+@media (max-width: 992px) {
+  .landing-hero-inner {
+    grid-template-columns: 1fr;
+    padding: 40px 24px 70px;
+  }
+
+  .landing-hero-visual {
+    order: -1;
+    min-height: 460px;
+  }
+
+  .landing-phone {
+    width: 210px;
+  }
+
+  .landing-float-1 { left: 0; }
+  .landing-float-2 { right: 0; }
+}
+
+@media (max-width: 600px) {
+  .landing-hero-text h1 {
+    font-size: 32px;
+  }
+
+  .landing-features {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .landing-hero-visual {
+    min-height: 380px;
+  }
+
+  .landing-phone {
+    width: 170px;
+    padding: 12px 9px;
+  }
+
+  .landing-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .landing-float-card {
+    width: 168px;
+    padding: 10px 12px;
+    border-radius: 14px;
+  }
+
+  .landing-float-card p {
+    display: none;
+  }
+
+  .landing-deco {
+    font-size: 22px;
+  }
+
+  .landing-deco-bag { font-size: 26px; }
+  .landing-deco-cart { font-size: 28px; }
+
+  .landing-float-1 { top: -4%; }
+  .landing-float-2 { top: 6%; right: -4%; }
+  .landing-float-3 { bottom: 2%; right: -4%; }
+}
