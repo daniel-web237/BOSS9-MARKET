@@ -206,8 +206,13 @@ onAuthStateChanged(auth, (user) => {
   const mobileAccountLink = document.getElementById("mobileAccountLink");
 
   if (user) {
+    // On préfère le pseudo choisi à l'inscription (displayName).
+    // S'il n'existe pas, on retombe sur la partie avant le "@" de l'email
+    // plutôt que d'afficher l'adresse complète.
+    const username = user.displayName || (user.email ? user.email.split("@")[0] : "Mon compte");
+
     if (box) box.innerHTML = `
-      <a href="compte.html">👤 ${user.email}</a>
+      <a href="compte.html">👤 ${username}</a>
       <button onclick="logout()">Logout</button>
     `;
     if (mobileAccountLink) mobileAccountLink.href = "compte.html";
