@@ -122,8 +122,14 @@ a {
   max-width: 140px;
 }
 
-.search-box input {
+.search-input-wrap {
+  position: relative;
   flex: 1;
+  min-width: 0;
+}
+
+.search-box input {
+  width: 100%;
   border: none;
   padding: 0 6px;
   font-size: 14px;
@@ -131,6 +137,70 @@ a {
   outline: none;
   background: transparent;
   color: var(--text);
+}
+
+.search-suggestions {
+  display: none;
+  position: absolute;
+  top: calc(100% + 12px);
+  left: -16px;
+  right: -4px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  overflow: hidden;
+  z-index: 200;
+}
+
+.search-suggestions.show {
+  display: block;
+}
+
+.search-suggestions .sugg-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+}
+
+.search-suggestions .sugg-item:hover,
+.search-suggestions .sugg-item.active {
+  background: #F7F4EC;
+}
+
+.search-suggestions .sugg-item img {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+  background: #EDE7D8;
+}
+
+.search-suggestions .sugg-name {
+  font-size: 13px;
+  color: var(--text);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search-suggestions .sugg-price {
+  font-size: 12px;
+  color: var(--gold-deep);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.search-suggestions .sugg-empty {
+  padding: 14px;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
 }
 
 .search-box button {
@@ -183,6 +253,100 @@ a {
   padding: 1px 6px;
   border-radius: 10px;
   margin-left: 4px;
+}
+
+/* ================= WIDGET COMPTE (avatar + menu déroulant) ================= */
+.account-widget {
+  position: relative;
+}
+
+.account-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 20px;
+  transition: 0.2s;
+}
+
+.account-trigger:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.account-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--ink);
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.account-name {
+  color: #EAEAEA;
+  font-size: 13px;
+  font-weight: 500;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.account-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  min-width: 160px;
+  overflow: hidden;
+  z-index: 200;
+}
+
+.account-dropdown.show {
+  display: block;
+}
+
+.account-dropdown a,
+.account-dropdown button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--text);
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+}
+
+.account-dropdown a:hover,
+.account-dropdown button:hover {
+  background: var(--paper);
+  color: var(--gold-deep);
+}
+
+.account-dropdown button {
+  border-top: 1px solid var(--border);
+  color: #C0392B;
+}
+
+.account-dropdown button:hover {
+  color: #C0392B;
+  background: #FBEAEA;
 }
 
 /* ================= NAVBAR ================= */
@@ -326,32 +490,6 @@ a {
   background: rgba(0,0,0,0.15);
 }
 
-/* ================= STATS ================= */
-.stats {
-  display: flex;
-  justify-content: center;
-  gap: 60px;
-  padding: 26px;
-  background: var(--ink);
-  color: white;
-}
-
-.stats div {
-  text-align: center;
-}
-
-.stats strong {
-  display: block;
-  font-family: 'Fraunces', serif;
-  font-size: 22px;
-  color: var(--gold);
-}
-
-.stats span {
-  font-size: 12px;
-  opacity: 0.75;
-}
-
 /* ================= PRODUITS ================= */
 section {
   margin-bottom: 0;
@@ -374,6 +512,32 @@ section {
   margin: 8px 0 34px;
 }
 
+.filter-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: var(--ink);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  margin: 0 auto 26px;
+  font-size: 14px;
+  flex-wrap: wrap;
+}
+
+.filter-banner a {
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.filter-banner a:hover {
+  text-decoration: underline;
+}
+
 .product-list {
   display: flex;
   gap: 22px;
@@ -383,12 +547,13 @@ section {
 
 .product-card {
   background: white;
-  border-radius: 12px;
+  border-radius: 14px;
   width: 210px;
-  padding: 16px;
+  padding: 14px;
   text-align: left;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-  transition: 0.3s;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(11,31,58,0.05);
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -397,17 +562,23 @@ section {
 
 .product-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 10px 22px rgba(0,0,0,0.1);
+  border-color: var(--gold);
+  box-shadow: 0 16px 30px rgba(11,31,58,0.14);
+}
+
+.product-img-wrap {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  background: #EDE7D8;
 }
 
 .product-card img {
   width: 100%;
   height: 150px;
   object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 12px;
-  background: #EDE7D8;
-  flex-shrink: 0;
+  display: block;
   transition: transform 0.4s ease;
 }
 
@@ -415,11 +586,28 @@ section {
   transform: scale(1.1);
 }
 
+.product-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgba(11,31,58,0.85);
+  backdrop-filter: blur(2px);
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: capitalize;
+  letter-spacing: 0.3px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  z-index: 2;
+}
+
 .product-card h4 {
   font-family: 'Poppins', sans-serif;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 500;
-  margin: 0 0 6px;
+  color: var(--text);
+  margin: 0 0 8px;
   line-height: 1.35;
   /* limite à 2 lignes puis "..." — même hauteur de titre pour toutes
      les cartes, peu importe la longueur du nom du produit */
@@ -428,18 +616,56 @@ section {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  min-height: 2.7em;
+  min-height: 2.6em;
 }
 
-.product-card p {
-  margin: 0 0 10px;
+.product-price {
+  margin: 0 0 12px;
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.product-price .price-value {
+  color: var(--ink);
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.product-price .price-currency {
   color: var(--gold-deep);
   font-weight: 600;
-  font-size: 14px;
+  font-size: 11px;
+  letter-spacing: 0.3px;
 }
 
 .product-card .btn-cart {
   margin-top: auto; /* le bouton reste toujours collé en bas de la carte */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.product-card .btn-cart:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+.product-card .btn-cart .cart-icon {
+  font-size: 14px;
 }
 
 /* ================= SELLER ================= */
@@ -578,11 +804,6 @@ section {
   .side h1 {
     font-size: 28px;
   }
-
-  .stats {
-    gap: 30px;
-    flex-wrap: wrap;
-  }
 }
 
 /* =====================================================
@@ -686,11 +907,6 @@ section {
     max-width: 100%;
   }
 
-  .stats {
-    gap: 20px;
-    padding: 20px;
-  }
-
   .products {
     padding: 30px 12px;
   }
@@ -714,13 +930,18 @@ section {
     font-size: 12px;
   }
 
-  .product-card p {
-    font-size: 13px;
+  .product-price .price-value {
+    font-size: 15px;
+  }
+
+  .product-badge {
+    font-size: 9px;
+    padding: 3px 8px;
   }
 
   .btn-cart {
     font-size: 11px;
-    padding: 6px;
+    padding: 8px 6px;
   }
 
   .seller {
@@ -791,3 +1012,6 @@ section {
     font-weight: 700;
     padding: 0 4px;
     border-radius: 10px;
+    line-height: 1.4;
+  }
+}
