@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BOSS9 Market — Votre marketplace de confiance</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="landing.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body class="landing-body">
+
+<!-- HEADER (identique au reste du site) -->
+<header class="header landing-header">
+  <div class="header-top">
+    <a href="landing.html" class="logo">
+      <img src="logo.png" alt="BOSS9 Market" class="logo-img">
+    </a>
+
+    <div class="search-box">
+      <select class="search-category">
+        <option value="all">Toutes catégories</option>
+        <option value="mode">Mode</option>
+        <option value="electronique">Électronique</option>
+        <option value="maison">Maison</option>
+        <option value="beaute">Beauté</option>
+      </select>
+      <input type="text" placeholder="Rechercher un produit, une marque...">
+      <button type="button" aria-label="Rechercher">🔍 <span class="search-btn-text">Rechercher</span></button>
+    </div>
+
+    <div class="actions">
+      <a href="index.html#produits">Favoris</a>
+      <a href="panier.html">Panier <span id="landingCartCount" class="cart-count">0</span></a>
+      <a href="abonnement.html">Abonnements</a>
+      <a href="login.html" class="landing-account">Compte</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="landing-hero">
+  <div class="landing-map"></div>
+
+  <div class="landing-hero-inner">
+    <div class="landing-hero-text reveal-item">
+      <span class="landing-eyebrow">Bienvenue sur BOSS9 Market</span>
+      <h1>Votre marketplace<br><span class="accent">de confiance</span></h1>
+      <p class="landing-lead">Des milliers de produits, des vendeurs vérifiés, une expérience d'achat simple et sécurisée.</p>
+
+      <div class="landing-features">
+        <div class="landing-feature">
+          <span class="landing-feature-icon">🛡️</span>
+          <div>
+            <strong>Vendeurs vérifiés</strong>
+            <p>Des boutiques fiables et de confiance.</p>
+          </div>
+        </div>
+        <div class="landing-feature">
+          <span class="landing-feature-icon">🚚</span>
+          <div>
+            <strong>Livraison rapide</strong>
+            <p>Recevez vos produits partout et vite.</p>
+          </div>
+        </div>
+        <div class="landing-feature">
+          <span class="landing-feature-icon">🔒</span>
+          <div>
+            <strong>Paiement sécurisé</strong>
+            <p>Payez en toute sécurité sur la plateforme.</p>
+          </div>
+        </div>
+        <div class="landing-feature">
+          <span class="landing-feature-icon">🎧</span>
+          <div>
+            <strong>Support dédié</strong>
+            <p>Notre équipe est là pour vous aider.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="landing-cta-row">
+        <a href="index.html" class="landing-btn landing-btn-primary">Explorer les produits <span class="arrow">→</span></a>
+        <a href="index.html#produits" class="landing-btn landing-btn-secondary">Voir les meilleures offres</a>
+      </div>
+    </div>
+
+    <div class="landing-hero-visual reveal-item" aria-hidden="true">
+
+      <div class="landing-float-card landing-float-1">
+        <span class="landing-float-icon landing-float-icon-amber">🤝</span>
+        <div>
+          <strong>Des vendeurs partout</strong>
+          <p>Rejoignez une communauté de vendeurs passionnés.</p>
+        </div>
+      </div>
+
+      <span class="landing-avatar landing-avatar-1">👤</span>
+      <span class="landing-avatar landing-avatar-2">🧑</span>
+      <span class="landing-avatar landing-avatar-3">👩</span>
+      <span class="landing-avatar landing-avatar-4">🧑‍💼</span>
+
+      <div class="landing-phone">
+        <div class="landing-phone-topbar">
+          <span>5:01</span>
+          <span class="landing-phone-icons">📶 🔋</span>
+        </div>
+        <div class="landing-phone-brand">
+          <span class="landing-phone-logo">BOSS<em>9</em></span>
+        </div>
+        <div class="landing-phone-search">🔍 Rechercher un produit...</div>
+        <div class="landing-phone-section-label">Catégories</div>
+        <div class="landing-phone-cats">
+          <span>👜</span><span>👗</span><span>🏠</span><span>💄</span><span>➕</span>
+        </div>
+        <div class="landing-phone-offers-row">
+          <span>Offres du jour</span>
+          <em>Voir tout</em>
+        </div>
+        <div class="landing-phone-grid">
+          <div><span class="landing-phone-emoji">⌚</span><em>35 000 FCFA</em></div>
+          <div><span class="landing-phone-emoji">👜</span><em>25 000 FCFA</em></div>
+          <div><span class="landing-phone-emoji">🎧</span><em>15 000 FCFA</em></div>
+        </div>
+      </div>
+
+      <span class="landing-deco landing-deco-bag">👜</span>
+      <span class="landing-deco landing-deco-camera">📷</span>
+      <span class="landing-deco landing-deco-headphones">🎧</span>
+      <span class="landing-deco landing-deco-plant">🪴</span>
+      <span class="landing-deco landing-deco-cart">🛒</span>
+
+      <div class="landing-float-card landing-float-2">
+        <span class="landing-float-icon landing-float-icon-blue">🛡️</span>
+        <div>
+          <strong>Achetez en toute confiance</strong>
+          <p>Des produits de qualité et un service sécurisé.</p>
+        </div>
+      </div>
+
+      <div class="landing-float-card landing-float-3">
+        <span class="landing-float-icon landing-float-icon-green">📦</span>
+        <div>
+          <strong>Tout ce qu'il vous faut, au même endroit</strong>
+          <p>Trouvez, comparez et achetez facilement.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-content">
+    <div>
+      <h3>BOSS9 MARKET</h3>
+      <p>Achetez mieux, vivez mieux.</p>
+    </div>
+
+    <div>
+      <h4>Liens rapides</h4>
+      <div class="LR">
+        <a href="index.html">Boutique</a>
+        <a href="index.html#produits">Produits</a>
+        <a href="fournisseur.html">Devenir fournisseur</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+
+    <div>
+      <h4>Contact</h4>
+      <p>Email: contact@boss9.com</p>
+      <p>Téléphone: 6 98 67 82 10</p>
+    </div>
+  </div>
+
+  <p class="copyright">© 2026 BOSS9 Market</p>
+</footer>
+
+<script src="landing.js"></script>
+
+</body>
+</html>
