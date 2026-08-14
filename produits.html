@@ -8,9 +8,12 @@
 
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="toast.css">
+  <script src="toast.js"></script>
 </head>
 
 <body>
+
 <!-- LOADER -->
 <div id="loader">
   <div class="spinner"></div>
@@ -24,14 +27,19 @@
     </a>
 
     <div class="search-box">
-      <select class="search-category">
+      <select class="search-category" id="categoryFilter">
         <option value="all">Toutes catégories</option>
         <option value="mode">Mode</option>
         <option value="electronique">Électronique</option>
         <option value="maison">Maison</option>
         <option value="beaute">Beauté</option>
+        <option value="alimentation">Alimentation</option>
+        <option value="autre">Autre</option>
       </select>
-      <input type="text" id="searchInput" placeholder="Rechercher un produit, une marque...">
+      <div class="search-input-wrap">
+        <input type="text" id="searchInput" placeholder="Rechercher un produit, une marque..." autocomplete="off">
+        <div class="search-suggestions" id="searchSuggestions"></div>
+      </div>
       <button id="searchBtn" aria-label="Rechercher">🔍 <span class="search-btn-text">Rechercher</span></button>
     </div>
 
@@ -51,8 +59,8 @@
     </div>
 
     <ul class="menu-links" id="menuLinks">
-      <li><a href="index.html">Accueil</a></li>
-      <li><a href="shop.html">Boutiques</a></li>
+      <li><a href="index.html" class="active">Accueil</a></li>
+      <li><a href="boutiques.html">Boutiques</a></li>
       <li><a href="#">Promotions</a></li>
       <li><a href="fournisseur.html">Devenir fournisseur</a></li>
       <li><a href="#">Contact</a></li>
@@ -62,18 +70,29 @@
 
 <!-- BARRE DE NAVIGATION MOBILE (bas d'écran, façon Alibaba) -->
 <nav class="mobile-bottom-nav">
-  <a href="index.html"><span>🏠</span>Accueil</a>
+  <a href="index.html" class="active"><span>🏠</span>Accueil</a>
   <a href="#" class="mobile-fav-link"><span>❤️</span>Favoris</a>
   <a href="panier.html"><span>🛒</span>Panier<span id="cartCountMobile" class="cart-count-mobile">0</span></a>
   <a href="abonnement.html"><span>💳</span>Abonnements</a>
   <a href="login.html" id="mobileAccountLink"><span>👤</span>Compte</a>
 </nav>
 
-<div class="stats">
-  <div><strong>+500</strong><span>Produits</span></div>
-  <div><strong>+100</strong><span>Vendeurs</span></div>
-  <div><strong>+1K</strong><span>Clients</span></div>
-</div>
+<!-- HERO -->
+<section class="hero">
+  <div class="side acheteur">
+    <div class="eyebrow">Je veux acheter</div>
+    <h1>Trouvez ce qu'il vous faut, livré en confiance</h1>
+    <p>Des centaines de produits vérifiés, vendus par des fournisseurs locaux évalués par la communauté.</p>
+    <a href="#produits" class="cta">Commencer mes achats</a>
+  </div>
+  <div class="side fournisseur">
+    <div class="divider"></div>
+    <div class="eyebrow">Je veux vendre</div>
+    <h1>Ouvrez votre boutique en quelques minutes</h1>
+    <p>Créez votre profil fournisseur, publiez vos produits et recevez vos commandes directement par email.</p>
+    <a href="fournisseur.html" class="cta">Devenir fournisseur</a>
+  </div>
+</section>
 
 <!-- PRODUITS -->
 <section class="products reveal" id="produits">
@@ -100,7 +119,7 @@
     <div>
       <h4>Liens rapides</h4>
       <div class="LR">
-        <a href="index.html">Accueil</a>
+        <a href="produits.html">Accueil</a>
         <a href="#">Produits</a>
         <a href="#">Contact</a>
       </div>
