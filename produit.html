@@ -1,29 +1,116 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" sizes="32x32" href="favicon-32.png">
-<link rel="icon" sizes="16x16" href="favicon-16.png">
-  <title>Produit — BOSS9 Market</title>
+  <title>BOSS9 Market</title>
+
+  <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="produit.css">
-  <link rel="stylesheet" href="toast.css">
-  <script src="toast.js"></script>
 </head>
 
 <body>
+<!-- LOADER -->
+<div id="loader">
+  <div class="spinner"></div>
+</div>
 
-<header class="dash-header">
-  <a href="index.html" class="logo"><img src="logo.png" alt="BOSS9 Market"></a>
-  <a href="index.html" class="back">← Retour aux produits</a>
+<!-- HEADER -->
+<header class="header">
+  <div class="header-top">
+    <a href="index.html" class="logo">
+      <img src="logo.png" alt="BOSS9 Market" class="logo-img">
+    </a>
+
+    <div class="search-box">
+      <select class="search-category">
+        <option value="all">Toutes catégories</option>
+        <option value="mode">Mode</option>
+        <option value="electronique">Électronique</option>
+        <option value="maison">Maison</option>
+        <option value="beaute">Beauté</option>
+      </select>
+      <input type="text" id="searchInput" placeholder="Rechercher un produit, une marque...">
+      <button id="searchBtn" aria-label="Rechercher">🔍 <span class="search-btn-text">Rechercher</span></button>
+    </div>
+
+    <div class="actions">
+      <a href="#">Favoris</a>
+      <a href="panier.html">Panier <span id="cartCount" class="cart-count">0</span></a>
+      <a href="abonnement.html">Abonnements</a>
+      <span id="userBox"></span>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="menu-left" id="menuToggle">
+      <span class="menu-icon">☰</span>
+      <span class="categories-text">Toutes les catégories</span>
+    </div>
+
+    <ul class="menu-links" id="menuLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="shop.html">Boutiques</a></li>
+      <li><a href="#">Promotions</a></li>
+      <li><a href="fournisseur.html">Devenir fournisseur</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
 </header>
 
-<main class="product-page" id="productPage">
-  <p class="state-message">Chargement du produit...</p>
-</main>
+<!-- BARRE DE NAVIGATION MOBILE (bas d'écran, façon Alibaba) -->
+<nav class="mobile-bottom-nav">
+  <a href="index.html"><span>🏠</span>Accueil</a>
+  <a href="#" class="mobile-fav-link"><span>❤️</span>Favoris</a>
+  <a href="panier.html"><span>🛒</span>Panier<span id="cartCountMobile" class="cart-count-mobile">0</span></a>
+  <a href="abonnement.html"><span>💳</span>Abonnements</a>
+  <a href="login.html" id="mobileAccountLink"><span>👤</span>Compte</a>
+</nav>
 
-<script type="module" src="produit.js"></script>
+<!-- PRODUITS -->
+<section class="products reveal" id="produits">
+  <h2>Produits en vedette</h2>
+  <p class="sub">Sélectionnés parmi nos fournisseurs les mieux notés</p>
+  <div class="product-list" id="productList"></div>
+</section>
+
+<!-- SELLER -->
+<section class="seller reveal">
+  <h2>Vendez sur BOSS9 MARKET</h2>
+  <p>Créez votre boutique et gagnez de l'argent</p>
+  <a href="fournisseur.html" class="btn">Créer ma boutique</a>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-content">
+    <div>
+      <h3>BOSS9 MARKET</h3>
+      <p>Achetez mieux, vivez mieux.</p>
+    </div>
+
+    <div>
+      <h4>Liens rapides</h4>
+      <div class="LR">
+        <a href="index.html">Accueil</a>
+        <a href="#">Produits</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+
+    <div>
+      <h4>Contact</h4>
+      <p>Email: contact@boss9.com</p>
+      <p>Téléphone: 6 98 67 82 10</p>
+    </div>
+  </div>
+
+  <p class="copyright">© 2026 BOSS9 Market</p>
+</footer>
+
+<script type="module" src="script.js"></script>
 
 </body>
 </html>
