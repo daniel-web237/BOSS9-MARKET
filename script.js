@@ -4,7 +4,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 
 import {
-  initializeFirestore, collection, getDocs, doc, getDoc
+  initializeFirestore, collection, getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 import {
@@ -55,17 +55,12 @@ function renderProducts(products) {
   container.innerHTML = "";
 
   products.forEach(p => {
-    const formattedPrice = Number(p.price).toLocaleString("fr-FR");
-
     container.innerHTML += `
-      <div class="product-card" data-open-id="${p.id}">
-        <div class="product-img-wrap">
-          ${p.category ? `<span class="product-badge">${p.category}</span>` : ""}
-          <img src="${p.image}" alt="${p.name}">
-        </div>
+      <div class="product-card">
+        <img src="${p.image}" alt="${p.name}">
         <h4>${p.name}</h4>
-        <p class="product-price"><span class="price-value">${formattedPrice}</span><span class="price-currency">FCFA</span></p>
-        <button class="btn-cart" data-id="${p.id}"><span class="cart-icon">🛒</span>Ajouter au panier</button>
+        <p>${p.price} FCFA</p>
+        <button class="btn-cart" data-id="${p.id}">Ajouter au panier 🛒</button>
       </div>
     `;
   });
@@ -88,50 +83,12 @@ async function loadProducts() {
     }
 
     allProducts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    applyInitialFilterFromURL();
+    renderProducts(allProducts);
 
   } catch (err) {
     console.error(err);
     container.innerHTML = "Erreur chargement";
   }
-}
-
-
-// ================= FILTRE INITIAL DEPUIS L'URL (?category=... ou ?supplier=...) =================
-function applyInitialFilterFromURL() {
-  const params = new URLSearchParams(window.location.search);
-  const supplierId = params.get("supplier");
-  const category = params.get("category");
-
-  if (supplierId) {
-    const filtered = allProducts.filter(p => p.userId === supplierId);
-    renderProducts(filtered);
-    showFilterBanner(
-      filtered.length > 0 ? `Boutique : ${filtered[0].shopName || "Fournisseur"}` : "Cette boutique n'a pas encore de produits"
-    );
-    return;
-  }
-
-  if (category) {
-    const categorySelect = document.getElementById("categoryFilter");
-    if (categorySelect) categorySelect.value = category;
-    const filtered = allProducts.filter(p => p.category === category);
-    renderProducts(filtered);
-    return;
-  }
-
-  renderProducts(allProducts);
-}
-
-function showFilterBanner(text) {
-  const section = document.querySelector(".products");
-  if (!section || document.getElementById("filterBanner")) return;
-
-  const banner = document.createElement("div");
-  banner.id = "filterBanner";
-  banner.className = "filter-banner";
-  banner.innerHTML = `<span>${text}</span> <a href="index.html">Voir tous les produits ✕</a>`;
-  section.insertBefore(banner, section.querySelector(".product-list"));
 }
 
 
@@ -192,108 +149,36 @@ function initCartButtons() {
       addToCart(e.target.dataset.id);
       e.target.textContent = "Ajouté ✓";
       setTimeout(() => { e.target.textContent = "Ajouter au panier 🛒"; }, 1200);
-      return;
-    }
-
-    // clic ailleurs sur la carte → ouvre la fiche produit
-    const card = e.target.closest("[data-open-id]");
-    if (card) {
-      window.location.href = `produit.html?id=${card.dataset.openId}`;
     }
   });
 }
 
 
 // ================= RECHERCHE (style Alibaba / Amazon) =================
-function getFilteredProducts() {
-  const input = document.getElementById("searchInput");
-  const categorySelect = document.getElementById("categoryFilter");
-
-  const term = input ? input.value.trim().toLowerCase() : "";
-  const category = categorySelect ? categorySelect.value : "all";
-
-  return allProducts.filter(p => {
-    const matchesTerm = !term || (p.name && p.name.toLowerCase().includes(term));
-    const matchesCategory = category === "all" || p.category === category;
-    return matchesTerm && matchesCategory;
-  });
-}
-
 function initSearch() {
   const input = document.getElementById("searchInput");
   const btn = document.getElementById("searchBtn");
-  const categorySelect = document.getElementById("categoryFilter");
-  const suggestionsBox = document.getElementById("searchSuggestions");
   if (!input || !btn) return;
 
   function runSearch() {
-    hideSuggestions();
-    renderProducts(getFilteredProducts());
-  }
-
-  function hideSuggestions() {
-    if (suggestionsBox) suggestionsBox.classList.remove("show");
-  }
-
-  function showSuggestions() {
-    if (!suggestionsBox) return;
-
     const term = input.value.trim().toLowerCase();
 
     if (!term) {
-      hideSuggestions();
+      renderProducts(allProducts);
       return;
     }
 
-    const matches = allProducts
-      .filter(p => p.name && p.name.toLowerCase().includes(term))
-      .slice(0, 6);
+    const filtered = allProducts.filter(p =>
+      p.name && p.name.toLowerCase().includes(term)
+    );
 
-    if (matches.length === 0) {
-      suggestionsBox.innerHTML = `<div class="sugg-empty">Aucun produit trouvé pour "${input.value.trim()}"</div>`;
-    } else {
-      suggestionsBox.innerHTML = matches.map(p => `
-        <div class="sugg-item" data-id="${p.id}">
-          <img src="${p.image}" alt="">
-          <span class="sugg-name">${p.name}</span>
-          <span class="sugg-price">${p.price} FCFA</span>
-        </div>
-      `).join("");
-    }
-
-    suggestionsBox.classList.add("show");
+    renderProducts(filtered);
   }
 
   btn.addEventListener("click", runSearch);
-
-  input.addEventListener("input", showSuggestions);
-  input.addEventListener("focus", showSuggestions);
-
   input.addEventListener("keydown", (e) => {
     if (e.key === "Enter") runSearch();
-    if (e.key === "Escape") hideSuggestions();
   });
-
-  if (suggestionsBox) {
-    suggestionsBox.addEventListener("click", (e) => {
-      const item = e.target.closest(".sugg-item");
-      if (item && item.dataset.id) {
-        window.location.href = `produit.html?id=${item.dataset.id}`;
-      }
-    });
-  }
-
-  // ferme les suggestions si on clique ailleurs sur la page
-  document.addEventListener("click", (e) => {
-    if (!e.target.closest(".search-input-wrap")) {
-      hideSuggestions();
-    }
-  });
-
-  // filtre par catégorie : s'applique tout de suite, sans attendre "Entrée"
-  if (categorySelect) {
-    categorySelect.addEventListener("change", runSearch);
-  }
 }
 
 
@@ -316,53 +201,16 @@ function initReveal() {
 
 
 // ================= USER (AUTH) =================
-onAuthStateChanged(auth, async (user) => {
+onAuthStateChanged(auth, (user) => {
   const box = document.getElementById("userBox");
   const mobileAccountLink = document.getElementById("mobileAccountLink");
 
   if (user) {
+    if (box) box.innerHTML = `
+      <a href="compte.html">👤 ${user.email}</a>
+      <button onclick="logout()">Logout</button>
+    `;
     if (mobileAccountLink) mobileAccountLink.href = "compte.html";
-
-    // nom affiché : celui du profil Firestore, ou l'email en repli
-    let displayName = user.email;
-    try {
-      const snap = await getDoc(doc(db, "users", user.uid));
-      if (snap.exists() && snap.data().fullname) {
-        displayName = snap.data().fullname;
-      }
-    } catch (e) {
-      console.error(e);
-    }
-
-    const initial = displayName.charAt(0).toUpperCase();
-
-    if (box) {
-      box.innerHTML = `
-        <div class="account-widget" id="accountWidget">
-          <button class="account-trigger" id="accountTrigger">
-            <span class="account-avatar">${initial}</span>
-            <span class="account-name">${displayName}</span>
-          </button>
-          <div class="account-dropdown" id="accountDropdown">
-            <a href="compte.html">Mon compte</a>
-            <button onclick="logout()">Déconnexion</button>
-          </div>
-        </div>
-      `;
-
-      const trigger = document.getElementById("accountTrigger");
-      const dropdown = document.getElementById("accountDropdown");
-
-      trigger.addEventListener("click", (e) => {
-        e.stopPropagation();
-        dropdown.classList.toggle("show");
-      });
-
-      document.addEventListener("click", () => {
-        dropdown.classList.remove("show");
-      });
-    }
-
   } else {
     if (box) box.innerHTML = `<a href="login.html">Connexion</a>`;
     if (mobileAccountLink) mobileAccountLink.href = "login.html";
@@ -386,7 +234,6 @@ function initMobileMenu() {
 window.logout = function () {
   signOut(auth).then(() => location.reload());
 };
-
 
 
 // ================= START =================
