@@ -1009,3 +1009,135 @@ section {
     line-height: 1.4;
   }
 }
+
+/* =====================================================
+   ACTIONS HEADER v2 — icônes Favoris/Panier + bouton Connexion doré
+===================================================== */
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.connexion-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+  color: var(--ink) !important;
+  padding: 9px 20px;
+  border-radius: 22px;
+  font-weight: 700;
+  font-size: 13.5px;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.connexion-btn:hover {
+  filter: brightness(0.95);
+  transform: scale(1.03);
+  color: var(--ink) !important;
+}
+
+/* =====================================================
+   NAVBAR v2 — barre de catégories façon pill (produits.html)
+===================================================== */
+.navbar-v2 {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  margin: 14px 24px;
+  padding: 8px 10px 8px 8px;
+  box-shadow: 0 2px 10px rgba(11, 31, 58, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.navbar-v2 .menu-left {
+  background: var(--ink);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 20px;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.navbar-v2 .menu-links {
+  flex: 1;
+  gap: 26px;
+}
+
+.navbar-v2 .menu-links a {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.navbar-v2 .menu-links a::after {
+  background: var(--gold-deep);
+}
+
+.navbar-v2 .menu-links a:hover,
+.navbar-v2 .menu-links a.active {
+  color: var(--gold-deep);
+}
+
+.navbar-v2 .promo-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  display: inline-block;
+}
+
+.navbar-v2 .sell-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1.5px solid var(--ink);
+  color: var(--ink);
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: 0.2s;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.navbar-v2 .sell-btn:hover {
+  background: var(--ink);
+  color: white;
+}
+
+@media (max-width: 992px) {
+  .navbar-v2 {
+    flex-wrap: wrap;
+    margin: 10px 14px;
+    border-radius: 20px;
+  }
+
+  .navbar-v2 .sell-btn {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar-v2 {
+    margin: 8px;
+    padding: 8px;
+  }
+
+  .navbar-v2 .sell-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
