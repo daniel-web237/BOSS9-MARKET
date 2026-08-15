@@ -90,6 +90,8 @@ onAuthStateChanged(auth, async (user) => {
 
 
 // ================= COMMANDES REÇUES =================
+let receivedOrdersCache = [];
+
 async function loadReceivedOrders(uid) {
   const box = document.getElementById("ordersReceived");
   if (!box) return;
@@ -104,10 +106,13 @@ async function loadReceivedOrders(uid) {
 
     if (snap.empty) {
       box.innerHTML = `<p class="empty-state">Aucune commande reçue pour le moment</p>`;
+      receivedOrdersCache = [];
+      updateStats();
       return;
     }
 
     box.innerHTML = "";
+    receivedOrdersCache = [];
 
     snap.forEach(docSnap => {
       const o = docSnap.data();
@@ -115,6 +120,8 @@ async function loadReceivedOrders(uid) {
 
       const myItems = o.items.filter(item => item.supplierId === uid);
       const mySubtotal = myItems.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+      receivedOrdersCache.push({ subtotal: mySubtotal });
 
       box.innerHTML += `
         <div class="order-received">
@@ -132,10 +139,30 @@ async function loadReceivedOrders(uid) {
       `;
     });
 
+    updateStats();
+
   } catch (err) {
     console.error(err);
     box.innerHTML = `<p class="empty-state">Impossible de charger les commandes pour le moment</p>`;
   }
+}
+
+
+// ================= STATISTIQUES =================
+function updateStats() {
+  const statProducts = document.getElementById("statProducts");
+  const statOrders = document.getElementById("statOrders");
+  const statRevenue = document.getElementById("statRevenue");
+  const statLowStock = document.getElementById("statLowStock");
+  if (!statProducts) return;
+
+  const revenue = receivedOrdersCache.reduce((sum, o) => sum + o.subtotal, 0);
+  const outOfStockCount = myProductsCache.filter(p => Number(p.stock) === 0).length;
+
+  statProducts.textContent = myProductsCache.length;
+  statOrders.textContent = receivedOrdersCache.length;
+  statRevenue.textContent = `${revenue.toLocaleString("fr-FR")} FCFA`;
+  statLowStock.textContent = outOfStockCount;
 }
 
 
@@ -147,12 +174,25 @@ let tempProducts = [];
 function addToList() {
   const nameInput = document.getElementById("name");
   const priceInput = document.getElementById("price");
+  const stockInput = document.getElementById("stock");
+  const wholesalePriceInput = document.getElementById("wholesalePrice");
+  const minOrderQtyInput = document.getElementById("minOrderQty");
   const imageInput = document.getElementById("imageFile");
   const descriptionInput = document.getElementById("description");
 
   const name = nameInput.value.trim();
   const priceRaw = priceInput.value.replace(/[^0-9]/g, "");
   const price = priceRaw ? Number(priceRaw) : null;
+
+  const stockRaw = stockInput.value.replace(/[^0-9]/g, "");
+  const stock = stockRaw ? Number(stockRaw) : 0;
+
+  const wholesalePriceRaw = wholesalePriceInput.value.replace(/[^0-9]/g, "");
+  const wholesalePrice = wholesalePriceRaw ? Number(wholesalePriceRaw) : null;
+
+  const minOrderQtyRaw = minOrderQtyInput.value.replace(/[^0-9]/g, "");
+  const minOrderQty = minOrderQtyRaw ? Number(minOrderQtyRaw) : null;
+
   const imageFiles = Array.from(imageInput.files);
   const description = descriptionInput.value.trim();
 
@@ -168,6 +208,12 @@ function addToList() {
     return;
   }
 
+  if (!stockInput.value.trim()) {
+    showToast("Indique la quantité disponible en stock (0 si épuisé).", "warning", "Stock manquant");
+    stockInput.focus();
+    return;
+  }
+
   if (imageFiles.length === 0) {
     showToast("Choisis au moins une photo pour ce produit.", "warning", "Photo manquante");
     imageInput.focus();
@@ -177,6 +223,9 @@ function addToList() {
   tempProducts.push({
     name,
     price,
+    stock,
+    wholesalePrice,
+    minOrderQty: wholesalePrice ? minOrderQty : null, // n'a de sens que si prix de gros défini
     imageFiles,
     previewUrls: imageFiles.map(f => URL.createObjectURL(f)),
     description
@@ -184,6 +233,9 @@ function addToList() {
 
   nameInput.value = "";
   priceInput.value = "";
+  stockInput.value = "";
+  wholesalePriceInput.value = "";
+  minOrderQtyInput.value = "";
   imageInput.value = "";
   descriptionInput.value = "";
   document.getElementById("imagePreviewList").innerHTML = "";
@@ -212,6 +264,7 @@ function displayPreview() {
         ${p.previewUrls.length > 1 ? `<span class="photo-count">+${p.previewUrls.length - 1} photo(s)</span>` : ""}
         <p>${p.name}</p>
         <p class="price">${p.price} FCFA</p>
+        <span class="stock-tag">${p.stock} en stock${p.wholesalePrice ? ` · Gros: ${p.wholesalePrice} FCFA` : ""}</span>
       </div>
     `;
   });
@@ -258,6 +311,9 @@ async function saveAll() {
       await addDoc(collection(db, "products"), {
         name: p.name,
         price: p.price,
+        stock: p.stock,
+        wholesalePrice: p.wholesalePrice,
+        minOrderQty: p.minOrderQty,
         description: p.description,
         image: imageUrls[0],
         images: imageUrls,
@@ -310,16 +366,25 @@ async function loadMyProducts(uid) {
     if (snap.empty) {
       grid.innerHTML = `<p class="empty-state">Aucun produit publié pour le moment</p>`;
       myProductsCache = [];
+      updateStats();
       return;
     }
 
     myProductsCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     renderMyProducts();
+    updateStats();
 
   } catch (err) {
     console.error(err);
     grid.innerHTML = `<p class="empty-state">Impossible de charger tes produits pour le moment</p>`;
   }
+}
+
+function stockBadge(stock) {
+  const qty = Number(stock) || 0;
+  if (qty === 0) return `<span class="stock-badge out-of-stock">Rupture de stock</span>`;
+  if (qty <= 5) return `<span class="stock-badge low-stock">Stock faible : ${qty}</span>`;
+  return `<span class="stock-badge in-stock">${qty} en stock</span>`;
 }
 
 function renderMyProducts() {
@@ -334,6 +399,8 @@ function renderMyProducts() {
         <img src="${p.image}" alt="${p.name}">
         <h4>${p.name}</h4>
         <div class="price">${p.price} FCFA</div>
+        ${p.wholesalePrice ? `<div class="wholesale-tag">Gros : ${p.wholesalePrice} FCFA${p.minOrderQty ? ` (min. ${p.minOrderQty})` : ""}</div>` : ""}
+        ${stockBadge(p.stock)}
         <div class="my-product-actions">
           <button class="btn-edit-product">✏️ Modifier</button>
           <button class="btn-delete-product">🗑 Supprimer</button>
@@ -366,7 +433,10 @@ function enterEditMode(card, id) {
   card.classList.add("editing");
   card.innerHTML = `
     <input class="edit-name" value="${product.name}" placeholder="Nom du produit">
-    <input class="edit-price" type="text" inputmode="numeric" value="${product.price}" placeholder="Prix">
+    <input class="edit-price" type="text" inputmode="numeric" value="${product.price}" placeholder="Prix de détail">
+    <input class="edit-stock" type="text" inputmode="numeric" value="${product.stock ?? 0}" placeholder="Stock disponible">
+    <input class="edit-wholesale" type="text" inputmode="numeric" value="${product.wholesalePrice ?? ""}" placeholder="Prix de gros (optionnel)">
+    <input class="edit-min-order" type="text" inputmode="numeric" value="${product.minOrderQty ?? ""}" placeholder="Quantité minimum (gros)">
     <input class="edit-image" value="${product.image}" placeholder="URL de l'image">
     <textarea class="edit-description" placeholder="Description du produit">${product.description || ""}</textarea>
     <div class="edit-save-cancel">
@@ -388,6 +458,12 @@ async function saveProductEdit(id, card) {
   const name = card.querySelector(".edit-name").value.trim();
   const priceRaw = card.querySelector(".edit-price").value.replace(/[^0-9]/g, "");
   const price = priceRaw ? Number(priceRaw) : null;
+  const stockRaw = card.querySelector(".edit-stock").value.replace(/[^0-9]/g, "");
+  const stock = stockRaw ? Number(stockRaw) : 0;
+  const wholesaleRaw = card.querySelector(".edit-wholesale").value.replace(/[^0-9]/g, "");
+  const wholesalePrice = wholesaleRaw ? Number(wholesaleRaw) : null;
+  const minOrderRaw = card.querySelector(".edit-min-order").value.replace(/[^0-9]/g, "");
+  const minOrderQty = wholesalePrice && minOrderRaw ? Number(minOrderRaw) : null;
   const image = card.querySelector(".edit-image").value.trim();
   const description = card.querySelector(".edit-description").value.trim();
 
@@ -404,16 +480,20 @@ async function saveProductEdit(id, card) {
     await updateDoc(doc(db, "products", id), {
       name,
       price,
+      stock,
+      wholesalePrice,
+      minOrderQty,
       image,
       description
     });
 
     const index = myProductsCache.findIndex(p => p.id === id);
     if (index !== -1) {
-      myProductsCache[index] = { ...myProductsCache[index], name, price, image, description };
+      myProductsCache[index] = { ...myProductsCache[index], name, price, stock, wholesalePrice, minOrderQty, image, description };
     }
 
     renderMyProducts();
+    updateStats();
     showToast("Le produit a bien été mis à jour.", "success", "Modifications enregistrées");
 
   } catch (err) {
@@ -431,6 +511,7 @@ async function deleteProduct(id) {
     await deleteDoc(doc(db, "products", id));
     myProductsCache = myProductsCache.filter(p => p.id !== id);
     renderMyProducts();
+    updateStats();
     showToast("Le produit a été supprimé de ta boutique.", "success", "Produit supprimé");
   } catch (err) {
     showToast(err.message, "error", "Échec de la suppression");
