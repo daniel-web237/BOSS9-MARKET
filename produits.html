@@ -22,6 +22,8 @@
 <!-- HEADER -->
 <header class="header">
   <div class="header-top">
+    <a href="index.html" class="logo">
+      <img src="logo.png" alt="BOSS9 Market" class="logo-img">
     </a>
 
     <button type="button" class="mobile-menu-btn menu-toggle-btn" aria-label="Ouvrir les catégories">☰</button>
@@ -53,19 +55,42 @@
 
   <!-- NAVBAR -->
   <nav class="navbar navbar-v2">
-    <div class="menu-left menu-toggle-btn" id="menuToggle">
-      <span class="menu-icon">☰</span>
-      <span class="categories-text">Catégories</span>
+    <div class="mega-menu-wrap">
+      <div class="menu-left menu-toggle-btn" id="menuToggle">
+        <span class="menu-icon">☰</span>
+        <span class="categories-text">Catégories</span>
+      </div>
+
+      <div class="mega-menu" id="megaMenu">
+        <div class="mega-menu-sidebar">
+          <a href="produits.html" class="mega-sidebar-item mega-sidebar-active"><span class="mega-sidebar-icon">⭐</span>Catégories pour vous</a>
+          <a href="produits.html?category=mode" class="mega-sidebar-item"><span class="mega-sidebar-icon">👗</span>Mode</a>
+          <a href="produits.html?category=electronique" class="mega-sidebar-item"><span class="mega-sidebar-icon">💻</span>Électronique</a>
+          <a href="produits.html?category=maison" class="mega-sidebar-item"><span class="mega-sidebar-icon">🏠</span>Maison</a>
+          <a href="produits.html?category=beaute" class="mega-sidebar-item"><span class="mega-sidebar-icon">💄</span>Beauté</a>
+          <a href="produits.html?category=alimentation" class="mega-sidebar-item"><span class="mega-sidebar-icon">🍎</span>Alimentation</a>
+          <a href="produits.html?category=autre" class="mega-sidebar-item"><span class="mega-sidebar-icon">➕</span>Autre</a>
+        </div>
+
+        <div class="mega-menu-main">
+          <h4>Catégories pour vous</h4>
+          <div class="mega-menu-grid" id="megaMenuGrid">
+            <!-- rempli automatiquement par script.js avec une vraie photo produit par catégorie -->
+          </div>
+        </div>
+      </div>
     </div>
 
     <ul class="menu-links" id="menuLinks">
-      <li><a href="produits.html">Accueil</a></li>
+      <li><a href="index.html">Accueil</a></li>
       <li><a href="boutiques.html">Boutiques</a></li>
       <li><a href="#">Promotions <span class="promo-dot"></span></a></li>
       <li><a href="fournisseur.html">Devenir fournisseur</a></li>
       <li><a href="#">À propos</a></li>
       <li><a href="#">Contact</a></li>
     </ul>
+
+    <a href="fournisseur.html" class="sell-btn">🏷️ Vendez vos produits</a>
   </nav>
 </header>
 
