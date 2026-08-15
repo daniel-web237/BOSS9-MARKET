@@ -23,15 +23,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// experimentalForceLongPolling : force ce mode de connexion directement,
-// sur certains réseaux qui filtrent le streaming (WebSocket/gRPC)
 const db = initializeFirestore(app, {
   experimentalForceLongPolling: true
 });
 
 
 // ================= CLOUDINARY (hébergement des photos) =================
-// 👉 Remplace ces 2 valeurs par les tiennes (Dashboard Cloudinary)
 const CLOUDINARY_CLOUD_NAME = "scy7tjyj";
 const CLOUDINARY_UPLOAD_PRESET = "boss9_products";
 
@@ -75,7 +72,7 @@ onAuthStateChanged(auth, async (user) => {
 
     if (role !== "fournisseur") {
       showToast("Cette page est réservée aux comptes fournisseur.", "warning", "Accès refusé");
-      setTimeout(() => { window.location.href = "index.html"; }, 1400);
+      setTimeout(() => { window.location.href = "produits.html"; }, 1400);
       return;
     }
 
@@ -116,7 +113,6 @@ async function loadReceivedOrders(uid) {
       const o = docSnap.data();
       const date = o.createdAt?.toDate ? o.createdAt.toDate().toLocaleDateString("fr-FR") : "";
 
-      // ne garder que les articles de CE fournisseur dans la commande
       const myItems = o.items.filter(item => item.supplierId === uid);
       const mySubtotal = myItems.reduce((sum, item) => sum + item.price * item.qty, 0);
 
@@ -155,7 +151,6 @@ function addToList() {
   const descriptionInput = document.getElementById("description");
 
   const name = nameInput.value.trim();
-  // tolère "15 000", "15,000", "15.000" — on garde juste les chiffres
   const priceRaw = priceInput.value.replace(/[^0-9]/g, "");
   const price = priceRaw ? Number(priceRaw) : null;
   const imageFiles = Array.from(imageInput.files);
@@ -183,11 +178,10 @@ function addToList() {
     name,
     price,
     imageFiles,
-    previewUrls: imageFiles.map(f => URL.createObjectURL(f)), // aperçu local, avant upload
+    previewUrls: imageFiles.map(f => URL.createObjectURL(f)),
     description
   });
 
-  // vide le formulaire pour le prochain produit
   nameInput.value = "";
   priceInput.value = "";
   imageInput.value = "";
@@ -265,8 +259,8 @@ async function saveAll() {
         name: p.name,
         price: p.price,
         description: p.description,
-        image: imageUrls[0],   // photo de couverture (compatibilité avec le reste du site)
-        images: imageUrls,     // toutes les photos, pour la galerie sur la fiche produit
+        image: imageUrls[0],
+        images: imageUrls,
         userId: user.uid,
         userEmail: user.email,
         shopName: currentShopName,
@@ -279,7 +273,7 @@ async function saveAll() {
 
     tempProducts = [];
     setTimeout(() => {
-      window.location.href = "index.html";
+      window.location.href = "produits.html";
     }, 1600);
 
   } catch (e) {
