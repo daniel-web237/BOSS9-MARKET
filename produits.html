@@ -26,8 +26,6 @@
       <img src="logo.png" alt="BOSS9 Market" class="logo-img">
     </a>
 
-    <button type="button" class="mobile-menu-btn menu-toggle-btn" aria-label="Ouvrir les catégories">☰</button>
-
     <div class="search-box">
       <select class="search-category" id="categoryFilter">
         <option value="all">Toutes catégories</option>
@@ -51,6 +49,16 @@
       <a href="abonnement.html">Abonnements</a>
       <span id="userBox"></span>
     </div>
+  </div>
+
+  <!-- OPTIONS EN PASTILLES (mobile uniquement) — on balaie pour parcourir -->
+  <div class="mobile-quick-links" id="mobileQuickLinks">
+    <a href="index.html">Accueil</a>
+    <a href="boutiques.html">Boutiques</a>
+    <a href="#">Promotions</a>
+    <a href="fournisseur.html">Devenir fournisseur</a>
+    <a href="#">À propos</a>
+    <a href="#">Contact</a>
   </div>
 
   <!-- NAVBAR -->
@@ -82,12 +90,15 @@
     </div>
 
     <ul class="menu-links" id="menuLinks">
+      <li><a href="index.html">Accueil</a></li>
       <li><a href="boutiques.html">Boutiques</a></li>
       <li><a href="#">Promotions <span class="promo-dot"></span></a></li>
       <li><a href="fournisseur.html">Devenir fournisseur</a></li>
       <li><a href="#">À propos</a></li>
       <li><a href="#">Contact</a></li>
     </ul>
+
+    <a href="fournisseur.html" class="sell-btn">🏷️ Vendez vos produits</a>
   </nav>
 </header>
 
@@ -96,7 +107,7 @@
   <a href="produits.html" class="mobile-bottom-nav-item active">
     <span class="nav-icon">🏠</span>Accueil
   </a>
-  <button type="button" class="mobile-bottom-nav-item menu-toggle-btn">
+  <button type="button" class="mobile-bottom-nav-item mobile-cat-scroll-btn">
     <span class="nav-icon nav-icon-grid"><i></i><i></i><i></i><i></i></span>Catégories
   </button>
   <a href="panier.html" class="mobile-bottom-nav-item">
