@@ -1141,3 +1141,73 @@ section {
     justify-content: center;
   }
 }
+
+/* =====================================================
+   HEADER MOBILE — hamburger à la place du logo (produits.html)
+===================================================== */
+.mobile-menu-btn {
+  display: none;
+  background: var(--ink);
+  color: white;
+  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  font-size: 16px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .logo {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  /* la barre pill devient invisible sur mobile : seul le menu
+     déroulant (ouvert via le hamburger du header) reste utile */
+  .navbar-v2 {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .navbar-v2 .menu-left {
+    display: none;
+  }
+
+  .navbar-v2 .menu-links.open {
+    background: white;
+    border-radius: 14px;
+    margin: 8px 10px 0;
+    box-shadow: 0 8px 20px rgba(11, 31, 58, 0.1);
+    overflow: hidden;
+  }
+
+  .navbar-v2 .menu-links a {
+    color: var(--text);
+  }
+
+  .navbar-v2 .menu-links li {
+    border-top: 1px solid var(--border);
+  }
+
+  .navbar-v2 .menu-links li:first-child {
+    border-top: none;
+  }
+
+  .navbar-v2 .sell-btn {
+    margin: 10px 10px 0;
+    width: auto;
+  }
+}
