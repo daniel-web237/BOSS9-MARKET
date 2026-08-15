@@ -25,6 +25,11 @@ body {
   color: var(--text);
 }
 
+/* même fond que la landing page (index.html), sur produits.html uniquement */
+body.page-produits {
+  background: linear-gradient(160deg, #EEF3FE 0%, #F7F5FF 55%, #FBFAFF 100%);
+}
+
 h1, h2, h3 {
   font-family: 'Fraunces', serif;
   letter-spacing: 0.3px;
@@ -86,7 +91,7 @@ a {
 }
 
 .logo-img {
-  height: 120px;
+  height: 56px;
   width: auto;
   object-fit: contain;
 }
