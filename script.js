@@ -70,6 +70,36 @@ function renderProducts(products) {
 }
 
 
+// ================= MEGA-MENU : catégories en vedette avec vraies photos =================
+const MEGA_CATEGORIES = [
+  { key: "mode", label: "Mode", icon: "👗" },
+  { key: "electronique", label: "Électronique", icon: "💻" },
+  { key: "maison", label: "Maison", icon: "🏠" },
+  { key: "beaute", label: "Beauté", icon: "💄" },
+  { key: "alimentation", label: "Alimentation", icon: "🍎" },
+  { key: "autre", label: "Autre", icon: "➕" }
+];
+
+function populateMegaMenu() {
+  const grid = document.getElementById("megaMenuGrid");
+  if (!grid) return;
+
+  grid.innerHTML = MEGA_CATEGORIES.map(cat => {
+    const sample = allProducts.find(p => p.category === cat.key && p.image);
+    const visual = sample
+      ? `<img src="${sample.image}" alt="${cat.label}">`
+      : `<span class="mega-tile-emoji">${cat.icon}</span>`;
+
+    return `
+      <a href="produits.html?category=${cat.key}" class="mega-tile">
+        <span class="mega-tile-visual">${visual}</span>
+        <span class="mega-tile-label">${cat.label}</span>
+      </a>
+    `;
+  }).join("");
+}
+
+
 // ================= CHARGER PRODUITS DEPUIS FIRESTORE =================
 async function loadProducts() {
   const container = document.getElementById("productList");
@@ -86,6 +116,7 @@ async function loadProducts() {
     }
 
     allProducts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    populateMegaMenu();
     applyInitialFilterFromURL();
 
   } catch (err) {
@@ -365,6 +396,31 @@ onAuthStateChanged(auth, async (user) => {
     if (mobileAccountLink) mobileAccountLink.href = "login.html";
   }
 });
+
+
+// ================= MEGA-MENU CATÉGORIES (survol) =================
+function initMegaMenu() {
+  const links = document.querySelectorAll(".mega-cat, .mega-grid-item");
+  const categorySelect = document.getElementById("categoryFilter");
+  const productsSection = document.getElementById("produits");
+  if (!links.length) return;
+
+  links.forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const category = link.dataset.category;
+
+      if (categorySelect) {
+        categorySelect.value = category;
+        categorySelect.dispatchEvent(new Event("change"));
+      }
+
+      if (productsSection) {
+        productsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  });
+}
 
 
 // ================= MENU CATÉGORIES MOBILE (repliable) =================
