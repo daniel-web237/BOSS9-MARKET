@@ -94,13 +94,20 @@
   </nav>
 </header>
 
-<!-- BARRE DE NAVIGATION MOBILE (bas d'écran, façon Alibaba) -->
+<!-- BARRE DE NAVIGATION MOBILE (bas d'écran, façon app) -->
 <nav class="mobile-bottom-nav">
-  <a href="index.html"><span>🏠</span>Accueil</a>
-  <a href="#" class="mobile-fav-link"><span>❤️</span>Favoris</a>
-  <a href="panier.html"><span>🛒</span>Panier<span id="cartCountMobile" class="cart-count-mobile">0</span></a>
-  <a href="abonnement.html"><span>💳</span>Abonnements</a>
-  <a href="login.html" id="mobileAccountLink"><span>👤</span>Compte</a>
+  <a href="produits.html" class="mobile-bottom-nav-item active">
+    <span class="nav-icon">🏠</span>Accueil
+  </a>
+  <button type="button" class="mobile-bottom-nav-item menu-toggle-btn">
+    <span class="nav-icon nav-icon-grid"><i></i><i></i><i></i><i></i></span>Catégories
+  </button>
+  <a href="panier.html" class="mobile-bottom-nav-item">
+    <span class="nav-icon">🛒</span>Panier<span id="cartCountMobile" class="cart-count-mobile">0</span>
+  </a>
+  <a href="login.html" id="mobileAccountLink" class="mobile-bottom-nav-item">
+    <span class="nav-icon">👤</span>Compte
+  </a>
 </nav>
 
 <!-- PRODUITS -->
