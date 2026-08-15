@@ -9,17 +9,46 @@
   <link rel="stylesheet" href="toast.css">
   <script src="toast.js"></script>
 </head>
-
 <body>
-
 <header class="dash-header">
   <a href="produits.html" class="back">← Retour à l'accueil</a>
 </header>
-
 <main class="dashboard">
+  <h2>Tableau de bord fournisseur</h2>
+  <p class="intro">Gère tes produits, ton stock et suis tes ventes en un coup d'œil.</p>
+
+  <!-- STATISTIQUES -->
+  <section class="stats-section">
+    <div class="stat-card">
+      <span class="stat-value" id="statProducts">0</span>
+      <span class="stat-label">Produits publiés</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-value" id="statOrders">0</span>
+      <span class="stat-label">Commandes reçues</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-value" id="statRevenue">0 FCFA</span>
+      <span class="stat-label">Chiffre d'affaires</span>
+    </div>
+    <div class="stat-card stat-card-warning">
+      <span class="stat-value" id="statLowStock">0</span>
+      <span class="stat-label">Produits en rupture</span>
+    </div>
+  </section>
+
+  <!-- ACCÈS RAPIDE MESSAGES CLIENTS -->
+  <a href="chat.html" class="messages-quicklink">
+    <span class="msg-icon">💬</span>
+    <div>
+      <strong>Répondre aux clients</strong>
+      <p>Consulte et réponds aux messages et négociations de tes acheteurs.</p>
+    </div>
+    <span class="arrow">→</span>
+  </a>
+
   <h2>Ajouter un produit</h2>
   <p class="intro">Renseigne les informations ci-dessous, ajoute-les à ta liste, puis confirme pour les publier sur la boutique.</p>
-
   <div class="form-card">
     <div class="form-row">
       <div class="field">
@@ -27,7 +56,7 @@
         <input id="name" placeholder="Ex: Sac à main artisanal">
       </div>
       <div class="field">
-        <label for="price">Prix (FCFA)</label>
+        <label for="price">Prix de détail (FCFA)</label>
         <input id="price" type="text" inputmode="numeric" placeholder="Ex: 15000">
       </div>
       <div class="field">
@@ -37,32 +66,46 @@
       </div>
     </div>
 
+    <div class="form-row">
+      <div class="field">
+        <label for="stock">Quantité en stock</label>
+        <input id="stock" type="text" inputmode="numeric" placeholder="Ex: 25">
+      </div>
+      <div class="field">
+        <label for="wholesalePrice">Prix de gros (FCFA)
+          <span class="hint">Optionnel — pour la vente en gros</span>
+        </label>
+        <input id="wholesalePrice" type="text" inputmode="numeric" placeholder="Ex: 12000">
+      </div>
+      <div class="field">
+        <label for="minOrderQty">Quantité minimum (gros)
+          <span class="hint">Ne s'applique que si prix de gros renseigné</span>
+        </label>
+        <input id="minOrderQty" type="text" inputmode="numeric" placeholder="Ex: 10">
+      </div>
+    </div>
+
     <div class="field field-full">
       <label for="description">Description du produit</label>
       <textarea id="description" placeholder="Décris le produit : matière, taille, particularités, ce qui le rend intéressant..."></textarea>
     </div>
-
     <button id="addBtn" class="btn-add">Ajouter ➕</button>
   </div>
-
   <section class="preview-section">
     <h3>Produits ajoutés</h3>
     <div id="preview">
       <p class="empty-state">Aucun produit ajouté pour le moment</p>
     </div>
-
     <div class="confirm-bar">
       <button id="saveBtn" class="btn-confirm">Confirmer et publier</button>
     </div>
   </section>
-
   <section class="orders-section">
     <h3>Commandes reçues</h3>
     <div id="ordersReceived">
       <p class="empty-state">Aucune commande reçue pour le moment</p>
     </div>
   </section>
-
   <section class="orders-section">
     <h3>Mes produits publiés</h3>
     <div id="myProducts" class="my-products-grid">
@@ -70,9 +113,7 @@
     </div>
   </section>
 </main>
-
 <!-- IMPORTANT -->
 <script type="module" src="fournisseur.js"></script>
-
 </body>
 </html>
