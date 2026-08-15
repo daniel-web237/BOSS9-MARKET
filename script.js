@@ -23,8 +23,6 @@ const firebaseConfig = {
 // ================= INIT =================
 const app = initializeApp(firebaseConfig);
 
-// experimentalForceLongPolling : force ce mode de connexion directement,
-// sur certains réseaux qui filtrent le streaming (WebSocket/gRPC)
 const db = initializeFirestore(app, {
   experimentalForceLongPolling: true
 });
@@ -130,7 +128,7 @@ function showFilterBanner(text) {
   const banner = document.createElement("div");
   banner.id = "filterBanner";
   banner.className = "filter-banner";
-  banner.innerHTML = `<span>${text}</span> <a href="index.html">Voir tous les produits ✕</a>`;
+  banner.innerHTML = `<span>${text}</span> <a href="produits.html">Voir tous les produits ✕</a>`;
   section.insertBefore(banner, section.querySelector(".product-list"));
 }
 
@@ -195,7 +193,6 @@ function initCartButtons() {
       return;
     }
 
-    // clic ailleurs sur la carte → ouvre la fiche produit
     const card = e.target.closest("[data-open-id]");
     if (card) {
       window.location.href = `produit.html?id=${card.dataset.openId}`;
@@ -283,14 +280,12 @@ function initSearch() {
     });
   }
 
-  // ferme les suggestions si on clique ailleurs sur la page
   document.addEventListener("click", (e) => {
     if (!e.target.closest(".search-input-wrap")) {
       hideSuggestions();
     }
   });
 
-  // filtre par catégorie : s'applique tout de suite, sans attendre "Entrée"
   if (categorySelect) {
     categorySelect.addEventListener("change", runSearch);
   }
@@ -323,8 +318,10 @@ onAuthStateChanged(auth, async (user) => {
   if (user) {
     if (mobileAccountLink) mobileAccountLink.href = "compte.html";
 
-    // nom affiché : celui du profil Firestore, ou l'email en repli
-    let displayName = user.email;
+    // nom affiché : celui du profil Firestore (fullname), sinon le
+    // pseudo Firebase Auth (displayName), sinon la partie avant le "@"
+    // de l'email — jamais l'adresse email complète.
+    let displayName = user.displayName || (user.email ? user.email.split("@")[0] : "Mon compte");
     try {
       const snap = await getDoc(doc(db, "users", user.uid));
       if (snap.exists() && snap.data().fullname) {
