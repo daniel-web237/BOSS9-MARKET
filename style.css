@@ -229,38 +229,19 @@ a {
 .actions {
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 18px;
   flex-shrink: 0;
-  font-size: 13px;
+  font-size: 14px;
 }
 
-.actions a.icon-link {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.actions a {
   text-decoration: none;
   color: #EAEAEA;
   white-space: nowrap;
-  font-weight: 500;
-  transition: 0.2s;
 }
 
-.actions a.icon-link .link-icon {
-  font-size: 16px;
-}
-
-.actions a.icon-link:hover {
+.actions a:hover {
   color: var(--gold);
-}
-
-.action-badge {
-  display: inline-block;
-  background: var(--gold);
-  color: var(--ink);
-  font-size: 11px;
-  font-weight: 700;
-  padding: 1px 6px;
-  border-radius: 10px;
 }
 
 .cart-count {
@@ -272,26 +253,6 @@ a {
   padding: 1px 6px;
   border-radius: 10px;
   margin-left: 4px;
-}
-
-.btn-connexion {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  background: var(--gold);
-  color: var(--ink);
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 13px;
-  padding: 9px 18px;
-  border-radius: 22px;
-  transition: 0.2s;
-  white-space: nowrap;
-}
-
-.btn-connexion:hover {
-  background: var(--gold-deep);
-  color: var(--ink) !important;
 }
 
 /* ================= WIDGET COMPTE (avatar + menu déroulant) ================= */
@@ -396,32 +357,19 @@ a {
   background: var(--ink-light);
   padding: 10px 30px;
   border-top: 1px solid rgba(255,255,255,0.08);
-  gap: 20px;
 }
 
 .menu-left {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
-  font-weight: 600;
-  color: white;
+  font-size: 14px;
   cursor: pointer;
-  background: var(--ink);
-  padding: 9px 16px;
-  border-radius: 20px;
-  flex-shrink: 0;
-  transition: 0.2s;
-}
-
-.menu-left:hover {
-  background: #0e2748;
 }
 
 .menu-links {
   list-style: none;
   display: flex;
-  align-items: center;
   gap: 25px;
   margin: 0;
   padding: 0;
@@ -432,9 +380,6 @@ a {
 }
 
 .menu-links a {
-  display: flex;
-  align-items: center;
-  gap: 6px;
   text-decoration: none;
   color: #EAEAEA;
   font-weight: 400;
@@ -462,36 +407,6 @@ a {
 .menu-links a:hover,
 .menu-links a.active {
   color: var(--gold);
-}
-
-.promo-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--gold);
-  flex-shrink: 0;
-}
-
-.nav-sell-btn {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  border: 1.5px solid var(--gold);
-  color: var(--gold);
-  background: transparent;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 12.5px;
-  padding: 8px 16px;
-  border-radius: 20px;
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: 0.2s;
-}
-
-.nav-sell-btn:hover {
-  background: var(--gold);
-  color: var(--ink);
 }
 
 /* ================= HERO ================= */
@@ -694,8 +609,6 @@ section {
   color: var(--text);
   margin: 0 0 8px;
   line-height: 1.35;
-  /* limite à 2 lignes puis "..." — même hauteur de titre pour toutes
-     les cartes, peu importe la longueur du nom du produit */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -726,7 +639,7 @@ section {
 }
 
 .product-card .btn-cart {
-  margin-top: auto; /* le bouton reste toujours collé en bas de la carte */
+  margin-top: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -897,10 +810,9 @@ section {
 @media (max-width: 600px) {
   body {
     overflow-x: hidden;
-    padding-bottom: 62px; /* laisse la place pour la barre du bas fixe */
+    padding-bottom: 62px;
   }
 
-  /* HEADER — logo + recherche sur UNE seule ligne, compact */
   .header-top {
     display: flex;
     flex-direction: row;
@@ -921,7 +833,7 @@ section {
   }
 
   .search-category {
-    display: none; /* trop de place sur mobile, la recherche reste globale */
+    display: none;
   }
 
   .search-box input {
@@ -935,16 +847,13 @@ section {
   }
 
   .search-btn-text {
-    display: none; /* icône seule sur mobile, pas de place pour le texte */
+    display: none;
   }
 
-  /* les liens Favoris/Panier/Abonnements/Compte du header passent
-     dans la barre du bas sur mobile — on les cache ici */
   .actions {
     display: none;
   }
 
-  /* NAVBAR catégories — repliable, fermée par défaut */
   .navbar {
     flex-wrap: wrap;
     padding: 8px 12px;
@@ -981,11 +890,6 @@ section {
     display: none;
   }
 
-  .nav-sell-btn {
-    display: none;
-  }
-
-  /* HERO */
   .side {
     padding: 40px 24px;
     text-align: center;
