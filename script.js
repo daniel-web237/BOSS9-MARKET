@@ -437,6 +437,20 @@ function initMobileMenu() {
 }
 
 
+// ================= BARRE MOBILE DU BAS : état actif au clic =================
+function initMobileBottomNav() {
+  const items = document.querySelectorAll(".mobile-bottom-nav-item");
+  if (!items.length) return;
+
+  items.forEach(item => {
+    item.addEventListener("click", () => {
+      items.forEach(i => i.classList.remove("active"));
+      item.classList.add("active");
+    });
+  });
+}
+
+
 // ================= LOGOUT =================
 window.logout = function () {
   signOut(auth).then(() => location.reload());
@@ -451,3 +465,4 @@ initReveal();
 initCartButtons();
 updateCartCount();
 initMobileMenu();
+initMobileBottomNav();
