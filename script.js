@@ -369,12 +369,14 @@ onAuthStateChanged(auth, async (user) => {
 
 // ================= MENU CATÉGORIES MOBILE (repliable) =================
 function initMobileMenu() {
-  const toggle = document.getElementById("menuToggle");
+  const toggles = document.querySelectorAll(".menu-toggle-btn");
   const links = document.getElementById("menuLinks");
-  if (!toggle || !links) return;
+  if (!toggles.length || !links) return;
 
-  toggle.addEventListener("click", () => {
-    links.classList.toggle("open");
+  toggles.forEach(toggle => {
+    toggle.addEventListener("click", () => {
+      links.classList.toggle("open");
+    });
   });
 }
 
