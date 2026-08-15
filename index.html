@@ -1,24 +1,20 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BOSS9 Market — Votre marketplace de confiance</title>
-
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="landing.css">
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="toast.css">
-  <script src="toast.js"></script>
 </head>
 
-<body class="landing-body">
+<body>
 
-<!-- HEADER (identique au reste du site) -->
-<header class="header landing-header">
+<!-- HEADER (identique au reste du site, mais sans logique de connexion) -->
+<header class="header">
   <div class="header-top">
-    <a href="index.html" class="logo">
+    <a href="landing.html" class="logo">
       <img src="logo.png" alt="BOSS9 Market" class="logo-img">
     </a>
 
@@ -32,127 +28,104 @@
         <option value="alimentation">Alimentation</option>
         <option value="autre">Autre</option>
       </select>
-      <input type="text" placeholder="Rechercher un produit, une marque...">
-      <button type="button" aria-label="Rechercher">🔍 <span class="search-btn-text">Rechercher</span></button>
+      <div class="search-input-wrap">
+        <input type="text" id="landingSearch" placeholder="Rechercher un produit, une marque..." autocomplete="off">
+      </div>
+      <button id="landingSearchBtn" aria-label="Rechercher">🔍 <span class="search-btn-text">Rechercher</span></button>
     </div>
 
     <div class="actions">
-      <a href="produits.html">Favoris</a>
-      <a href="panier.html">Panier <span id="landingCartCount" class="cart-count">0</span></a>
-      <a href="abonnement.html">Abonnements</a>
-      <a href="login.html" class="landing-account">Compte</a>
+      <a href="index.html" class="icon-link"><span class="link-icon">♡</span>Favoris <span class="action-badge">0</span></a>
+      <a href="panier.html" class="icon-link"><span class="link-icon">🛒</span>Panier <span class="action-badge" id="cartCount">0</span></a>
+      <a href="abonnement.html" class="icon-link"><span class="link-icon">💳</span>Abonnements</a>
+      <a href="login.html" class="btn-connexion">👤 Connexion</a>
     </div>
   </div>
 </header>
 
 <!-- HERO -->
 <section class="landing-hero">
-  <div class="landing-map"></div>
-
   <div class="landing-hero-inner">
-    <div class="landing-hero-text reveal-item">
-      <span class="landing-eyebrow">Bienvenue sur BOSS9 Market</span>
-      <h1>Votre marketplace<br><span class="accent">de confiance</span></h1>
-      <p class="landing-lead">Des milliers de produits, des vendeurs vérifiés, une expérience d'achat simple et sécurisée.</p>
 
-      <div class="landing-features">
-        <div class="landing-feature">
-          <span class="landing-feature-icon">🛡️</span>
-          <div>
-            <strong>Vendeurs vérifiés</strong>
-            <p>Des boutiques fiables et de confiance.</p>
-          </div>
+    <div class="landing-hero-text">
+      <span class="landing-badge">BIENVENUE SUR BOSS9 MARKET</span>
+      <h1>Votre <span>marketplace</span> de confiance</h1>
+      <p class="lead">Des produits variés, des fournisseurs vérifiés, une expérience d'achat simple et sécurisée — pensée pour le Cameroun.</p>
+
+      <div class="trust-strip">
+        <div class="trust-item">
+          <div class="trust-icon">🛡️</div>
+          <strong>Fournisseurs vérifiés</strong>
+          <span>Des boutiques fiables et de confiance.</span>
         </div>
-        <div class="landing-feature">
-          <span class="landing-feature-icon">🚚</span>
-          <div>
-            <strong>Livraison rapide</strong>
-            <p>Recevez vos produits partout et vite.</p>
-          </div>
+        <div class="trust-item">
+          <div class="trust-icon">🚚</div>
+          <strong>Livraison rapide</strong>
+          <span>Recevez vos produits partout et vite.</span>
         </div>
-        <div class="landing-feature">
-          <span class="landing-feature-icon">🔒</span>
-          <div>
-            <strong>Paiement sécurisé</strong>
-            <p>Payez en toute sécurité sur la plateforme.</p>
-          </div>
+        <div class="trust-item">
+          <div class="trust-icon">🔒</div>
+          <strong>Paiement sécurisé</strong>
+          <span>Payez en toute sécurité sur la plateforme.</span>
         </div>
-        <div class="landing-feature">
-          <span class="landing-feature-icon">🎧</span>
-          <div>
-            <strong>Support dédié</strong>
-            <p>Notre équipe est là pour vous aider.</p>
-          </div>
+        <div class="trust-item">
+          <div class="trust-icon">🎧</div>
+          <strong>Support dédié</strong>
+          <span>Notre équipe est là pour vous aider.</span>
         </div>
       </div>
 
       <div class="landing-cta-row">
-        <a href="produits.html" class="landing-btn landing-btn-primary">Explorer les produits <span class="arrow">→</span></a>
-        <a href="produits.html#produits" class="landing-btn landing-btn-secondary">Voir les meilleures offres</a>
+        <a href="index.html" class="btn-primary-landing">Explorer les produits →</a>
+        <a href="index.html#produits" class="btn-secondary-landing">Voir les meilleures offres</a>
       </div>
     </div>
 
-    <div class="landing-hero-visual reveal-item" aria-hidden="true">
-
-      <div class="landing-float-card landing-float-1">
-        <span class="landing-float-icon landing-float-icon-amber">🤝</span>
+    <div class="landing-visual">
+      <div class="float-card gold top-left">
+        <div class="fc-icon">🏪</div>
         <div>
-          <strong>Des vendeurs partout</strong>
+          <strong>Des fournisseurs partout</strong>
           <p>Rejoignez une communauté de vendeurs passionnés.</p>
         </div>
       </div>
 
-      <span class="landing-avatar landing-avatar-1">👤</span>
-      <span class="landing-avatar landing-avatar-2">🧑</span>
-      <span class="landing-avatar landing-avatar-3">👩</span>
-      <span class="landing-avatar landing-avatar-4">🧑‍💼</span>
-
-      <div class="landing-phone">
-        <div class="landing-phone-topbar">
-          <span>5:01</span>
-          <span class="landing-phone-icons">📶 🔋</span>
-        </div>
-        <div class="landing-phone-brand">
-          <span class="landing-phone-logo">BOSS<em>9</em></span>
-        </div>
-        <div class="landing-phone-search">🔍 Rechercher un produit...</div>
-        <div class="landing-phone-section-label">Catégories</div>
-        <div class="landing-phone-cats">
-          <span>👜</span><span>👗</span><span>🏠</span><span>💄</span><span>➕</span>
-        </div>
-        <div class="landing-phone-offers-row">
-          <span>Offres du jour</span>
-          <em>Voir tout</em>
-        </div>
-        <div class="landing-phone-grid">
-          <div><span class="landing-phone-emoji">⌚</span><em>35 000 FCFA</em></div>
-          <div><span class="landing-phone-emoji">👜</span><em>25 000 FCFA</em></div>
-          <div><span class="landing-phone-emoji">🎧</span><em>15 000 FCFA</em></div>
+      <div class="device-mock">
+        <div class="device-screen">
+          <div class="device-search">🔍 Rechercher un produit...</div>
+          <div class="device-cats">
+            <div><span>📱</span>Électro</div>
+            <div><span>👗</span>Mode</div>
+            <div><span>🏠</span>Maison</div>
+            <div><span>💄</span>Beauté</div>
+          </div>
+          <div class="device-offer-title">Offres du jour</div>
+          <div class="device-offer">
+            <div class="device-offer-card">
+              <div class="device-offer-swatch" style="background:#E9EEF5;"></div>
+              <span>25 000 FCFA</span>
+            </div>
+            <div class="device-offer-card">
+              <div class="device-offer-swatch" style="background:#FCF1D2;"></div>
+              <span>15 000 FCFA</span>
+            </div>
+            <div class="device-offer-card">
+              <div class="device-offer-swatch" style="background:#E1F0E6;"></div>
+              <span>35 000 FCFA</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <span class="landing-deco landing-deco-bag">👜</span>
-      <span class="landing-deco landing-deco-camera">📷</span>
-      <span class="landing-deco landing-deco-headphones">🎧</span>
-      <span class="landing-deco landing-deco-plant">🪴</span>
-      <span class="landing-deco landing-deco-cart">🛒</span>
-
-      <div class="landing-float-card landing-float-2">
-        <span class="landing-float-icon landing-float-icon-blue">🛡️</span>
+      <div class="float-card navy right-mid">
+        <div class="fc-icon">✅</div>
         <div>
           <strong>Achetez en toute confiance</strong>
           <p>Des produits de qualité et un service sécurisé.</p>
         </div>
       </div>
-
-      <div class="landing-float-card landing-float-3">
-        <span class="landing-float-icon landing-float-icon-green">📦</span>
-        <div>
-          <strong>Tout ce qu'il vous faut, au même endroit</strong>
-          <p>Trouvez, comparez et achetez facilement.</p>
-        </div>
-      </div>
     </div>
+
   </div>
 </section>
 
@@ -167,8 +140,7 @@
     <div>
       <h4>Liens rapides</h4>
       <div class="LR">
-        <a href="produits.html">Boutique</a>
-        <a href="produits.html#produits">Produits</a>
+        <a href="index.html">Boutique</a>
         <a href="fournisseur.html">Devenir fournisseur</a>
         <a href="#">Contact</a>
       </div>
@@ -184,7 +156,24 @@
   <p class="copyright">© 2026 BOSS9 Market</p>
 </footer>
 
-<script src="landing.js"></script>
+<script>
+  document.getElementById("landingSearchBtn").addEventListener("click", goToSearch);
+  document.getElementById("landingSearch").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") goToSearch();
+  });
+
+  function goToSearch() {
+    const term = document.getElementById("landingSearch").value.trim();
+    window.location.href = term ? `index.html?search=${encodeURIComponent(term)}` : "index.html";
+  }
+
+  // le compteur panier reflète le vrai panier même depuis la landing page
+  try {
+    const cart = JSON.parse(localStorage.getItem("boss9_cart")) || [];
+    const total = cart.reduce((sum, item) => sum + item.qty, 0);
+    document.getElementById("cartCount").textContent = total;
+  } catch (e) {}
+</script>
 
 </body>
 </html>
