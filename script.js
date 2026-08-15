@@ -361,7 +361,7 @@ onAuthStateChanged(auth, async (user) => {
     }
 
   } else {
-    if (box) box.innerHTML = `<a href="login.html">Connexion</a>`;
+    if (box) box.innerHTML = `<a href="login.html" class="connexion-btn">👤 Connexion</a>`;
     if (mobileAccountLink) mobileAccountLink.href = "login.html";
   }
 });
