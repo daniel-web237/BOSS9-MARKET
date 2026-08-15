@@ -448,6 +448,16 @@ function initMobileBottomNav() {
       item.classList.add("active");
     });
   });
+
+  // "Catégories" en bas ne dévoile plus un menu caché : il ramène
+  // simplement vers la rangée de pastilles sous la barre de recherche
+  const catBtn = document.querySelector(".mobile-cat-scroll-btn");
+  const quickLinks = document.getElementById("mobileQuickLinks");
+  if (catBtn && quickLinks) {
+    catBtn.addEventListener("click", () => {
+      quickLinks.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
 }
 
 
