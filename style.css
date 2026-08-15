@@ -1211,3 +1211,138 @@ section {
     width: auto;
   }
 }
+
+/* =====================================================
+   MEGA-MENU CATÉGORIES — apparition au survol (façon Alibaba)
+===================================================== */
+.mega-menu-wrap {
+  position: relative;
+}
+
+.mega-menu {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: 0;
+  width: 640px;
+  max-width: 82vw;
+  background: white;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 26px 55px rgba(11, 31, 58, 0.18);
+  display: flex;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+  z-index: 500;
+}
+
+.mega-menu-wrap:hover .mega-menu,
+.mega-menu-wrap:focus-within .mega-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.mega-menu-sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--paper);
+  padding: 14px 0;
+  border-right: 1px solid var(--border);
+}
+
+.mega-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 18px;
+  font-size: 13.5px;
+  color: var(--text);
+  text-decoration: none;
+  transition: 0.15s;
+}
+
+.mega-sidebar-item:hover {
+  background: white;
+  color: var(--gold-deep);
+}
+
+.mega-sidebar-active {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.mega-sidebar-icon {
+  font-size: 15px;
+}
+
+.mega-menu-main {
+  flex: 1;
+  padding: 20px 22px;
+}
+
+.mega-menu-main h4 {
+  font-family: 'Fraunces', serif;
+  font-size: 15px;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+
+.mega-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.mega-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.mega-tile-visual {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.mega-tile:hover .mega-tile-visual {
+  transform: scale(1.06);
+  border-color: var(--gold);
+}
+
+.mega-tile-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mega-tile-emoji {
+  font-size: 26px;
+}
+
+.mega-tile-label {
+  font-size: 12.5px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* le mega-menu est un comportement desktop uniquement :
+   sur tablette/mobile, on garde le menu simple existant */
+@media (max-width: 992px) {
+  .mega-menu {
+    display: none;
+  }
+}
