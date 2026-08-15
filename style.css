@@ -86,7 +86,7 @@ a {
 }
 
 .logo-img {
-  height: 120px;
+  height: 56px;
   width: auto;
   object-fit: contain;
 }
@@ -1163,21 +1163,10 @@ section {
 }
 
 /* =====================================================
-   HEADER MOBILE — hamburger à la place du logo (produits.html)
+   HEADER MOBILE — rangée de pastilles sous la recherche (produits.html)
 ===================================================== */
-.mobile-menu-btn {
+.mobile-quick-links {
   display: none;
-  background: var(--ink);
-  color: white;
-  border: none;
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  font-size: 16px;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  flex-shrink: 0;
 }
 
 @media (max-width: 600px) {
@@ -1185,50 +1174,44 @@ section {
     display: none;
   }
 
-  .mobile-menu-btn {
-    display: flex;
-  }
-
-  /* la barre pill devient invisible sur mobile : seul le menu
-     déroulant (ouvert via le hamburger du header) reste utile */
+  /* la barre pill "Catégories" et son mega-menu ne servent plus sur
+     mobile : remplacés par la rangée de pastilles sous la recherche */
   .navbar-v2 {
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    margin: 0;
-    padding: 0;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-  }
-
-  .navbar-v2 .menu-left {
     display: none;
   }
 
-  .navbar-v2 .menu-links.open {
-    background: white;
-    border-radius: 14px;
-    margin: 8px 10px 0;
-    box-shadow: 0 8px 20px rgba(11, 31, 58, 0.1);
-    overflow: hidden;
+  .mobile-quick-links {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0 10px 12px;
+    margin-top: 10px; /* un peu éloigné de la barre de recherche */
   }
 
-  .navbar-v2 .menu-links a {
-    color: var(--text);
+  .mobile-quick-links::-webkit-scrollbar {
+    display: none;
   }
 
-  .navbar-v2 .menu-links li {
-    border-top: 1px solid var(--border);
+  .mobile-quick-links a {
+    flex: 0 0 auto;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: #EAEAEA;
+    text-decoration: none;
+    font-size: 12.5px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 20px;
+    white-space: nowrap;
+    transition: 0.2s;
   }
 
-  .navbar-v2 .menu-links li:first-child {
-    border-top: none;
-  }
-
-  .navbar-v2 .sell-btn {
-    margin: 10px 10px 0;
-    width: auto;
+  .mobile-quick-links a:active {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--ink);
   }
 }
 
