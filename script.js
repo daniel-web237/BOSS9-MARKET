@@ -4,7 +4,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 
 import {
-  initializeFirestore, collection, getDocs, doc, getDoc
+  initializeFirestore, collection, getDocs, doc, getDoc, setDoc, deleteDoc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 import {
@@ -59,6 +59,7 @@ function renderProducts(products) {
       <div class="product-card" data-open-id="${p.id}">
         <div class="product-img-wrap">
           ${p.category ? `<span class="product-badge">${p.category}</span>` : ""}
+          <button class="btn-fav" data-id="${p.id}" aria-label="Ajouter aux favoris">♡</button>
           <img src="${p.image}" alt="${p.name}">
         </div>
         <h4>${p.name}</h4>
@@ -67,6 +68,84 @@ function renderProducts(products) {
       </div>
     `;
   });
+
+  refreshFavoriteIcons();
+}
+
+
+// ================= FAVORIS =================
+let currentUserId = null;
+let favoriteIds = new Set();
+
+async function loadFavorites(uid) {
+  favoriteIds = new Set();
+
+  try {
+    const snap = await getDocs(collection(db, "users", uid, "favorites"));
+    snap.forEach(d => favoriteIds.add(d.id));
+  } catch (err) {
+    console.error(err);
+  }
+
+  updateFavCountBadge();
+  refreshFavoriteIcons();
+}
+
+function updateFavCountBadge() {
+  const badge = document.getElementById("favCount");
+  if (badge) badge.textContent = favoriteIds.size;
+}
+
+function refreshFavoriteIcons() {
+  document.querySelectorAll(".btn-fav").forEach(btn => {
+    const isFav = favoriteIds.has(btn.dataset.id);
+    btn.classList.toggle("is-fav", isFav);
+    btn.textContent = isFav ? "♥" : "♡";
+  });
+}
+
+async function toggleFavorite(productId, btn) {
+  if (!currentUserId) {
+    showToast("Connecte-toi pour ajouter des favoris.", "warning", "Connexion requise");
+    return;
+  }
+
+  const product = allProducts.find(p => p.id === productId);
+  if (!product) return;
+
+  const ref = doc(db, "users", currentUserId, "favorites", productId);
+  const wasFav = favoriteIds.has(productId);
+
+  // retour visuel immédiat, avant même la confirmation Firestore
+  if (btn) {
+    btn.classList.toggle("is-fav", !wasFav);
+    btn.textContent = wasFav ? "♡" : "♥";
+  }
+
+  try {
+    if (wasFav) {
+      await deleteDoc(ref);
+      favoriteIds.delete(productId);
+    } else {
+      await setDoc(ref, {
+        productId,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        category: product.category || null,
+        addedAt: new Date()
+      });
+      favoriteIds.add(productId);
+    }
+    updateFavCountBadge();
+  } catch (err) {
+    // on annule le retour visuel si l'écriture a échoué
+    if (btn) {
+      btn.classList.toggle("is-fav", wasFav);
+      btn.textContent = wasFav ? "♥" : "♡";
+    }
+    showToast("Impossible de mettre à jour tes favoris pour le moment.", "error", "Erreur");
+  }
 }
 
 
@@ -217,6 +296,11 @@ function initCartButtons() {
   if (!container) return;
 
   container.addEventListener("click", (e) => {
+    if (e.target.classList.contains("btn-fav")) {
+      toggleFavorite(e.target.dataset.id, e.target);
+      return;
+    }
+
     if (e.target.classList.contains("btn-cart")) {
       addToCart(e.target.dataset.id);
       e.target.textContent = "Ajouté ✓";
@@ -347,7 +431,10 @@ onAuthStateChanged(auth, async (user) => {
   const mobileAccountLink = document.getElementById("mobileAccountLink");
 
   if (user) {
+    currentUserId = user.uid;
     if (mobileAccountLink) mobileAccountLink.href = "compte.html";
+
+    loadFavorites(user.uid);
 
     // nom affiché : celui du profil Firestore (fullname), sinon le
     // pseudo Firebase Auth (displayName), sinon la partie avant le "@"
@@ -392,6 +479,10 @@ onAuthStateChanged(auth, async (user) => {
     }
 
   } else {
+    currentUserId = null;
+    favoriteIds = new Set();
+    updateFavCountBadge();
+    refreshFavoriteIcons();
     if (box) box.innerHTML = `<a href="login.html" class="connexion-btn">👤 Connexion</a>`;
     if (mobileAccountLink) mobileAccountLink.href = "login.html";
   }
