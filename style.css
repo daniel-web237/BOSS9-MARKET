@@ -91,7 +91,7 @@ a {
 }
 
 .logo-img {
-  height: 120px;
+  height: 56px;
   width: auto;
   object-fit: contain;
 }
@@ -1353,4 +1353,34 @@ section {
   .mega-menu {
     display: none;
   }
+}
+
+/* ================= BOUTON FAVORI SUR LES CARTES PRODUIT ================= */
+.btn-fav {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 3;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-fav:hover {
+  transform: scale(1.1);
+  color: #C0392B;
+}
+
+.btn-fav.is-fav {
+  color: #C0392B;
+  border-color: #F3C6C0;
 }
