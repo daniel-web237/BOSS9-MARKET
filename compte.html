@@ -11,17 +11,13 @@
   <link rel="stylesheet" href="toast.css">
   <script src="toast.js"></script>
 </head>
-
 <body>
-
 <header class="dash-header">
   <a href="produits.html" class="back">← Retour à l'accueil</a>
 </header>
-
 <main class="account-page">
   <h2>Mon compte</h2>
   <p class="intro">Gère tes informations, suis tes commandes et retrouve tes favoris.</p>
-
   <div class="profile-card">
     <div class="profile-top">
       <div class="avatar" id="avatarInitial">?</div>
@@ -31,7 +27,6 @@
         <span class="role-badge" id="profileRole"></span>
       </div>
     </div>
-
     <div class="form-row">
       <div class="field">
         <label for="fullname">Nom complet</label>
@@ -42,35 +37,49 @@
         <input id="phone" placeholder="Ton numéro">
       </div>
     </div>
-
     <div class="form-row">
       <div class="field">
         <label for="email">Email</label>
         <input id="email" disabled>
       </div>
     </div>
-
     <button id="saveBtn" class="btn-save">Enregistrer les modifications</button>
   </div>
-
   <div class="section-card">
     <h3>Mes commandes</h3>
     <p class="section-sub">L'historique de tes achats apparaîtra ici</p>
     <div class="empty-box" id="ordersBox">Aucune commande pour le moment</div>
   </div>
-
   <div class="section-card">
     <h3>Mes favoris</h3>
     <p class="section-sub">Les produits que tu as sauvegardés</p>
     <div class="empty-box" id="favoritesBox">Aucun favori pour le moment</div>
   </div>
-
   <div class="logout-row">
     <button class="btn-logout" onclick="logout()">Se déconnecter</button>
   </div>
 </main>
 
-<script type="module" src="compte.js"></script>
+<!-- MODALE D'AVIS -->
+<div class="review-modal-overlay" id="reviewModalOverlay">
+  <div class="review-modal">
+    <h3>Évaluer le vendeur</h3>
+    <p class="review-modal-sub">Ta note aide les autres acheteurs à choisir en confiance.</p>
+    <div class="star-picker" id="starPicker">
+      <button type="button" class="star" data-value="1">★</button>
+      <button type="button" class="star" data-value="2">★</button>
+      <button type="button" class="star" data-value="3">★</button>
+      <button type="button" class="star" data-value="4">★</button>
+      <button type="button" class="star" data-value="5">★</button>
+    </div>
+    <textarea id="reviewComment" placeholder="Ton avis (optionnel)"></textarea>
+    <div class="review-modal-actions">
+      <button id="reviewCancelBtn" class="btn-cancel-review">Annuler</button>
+      <button id="reviewSubmitBtn" class="btn-submit-review">Envoyer l'avis</button>
+    </div>
+  </div>
+</div>
 
+<script type="module" src="compte.js"></script>
 </body>
 </html>
