@@ -74,7 +74,7 @@ h1, h2, h3 {
 
 /* ================= PROFIL CARD ================= */
 .profile-card {
-  background: white;
+  background: var(--surface);
   border-radius: 12px;
   padding: 30px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.06);
@@ -179,7 +179,7 @@ h1, h2, h3 {
 
 /* ================= SECTIONS (commandes / favoris) ================= */
 .section-card {
-  background: white;
+  background: var(--surface);
   border-radius: 12px;
   padding: 26px 30px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.06);
@@ -281,7 +281,7 @@ h1, h2, h3 {
 }
 
 .stepper-step.current .stepper-dot {
-  background: white;
+  background: var(--surface);
   border-color: var(--gold-deep);
   box-shadow: 0 0 0 3px rgba(201, 144, 0, 0.18);
 }
@@ -372,7 +372,7 @@ h1, h2, h3 {
 }
 
 .fav-card {
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 10px;
   width: 160px;
@@ -415,7 +415,7 @@ h1, h2, h3 {
 
 .btn-remove-fav {
   margin-top: auto;
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--border);
   color: var(--muted);
   padding: 7px;
@@ -447,7 +447,7 @@ h1, h2, h3 {
 }
 
 .review-modal {
-  background: white;
+  background: var(--surface);
   border-radius: 14px;
   padding: 28px;
   width: 100%;
@@ -573,4 +573,65 @@ h1, h2, h3 {
   .status-stepper {
     overflow-x: auto;
   }
+}
+
+/* =====================================================
+   MODE SOMBRE
+===================================================== */
+[data-theme="dark"] {
+  --paper: #0F1626;
+  --surface: #1B2338;
+  --ink-light: #22345A;
+  --text: #E7E9F2;
+  --muted: #9AA3B8;
+  --border: #2A3450;
+  --shadow-color: rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="dark"] body {
+  background: var(--paper);
+  color: var(--text);
+}
+
+[data-theme="dark"] .profile-card,
+[data-theme="dark"] .section-card,
+[data-theme="dark"] .order-card,
+[data-theme="dark"] .fav-card,
+[data-theme="dark"] .review-modal {
+  box-shadow: 0 2px 10px var(--shadow-color);
+}
+
+[data-theme="dark"] .field input:disabled {
+  background: #10182A;
+}
+
+[data-theme="dark"] .avatar {
+  color: var(--ink);
+}
+
+[data-theme="dark"] .fav-card img,
+[data-theme="dark"] .order-item-row img {
+  background: #10182A;
+}
+
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #EAEAEA;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+  flex-shrink: 0;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--gold);
+  color: var(--ink);
+  border-color: var(--gold);
 }
