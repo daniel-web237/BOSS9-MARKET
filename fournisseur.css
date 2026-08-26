@@ -12,6 +12,8 @@
   --muted: #5B5B5B;
   --border: #E2DECF;
   --danger: #C0392B;
+  --surface: #FFFFFF;
+  --shadow-color: rgba(0, 0, 0, 0.06);
 }
 
 * {
@@ -83,7 +85,7 @@ h1, h2, h3 {
 }
 
 .stat-card {
-  background: white;
+  background: var(--surface);
   border-radius: 12px;
   padding: 18px 16px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.06);
@@ -114,7 +116,7 @@ h1, h2, h3 {
   display: flex;
   align-items: center;
   gap: 14px;
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 16px 20px;
@@ -155,7 +157,7 @@ h1, h2, h3 {
 
 /* ================= FORM CARD ================= */
 .form-card {
-  background: white;
+  background: var(--surface);
   border-radius: 12px;
   padding: 30px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.06);
@@ -209,7 +211,7 @@ h1, h2, h3 {
 .field input[type="file"] {
   padding: 10px 12px;
   cursor: pointer;
-  background: white;
+  background: var(--surface);
   font-size: 13px;
   color: var(--muted);
   border: 1px solid var(--border);
@@ -310,7 +312,7 @@ h1, h2, h3 {
 }
 
 .preview-card {
-  background: white;
+  background: var(--surface);
   border-radius: 10px;
   width: 160px;
   padding: 12px;
@@ -440,7 +442,7 @@ h1, h2, h3 {
 }
 
 .order-received {
-  background: white;
+  background: var(--surface);
   border-radius: 10px;
   padding: 16px 18px;
   margin-bottom: 12px;
@@ -498,7 +500,7 @@ h1, h2, h3 {
 }
 
 .my-product-card {
-  background: white;
+  background: var(--surface);
   border-radius: 10px;
   width: 190px;
   padding: 14px;
@@ -579,7 +581,7 @@ h1, h2, h3 {
 .my-product-actions button {
   flex: 1;
   border: 1px solid var(--border);
-  background: white;
+  background: var(--surface);
   padding: 7px;
   border-radius: 6px;
   font-size: 12px;
@@ -629,4 +631,64 @@ h1, h2, h3 {
 .btn-cancel-edit {
   background: #eee;
   color: var(--text);
+}
+
+/* =====================================================
+   MODE SOMBRE
+===================================================== */
+[data-theme="dark"] {
+  --paper: #0F1626;
+  --surface: #1B2338;
+  --ink-light: #22345A;
+  --text: #E7E9F2;
+  --muted: #9AA3B8;
+  --border: #2A3450;
+  --shadow-color: rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="dark"] body {
+  background: var(--paper);
+  color: var(--text);
+}
+
+[data-theme="dark"] .form-card,
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .messages-quicklink,
+[data-theme="dark"] .preview-card,
+[data-theme="dark"] .order-received,
+[data-theme="dark"] .my-product-card {
+  box-shadow: 0 2px 10px var(--shadow-color);
+}
+
+[data-theme="dark"] .my-product-card img,
+[data-theme="dark"] .preview-card img,
+[data-theme="dark"] .image-preview-list img {
+  background: #10182A;
+}
+
+[data-theme="dark"] .field input[type="file"] {
+  background: var(--surface);
+  color: var(--muted);
+}
+
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #EAEAEA;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+  flex-shrink: 0;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--gold);
+  color: var(--ink);
+  border-color: var(--gold);
 }
