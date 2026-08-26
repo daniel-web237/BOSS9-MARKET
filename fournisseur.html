@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  <script>
+    (function () {
+      var t = localStorage.getItem("boss9_theme") ||
+              (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Fournisseur — BOSS9 Market</title>
@@ -8,10 +15,12 @@
   <link rel="stylesheet" href="fournisseur.css">
   <link rel="stylesheet" href="toast.css">
   <script src="toast.js"></script>
+  <script src="theme.js" defer></script>
 </head>
 <body>
 <header class="dash-header">
   <a href="produits.html" class="back">← Retour à l'accueil</a>
+  <button type="button" class="theme-toggle-btn" aria-label="Changer de thème">🌙</button>
 </header>
 <main class="dashboard">
   <h2>Tableau de bord fournisseur</h2>
