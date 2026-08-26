@@ -86,7 +86,53 @@ onAuthStateChanged(auth, async (user) => {
 
   loadReceivedOrders(user.uid);
   loadMyProducts(user.uid);
+  loadReviews(user.uid);
 });
+
+
+// ================= AVIS CLIENTS =================
+async function loadReviews(uid) {
+  const list = document.getElementById("reviewsList");
+  const ratingValue = document.getElementById("statRating");
+  const ratingLabel = document.getElementById("statRatingLabel");
+  if (!list) return;
+
+  try {
+    const q = query(collection(db, "reviews"), where("supplierId", "==", uid), orderBy("createdAt", "desc"));
+    const snap = await getDocs(q);
+
+    if (snap.empty) {
+      list.innerHTML = `<p class="empty-state">Aucun avis pour le moment</p>`;
+      if (ratingValue) ratingValue.textContent = "—";
+      if (ratingLabel) ratingLabel.textContent = "Note moyenne";
+      return;
+    }
+
+    const reviews = snap.docs.map(d => d.data());
+    const average = reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+
+    if (ratingValue) ratingValue.textContent = `${average.toFixed(1)} ⭐`;
+    if (ratingLabel) ratingLabel.textContent = `${reviews.length} avis`;
+
+    list.innerHTML = reviews.map(r => {
+      const date = r.createdAt?.toDate ? r.createdAt.toDate().toLocaleDateString("fr-FR") : "";
+      const stars = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
+      return `
+        <div class="review-card">
+          <div class="review-card-top">
+            <span class="review-stars">${stars}</span>
+            <span class="review-author">${r.buyerName || "Client"} — ${date}</span>
+          </div>
+          ${r.comment ? `<p class="review-comment">${r.comment}</p>` : ""}
+        </div>
+      `;
+    }).join("");
+
+  } catch (err) {
+    console.error(err);
+    list.innerHTML = `<p class="empty-state">Impossible de charger les avis pour le moment</p>`;
+  }
+}
 
 
 // ================= COMMANDES REÇUES =================
