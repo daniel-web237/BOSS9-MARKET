@@ -2,16 +2,22 @@
 <html lang="fr">
 
 <head>
+  <script>
+    (function () {
+      var t = localStorage.getItem("boss9_theme") ||
+              (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
   <title>BOSS9 Market</title>
 
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="toast.css">
   <script src="toast.js"></script>
+  <script src="theme.js" defer></script>
 </head>
 
 <body class="page-produits">
@@ -49,6 +55,7 @@
       <a href="compte.html" class="icon-link">♡ Favoris <span id="favCount" class="cart-count">0</span></a>
       <a href="panier.html" class="icon-link">🛒 Panier <span id="cartCount" class="cart-count">0</span></a>
       <a href="abonnement.html">Abonnements</a>
+      <button type="button" class="theme-toggle-btn" aria-label="Changer de thème">🌙</button>
       <span id="userBox"></span>
     </div>
   </div>
@@ -92,6 +99,7 @@
     </div>
 
     <ul class="menu-links" id="menuLinks">
+      <li><a href="index.html">Accueil</a></li>
       <li><a href="boutiques.html">Boutiques</a></li>
       <li><a href="#">Promotions <span class="promo-dot"></span></a></li>
       <li><a href="fournisseur.html">Devenir fournisseur</a></li>
