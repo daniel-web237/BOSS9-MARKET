@@ -538,3 +538,72 @@
   .landing-float-2 { top: 6%; right: -4%; }
   .landing-float-3 { bottom: 2%; right: -4%; }
 }
+
+/* =====================================================
+   MODE SOMBRE — landing page
+===================================================== */
+[data-theme="dark"] .landing-hero {
+  background: linear-gradient(160deg, #101A30 0%, #131A2C 55%, #0F1626 100%);
+}
+
+[data-theme="dark"] .landing-map {
+  background-image: radial-gradient(rgba(120, 150, 230, 0.14) 1.4px, transparent 1.4px);
+}
+
+[data-theme="dark"] .landing-eyebrow {
+  background: rgba(120, 150, 230, 0.14);
+  color: #9FB4F5;
+}
+
+[data-theme="dark"] .landing-hero-text h1 {
+  color: #F0F2F8;
+}
+
+[data-theme="dark"] .landing-lead {
+  color: #A9B0C4;
+}
+
+[data-theme="dark"] .landing-features {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .landing-feature-icon {
+  background: rgba(120, 150, 230, 0.16);
+}
+
+[data-theme="dark"] .landing-feature strong {
+  color: #F0F2F8;
+}
+
+[data-theme="dark"] .landing-btn-secondary {
+  background: #1B2338;
+  color: #F0F2F8;
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+[data-theme="dark"] .landing-float-card {
+  background: #1B2338;
+}
+
+[data-theme="dark"] .landing-float-card strong {
+  color: #F0F2F8;
+}
+
+[data-theme="dark"] .landing-avatar {
+  border-color: #1B2338;
+}
+
+[data-theme="dark"] .landing-phone-search,
+[data-theme="dark"] .landing-phone-section-label,
+[data-theme="dark"] .landing-phone-cats,
+[data-theme="dark"] .landing-phone-offers-row,
+[data-theme="dark"] .landing-phone-grid {
+  background: #1B2338;
+  color: #E7E9F2;
+}
+
+[data-theme="dark"] .landing-phone-grid div {
+  background: #10182A;
+  border-color: #2A3450;
+}
