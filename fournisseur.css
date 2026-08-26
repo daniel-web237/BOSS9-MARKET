@@ -13,6 +13,7 @@
   --border: #E2DECF;
   --danger: #C0392B;
   --surface: #FFFFFF;
+  --heading: var(--ink);
   --shadow-color: rgba(0, 0, 0, 0.06);
 }
 
@@ -67,7 +68,7 @@ h1, h2, h3 {
 .dashboard h2 {
   font-size: 24px;
   margin-bottom: 6px;
-  color: var(--ink);
+  color: var(--heading);
 }
 
 .dashboard .intro {
@@ -97,7 +98,7 @@ h1, h2, h3 {
   font-family: 'Fraunces', serif;
   font-weight: 700;
   font-size: 24px;
-  color: var(--ink);
+  color: var(--heading);
   margin-bottom: 4px;
 }
 
@@ -139,7 +140,7 @@ h1, h2, h3 {
 .messages-quicklink strong {
   display: block;
   font-size: 14px;
-  color: var(--ink);
+  color: var(--heading);
   margin-bottom: 2px;
 }
 
@@ -293,7 +294,7 @@ h1, h2, h3 {
 /* ================= PREVIEW ================= */
 .preview-section h3 {
   font-size: 16px;
-  color: var(--ink);
+  color: var(--heading);
   margin-bottom: 14px;
 }
 
@@ -385,7 +386,7 @@ h1, h2, h3 {
 
 .btn-confirm {
   background: var(--gold);
-  color: var(--ink);
+  color: var(--heading);
   border: none;
   padding: 14px 30px;
   border-radius: 6px;
@@ -437,7 +438,7 @@ h1, h2, h3 {
 
 .orders-section h3 {
   font-size: 16px;
-  color: var(--ink);
+  color: var(--heading);
   margin-bottom: 14px;
 }
 
@@ -487,7 +488,7 @@ h1, h2, h3 {
 .order-received-total {
   text-align: right;
   font-weight: 700;
-  color: var(--ink);
+  color: var(--heading);
   margin-top: 8px;
   font-size: 13px;
 }
@@ -644,6 +645,7 @@ h1, h2, h3 {
   --muted: #9AA3B8;
   --border: #2A3450;
   --shadow-color: rgba(0, 0, 0, 0.35);
+  --heading: #F0F2F8;
 }
 
 [data-theme="dark"] body {
@@ -689,6 +691,6 @@ h1, h2, h3 {
 
 .theme-toggle-btn:hover {
   background: var(--gold);
-  color: var(--ink);
+  color: var(--heading);
   border-color: var(--gold);
 }
