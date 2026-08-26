@@ -12,6 +12,8 @@
   --text: #14213D;
   --muted: #5B5B5B;
   --border: #E7E1D2;
+  --surface: #FFFFFF;
+  --shadow-color: rgba(11, 31, 58, 0.08);
 }
 
 * {
@@ -49,7 +51,7 @@ a {
 #loader {
   position: fixed;
   inset: 0;
-  background: white;
+  background: var(--surface);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -103,7 +105,7 @@ a {
   align-items: center;
   max-width: 700px;
   height: 46px;
-  background: white;
+  background: var(--surface);
   border: 1.5px solid var(--border);
   border-radius: 30px;
   padding: 4px 4px 4px 16px;
@@ -150,7 +152,7 @@ a {
   top: calc(100% + 12px);
   left: -16px;
   right: -4px;
-  background: white;
+  background: var(--surface);
   border-radius: 12px;
   box-shadow: 0 12px 30px rgba(0,0,0,0.15);
   overflow: hidden;
@@ -312,7 +314,7 @@ a {
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  background: white;
+  background: var(--surface);
   border-radius: 10px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
   min-width: 160px;
@@ -552,7 +554,7 @@ section {
 }
 
 .product-card {
-  background: white;
+  background: var(--surface);
   border-radius: 14px;
   width: 210px;
   padding: 14px;
@@ -975,7 +977,7 @@ section {
     bottom: 0;
     left: 0;
     right: 0;
-    background: white;
+    background: var(--surface);
     border-top: 1px solid var(--border);
     box-shadow: 0 -6px 20px rgba(11, 31, 58, 0.08);
     padding: 8px 0 10px;
@@ -1068,7 +1070,7 @@ section {
    NAVBAR v2 — barre de catégories façon pill (produits.html)
 ===================================================== */
 .navbar-v2 {
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 30px;
   margin: 14px 24px;
@@ -1233,7 +1235,7 @@ section {
   left: 0;
   width: 640px;
   max-width: 82vw;
-  background: white;
+  background: var(--surface);
   border-radius: 16px;
   border: 1px solid var(--border);
   box-shadow: 0 26px 55px rgba(11, 31, 58, 0.18);
@@ -1273,7 +1275,7 @@ section {
 }
 
 .mega-sidebar-item:hover {
-  background: white;
+  background: var(--surface);
   color: var(--gold-deep);
 }
 
@@ -1383,4 +1385,96 @@ section {
 .btn-fav.is-fav {
   color: #C0392B;
   border-color: #F3C6C0;
+}
+
+/* =====================================================
+   MODE SOMBRE — activé via [data-theme="dark"] sur <html>
+===================================================== */
+[data-theme="dark"] {
+  --paper: #0F1626;
+  --surface: #1B2338;
+  --ink-light: #22345A;
+  --text: #E7E9F2;
+  --muted: #9AA3B8;
+  --border: #2A3450;
+  --shadow-color: rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="dark"] body {
+  background: var(--paper);
+  color: var(--text);
+}
+
+/* les ombres qui utilisaient une couleur fixe deviennent plus discrètes en sombre */
+[data-theme="dark"] .product-card,
+[data-theme="dark"] .form-card,
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .section-card,
+[data-theme="dark"] .profile-card,
+[data-theme="dark"] .my-product-card,
+[data-theme="dark"] .preview-card,
+[data-theme="dark"] .navbar-v2,
+[data-theme="dark"] .mega-menu,
+[data-theme="dark"] .messages-quicklink {
+  box-shadow: 0 2px 10px var(--shadow-color);
+}
+
+[data-theme="dark"] .search-box input,
+[data-theme="dark"] .search-category {
+  color: var(--text);
+}
+
+[data-theme="dark"] .search-suggestions .sugg-item:hover,
+[data-theme="dark"] .search-suggestions .sugg-item.active {
+  background: var(--ink-light);
+}
+
+[data-theme="dark"] .product-img-wrap,
+[data-theme="dark"] .my-product-card img,
+[data-theme="dark"] .preview-card img {
+  background: #10182A;
+}
+
+[data-theme="dark"] .btn-fav {
+  background: rgba(27, 35, 56, 0.92);
+  border-color: var(--border);
+  color: var(--muted);
+}
+
+[data-theme="dark"] .mega-menu-sidebar {
+  background: #141B2E;
+}
+
+[data-theme="dark"] .mega-sidebar-item:hover {
+  background: var(--surface);
+}
+
+/* =====================================================
+   BOUTON BASCULE MODE SOMBRE/CLAIR
+===================================================== */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #EAEAEA;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+  flex-shrink: 0;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--gold);
+  color: var(--ink);
+  border-color: var(--gold);
+}
+
+/* sur les dashboards (fond clair), le bouton doit rester lisible en toutes circonstances */
+.dash-header .theme-toggle-btn {
+  background: rgba(255, 255, 255, 0.1);
 }
