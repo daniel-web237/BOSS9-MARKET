@@ -11,6 +11,9 @@
   --text: #14213D;
   --muted: #5B5B5B;
   --border: #E2DECF;
+  --surface: #FFFFFF;
+  --heading: var(--ink);
+  --shadow-color: rgba(0, 0, 0, 0.06);
 }
 
 * {
@@ -93,7 +96,7 @@ h1, h2, h3 {
   height: 56px;
   border-radius: 50%;
   background: var(--gold);
-  color: var(--ink);
+  color: var(--heading);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -236,7 +239,7 @@ h1, h2, h3 {
 
 .order-total {
   font-weight: 700;
-  color: var(--ink);
+  color: var(--heading);
 }
 
 .order-status {
@@ -296,7 +299,7 @@ h1, h2, h3 {
 
 .stepper-step.done .stepper-label,
 .stepper-step.current .stepper-label {
-  color: var(--ink);
+  color: var(--heading);
   font-weight: 600;
 }
 
@@ -344,7 +347,7 @@ h1, h2, h3 {
 
 .btn-review {
   background: var(--gold);
-  color: var(--ink);
+  color: var(--heading);
   border: none;
   padding: 9px 18px;
   border-radius: 6px;
@@ -458,7 +461,7 @@ h1, h2, h3 {
 .review-modal h3 {
   font-size: 18px;
   margin-bottom: 4px;
-  color: var(--ink);
+  color: var(--heading);
 }
 
 .review-modal-sub {
@@ -586,6 +589,7 @@ h1, h2, h3 {
   --muted: #9AA3B8;
   --border: #2A3450;
   --shadow-color: rgba(0, 0, 0, 0.35);
+  --heading: #F0F2F8;
 }
 
 [data-theme="dark"] body {
@@ -606,7 +610,7 @@ h1, h2, h3 {
 }
 
 [data-theme="dark"] .avatar {
-  color: var(--ink);
+  color: var(--heading);
 }
 
 [data-theme="dark"] .fav-card img,
@@ -632,6 +636,6 @@ h1, h2, h3 {
 
 .theme-toggle-btn:hover {
   background: var(--gold);
-  color: var(--ink);
+  color: var(--heading);
   border-color: var(--gold);
 }
