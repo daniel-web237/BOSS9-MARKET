@@ -2,6 +2,13 @@
 <html lang="fr">
 
 <head>
+  <script>
+    (function () {
+      var t = localStorage.getItem("boss9_theme") ||
+              (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BOSS9 Market — Votre marketplace de confiance</title>
@@ -11,6 +18,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="toast.css">
   <script src="toast.js"></script>
+  <script src="theme.js" defer></script>
 </head>
 
 <body class="landing-body">
@@ -19,6 +27,7 @@
 <header class="header landing-header">
   <div class="header-top">
     <a href="index.html" class="logo">
+      <img src="logo.png" alt="BOSS9 Market" class="logo-img">
     </a>
 
     <div class="search-box">
@@ -39,6 +48,7 @@
       <a href="produits.html" class="landing-icon-link">♡ Favoris <span class="cart-count">0</span></a>
       <a href="panier.html" class="landing-icon-link">🛒 Panier <span id="landingCartCount" class="cart-count">0</span></a>
       <a href="abonnement.html">Abonnements</a>
+      <button type="button" class="theme-toggle-btn" aria-label="Changer de thème">🌙</button>
       <a href="login.html" class="landing-connexion-btn">👤 Connexion</a>
     </div>
   </div>
@@ -166,7 +176,7 @@
     <div>
       <h4>Liens rapides</h4>
       <div class="LR">
-        <a href="boutiques.html">Boutique</a>
+        <a href="produits.html">Boutique</a>
         <a href="produits.html#produits">Produits</a>
         <a href="fournisseur.html">Devenir fournisseur</a>
         <a href="#">Contact</a>
