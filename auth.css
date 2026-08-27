@@ -11,6 +11,8 @@
   --text: #14213D;
   --muted: #5B5B5B;
   --border: #E2DECF;
+  --surface: #FFFFFF;
+  --heading: var(--ink);
 }
 
 * {
@@ -34,7 +36,7 @@ body {
 
 /* CONTAINER */
 .auth-container {
-  background: var(--paper);
+  background: var(--surface);
   padding: 45px 36px;
   width: 100%;
   max-width: 420px;
@@ -55,7 +57,7 @@ body {
   font-family: 'Fraunces', serif;
   font-weight: 600;
   font-size: 24px;
-  color: var(--ink);
+  color: var(--heading);
   margin-bottom: 6px;
 }
 
@@ -77,7 +79,7 @@ body {
   border: 1px solid var(--border);
   border-radius: 6px;
   font-size: 14px;
-  background: white;
+  background: var(--surface);
   color: var(--text);
   outline: none;
   transition: 0.2s;
@@ -121,7 +123,7 @@ body {
   top: 50%;
   left: 10px;
   transform: translateY(-50%);
-  background: white;
+  background: var(--surface);
   padding: 0 6px;
   color: var(--muted);
   font-size: 14px;
@@ -184,7 +186,7 @@ body {
 }
 
 .auth-link a {
-  color: var(--ink);
+  color: var(--heading);
   font-weight: 600;
   text-decoration: none;
 }
@@ -225,7 +227,7 @@ body {
   font-size: 13px;
   font-weight: 600;
   color: var(--muted);
-  background: white;
+  background: var(--surface);
   cursor: pointer;
   transition: 0.2s;
 }
@@ -253,7 +255,7 @@ body {
 }
 
 .terms a {
-  color: var(--ink);
+  color: var(--heading);
   font-weight: 600;
   text-decoration: none;
 }
@@ -281,7 +283,7 @@ body {
   font-family: 'Fraunces', serif;
   font-weight: 600;
   font-size: 22px;
-  color: var(--ink);
+  color: var(--heading);
   margin-bottom: 6px;
 }
 
@@ -365,7 +367,7 @@ body {
   padding: 18px 12px;
   border: 1.5px solid var(--border);
   border-radius: 10px;
-  background: white;
+  background: var(--surface);
   cursor: pointer;
   transition: 0.2s;
 }
@@ -414,7 +416,7 @@ body {
   border-radius: 6px;
   font-size: 14px;
   font-family: 'Poppins', sans-serif;
-  background: white;
+  background: var(--surface);
   color: var(--text);
   outline: none;
 }
@@ -425,6 +427,53 @@ body {
 
 .auth-btn.full {
   width: 100%;
+}
+
+/* ================= BOUTON MODE SOMBRE (page sans header) ================= */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #EAEAEA;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--gold);
+  color: var(--ink);
+  border-color: var(--gold);
+}
+
+.theme-toggle-fixed {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 999;
+}
+
+/* ================= MODE SOMBRE ================= */
+[data-theme="dark"] {
+  --paper: #0F1626;
+  --surface: #1B2338;
+  --text: #E7E9F2;
+  --muted: #9AA3B8;
+  --border: #2A3450;
+  --heading: #F0F2F8;
+}
+
+[data-theme="dark"] .role-cards input:checked + .role-card {
+  background: #241E0C;
+}
+
+[data-theme="dark"] .role-select input:checked + label {
+  color: var(--ink);
 }
 
 /* RESPONSIVE */
