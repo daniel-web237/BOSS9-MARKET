@@ -1,7 +1,6 @@
 /* =====================================================
-   BOSS9 MARKET — BOUTIQUE.CSS (profil boutique, style TikTok/Insta)
+   BOSS9 MARKET — BOUTIQUES.CSS
 ===================================================== */
-
 :root {
   --ink: #0B1F3A;
   --ink-light: #16345C;
@@ -11,25 +10,24 @@
   --text: #14213D;
   --muted: #5B5B5B;
   --border: #E2DECF;
+  --surface: #FFFFFF;
+  --heading: var(--ink);
+  --shadow-color: rgba(0, 0, 0, 0.06);
 }
-
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
 }
-
 body {
   background: var(--paper);
   color: var(--text);
   min-height: 100vh;
 }
-
 h1, h2, h3 {
   font-family: 'Fraunces', serif;
 }
-
 /* ================= HEADER ================= */
 .dash-header {
   display: flex;
@@ -39,239 +37,181 @@ h1, h2, h3 {
   color: white;
   padding: 16px 30px;
 }
-
 .dash-header .logo img {
   height: 46px;
 }
-
 .dash-header a.back {
   color: #EAEAEA;
   text-decoration: none;
   font-size: 13px;
-  transition: 0.2s;
 }
-
 .dash-header a.back:hover {
   color: var(--gold);
 }
-
-/* ================= BANNIÈRE ================= */
-.shop-banner {
-  height: 140px;
-  background:
-    radial-gradient(circle at 15% 30%, rgba(242,183,5,0.18), transparent 45%),
-    radial-gradient(circle at 85% 75%, rgba(242,183,5,0.12), transparent 40%),
-    linear-gradient(135deg, var(--ink), var(--ink-light));
-  position: relative;
-  overflow: hidden;
-}
-
-/* ================= PROFIL ================= */
-.shop-profile {
-  max-width: 1000px;
+/* ================= INTRO ================= */
+.boutiques-page {
+  max-width: 1080px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 50px 20px 80px;
 }
-
-.shop-header {
+.boutiques-page h2 {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 8px;
+  color: var(--heading);
+}
+.boutiques-page .sub {
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+/* ================= FILTRES CATÉGORIE ================= */
+.category-filters {
   display: flex;
-  align-items: flex-end;
-  gap: 22px;
-  margin-bottom: 28px;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 36px;
 }
-
-.shop-avatar-big {
-  width: 100px;
-  height: 100px;
+.category-filters button {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.category-filters button.active {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+}
+/* ================= GRILLE BOUTIQUES ================= */
+.shops-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 18px;
+}
+.shop-card {
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 24px 20px;
+  text-align: center;
+  box-shadow: 0 1px 3px var(--shadow-color);
+  transition: 0.25s;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.shop-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.1);
+}
+.shop-avatar {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: var(--gold);
   color: var(--ink);
-  font-family: 'Fraunces', serif;
-  font-weight: 700;
-  font-size: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 5px solid var(--paper);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-  flex-shrink: 0;
-  margin-top: -50px; /* seul l'avatar chevauche la bannière */
-}
-
-.shop-header-info {
-  padding-bottom: 8px;
-}
-
-.shop-header-info h1 {
-  font-size: 25px;
-  color: var(--ink);
-  margin-bottom: 8px;
-  line-height: 1.2;
-}
-
-.shop-header-meta {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.shop-category-badge {
-  background: #FCF1D2;
-  color: var(--gold-deep);
-  font-size: 12px;
+  font-family: 'Fraunces', serif;
   font-weight: 700;
-  padding: 5px 13px;
+  font-size: 22px;
+  margin-bottom: 14px;
+}
+.shop-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--heading);
+  margin-bottom: 6px;
+}
+.shop-category {
+  display: inline-block;
+  background: #E9EEF5;
+  color: var(--ink-light);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
   border-radius: 20px;
+  margin-bottom: 10px;
   text-transform: capitalize;
 }
-
-.shop-product-count {
-  font-size: 13px;
+.shop-count {
+  font-size: 12px;
   color: var(--muted);
-  font-weight: 500;
 }
-
-/* ================= PRODUITS DE LA BOUTIQUE ================= */
-.shop-products-section {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 10px 24px 80px;
-}
-
-.shop-products-section h3 {
-  font-size: 17px;
-  color: var(--ink);
-  margin-bottom: 20px;
-  border-top: 1px solid var(--border);
-  padding-top: 26px;
-}
-
-.shop-products-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.shop-product-card {
-  background: white;
-  border-radius: 12px;
-  width: 200px;
-  padding: 14px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-  cursor: pointer;
-  transition: transform 0.25s, box-shadow 0.25s;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.shop-product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
-}
-
-.shop-product-card img {
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  background: #EDE7D8;
-  transition: transform 0.4s ease;
-}
-
-.shop-product-card:hover img {
-  transform: scale(1.08);
-}
-
-.shop-product-card h4 {
-  font-size: 13px;
-  font-weight: 500;
-  margin-bottom: 4px;
-  line-height: 1.35;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  min-height: 2.5em;
-}
-
-.shop-product-card .price {
-  color: var(--gold-deep);
-  font-weight: 700;
-  font-size: 13px;
-  margin-top: auto;
-}
-
-/* ================= ÉTAT VIDE / CHARGEMENT ================= */
 .empty-state {
-  color: var(--muted);
-  font-size: 13px;
-  font-style: italic;
-  border: 1px dashed var(--border);
-  border-radius: 10px;
-  padding: 30px;
   text-align: center;
-  width: 100%;
+  color: var(--muted);
+  padding: 60px 20px;
+  grid-column: 1 / -1;
 }
 
-/* ================= RESPONSIVE — TABLETTE ================= */
-@media (max-width: 900px) {
-  .shop-product-card {
-    width: calc(33.333% - 14px);
-  }
+/* ================= BOUTON MODE SOMBRE ================= */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #EAEAEA;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+  flex-shrink: 0;
 }
 
-/* ================= RESPONSIVE — MOBILE ================= */
+.theme-toggle-btn:hover {
+  background: var(--gold);
+  color: var(--ink);
+  border-color: var(--gold);
+}
+
+/* ================= MODE SOMBRE ================= */
+[data-theme="dark"] {
+  --paper: #0F1626;
+  --surface: #1B2338;
+  --text: #E7E9F2;
+  --muted: #9AA3B8;
+  --border: #2A3450;
+  --heading: #F0F2F8;
+  --shadow-color: rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="dark"] body {
+  background: var(--paper);
+  color: var(--text);
+}
+
+[data-theme="dark"] .shop-category {
+  background: #22345A;
+  color: #C7D3EE;
+}
+
+/* ================= RESPONSIVE ================= */
 @media (max-width: 600px) {
   .dash-header {
     padding: 14px 18px;
   }
-
-  .shop-profile {
-    padding: 0 16px;
+  .boutiques-page {
+    padding: 30px 16px 60px;
   }
-
-  .shop-banner {
-    height: 100px;
-  }
-
-  .shop-avatar-big {
-    width: 78px;
-    height: 78px;
-    font-size: 28px;
-    border-width: 4px;
-  }
-
-  .shop-header {
-    gap: 14px;
-  }
-
-  .shop-avatar-big {
-    margin-top: -38px;
-  }
-
-  .shop-header-info h1 {
-    font-size: 19px;
-  }
-
-  .shop-products-section {
-    padding: 10px 16px 60px;
-  }
-
-  .shop-products-grid {
-    justify-content: center;
+  .shops-grid {
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
-
-  .shop-product-card {
-    width: calc(50% - 6px);
-    padding: 10px;
-  }
-
-  .shop-product-card img {
-    height: 110px;
+  .shop-card {
+    padding: 18px 12px;
   }
 }
